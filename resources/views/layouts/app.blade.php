@@ -80,7 +80,7 @@
                                 <span class="hidden-xs">Data Entry</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="ajax/charts_xcharts.html"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
+                                <li><a href="{{route('add_vessel')}}"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
                                 <li><a href="ajax/charts_flot.html"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
                                 <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
                                 <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Cargo</a></li>
