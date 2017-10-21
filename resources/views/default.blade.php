@@ -91,7 +91,9 @@
                                             <i class="fa fa-angle-down pull-right"></i>
                                             <div class="user-mini pull-right">
                                                 <span class="welcome">Welcome,</span>
-                                                <span>Jane Devoops</span>
+                                                <span>
+
+                                                </span>
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu">
@@ -126,7 +128,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="{{route('logout')}}">
                                                     <i class="fa fa-power-off"></i>
                                                     <span>Logout</span>
                                                 </a>
