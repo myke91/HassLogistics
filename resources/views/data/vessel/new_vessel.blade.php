@@ -155,6 +155,87 @@
     </div>
 </div>
 
+<!-------------------------------------------------------------------->
+<!--
+DISPLAY TABLE
+-->
+<!--------------------------------------------------------------------->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-linux"></i>
+                    <span>VESSEL LIST</span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
+                    <thead>
+                        <tr>
+                            <th>Rate</th>
+                            <th>Distro</th>
+                            <th>Votes</th>
+                            <th>Homepage</th>
+                            <th>Version</th>
+                            <th>Icon</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Ubuntu</td>
+                            <td>16%</td>
+                            <td><i class="fa fa-home"></i><a href="http://ubuntu.com" target="_blank">http://ubuntu.com</a></td>
+                            <td>13.10</td>
+                            <td><i class="fa fa-linux"></i></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Debian</td>
+                            <td>14.1%</td>
+                            <td><i class="fa fa-home"></i><a href="http://debian.org" target="_blank">http://debian.org</a></td>
+                            <td>7.4</td>
+                            <td><i class="fa fa-linux"></i></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Arch Linux</td>
+                            <td>10.8%</td>
+                            <td><i class="fa fa-home"></i><a href="http://archlinux.org" target="_blank">http://archlinux.org</a></td>
+                            <td>2014.02.01</td>
+                            <td><i class="fa fa-linux"></i></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Linux Mint</td>
+                            <td>10.5%</td>
+                            <td><i class="fa fa-home"></i><a href="http://linuxmint.com" target="_blank">http://linuxmint.com</a></td>
+                            <td>16</td>
+                            <td><i class="fa fa-linux"></i></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('additional_script')
 <script type="text/javascript">
 // Run Select2 plugin on elements
     function DemoSelect2() {
@@ -165,12 +246,20 @@
     function DemoTimePicker() {
         $('#input_time').timepicker({setDate: new Date()});
     }
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        TestTable2();
+        TestTable3();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2() {
+        $('select').select2();
+        $('.dataTables_filter').each(function () {
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
     $(document).ready(function () {
-        // Create Wysiwig editor for textare
-        TinyMCEStart('#wysiwig_simple', null);
-        TinyMCEStart('#wysiwig_full', 'extreme');
-        // Add slider for change test input length
-        FormLayoutExampleInputLength($(".slider-style"));
         // Initialize datepicker
         $('#input_date').datepicker({setDate: new Date()});
         // Load Timepicker plugin
@@ -180,8 +269,12 @@
         LoadSelect2Script(DemoSelect2);
         // Load example of form validation
         LoadBootstrapValidatorScript(DemoFormValidator);
+        // Load Datatables and run plugin on tables 
+        LoadDataTablesScripts(AllTables);
         // Add drag-n-drop feature to boxes
         WinMove();
     });
+
+
 </script>
 @endsection
