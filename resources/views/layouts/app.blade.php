@@ -1,80 +1,164 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>HASS Logistics</title>
+        <meta name="description" content="description">
+        <meta name="author" content="AharaSolutions">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+        <link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+        <link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+        <link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
+        <link href="plugins/select2/select2.css" rel="stylesheet">
+        <link href="plugins/justified-gallery/justifiedGallery.css" rel="stylesheet">
+        <link href="css/style_v2.css" rel="stylesheet">
+        <link href="plugins/chartist/chartist.min.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+                        <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+                        <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!--Start Header-->
+        <div id="screensaver">
+            <canvas id="canvas"></canvas>
+            <i class="fa fa-lock" id="screen_unlock"></i>
+        </div>
+        <div id="modalbox">
+            <div class="devoops-modal">
+                <div class="devoops-modal-header">
+                    <div class="modal-header-name">
+                        <span>Basic table</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
                 </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
+                <div class="devoops-modal-inner">
+                </div>
+                <div class="devoops-modal-bottom">
                 </div>
             </div>
-        </nav>
+        </div>
+        <header class="navbar">
+            <div class="container-fluid expanded-panel">
+                <div class="row">
+                    <div id="logo" class="col-xs-12 col-sm-2">
+                        <a href="/">HASS Logistics</a>
+                    </div>
+                    <div id="top-panel" class="col-xs-12 col-sm-10">
+                        <div class="row">
 
-        @yield('content')
-    </div>
+                            <div class="col-xs-8 col-sm-4 top-panel-right">
+                                <div id="search">
+                                    <input type="text" placeholder="search"/>
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--End Header-->
+        <!--Start Container-->
+        <div id="main" class="container-fluid">
+            <div class="row">
+                <div id="sidebar-left" class="col-xs-2 col-sm-2">
+                    <ul class="nav main-menu">
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                <i class="fa fa-bar-chart-o"></i>
+                                <span class="hidden-xs">Data Entry</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="ajax/charts_xcharts.html"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
+                                <li><a href="ajax/charts_flot.html"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
+                                <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
+                                <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Cargo</a></li>
+                                <li><a href="ajax/charts_amcharts.html"><i class="fa fa-book">&nbsp;</i>Unit Of Measurement</a></li>
+                                <li><a href="ajax/charts_chartist.html"><i class="fa fa-book">&nbsp;</i>Load Port Charges</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                <i class="fa fa-table"></i>
+                                <span class="hidden-xs">Invoicing</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="ajax-link" href="ajax/tables_simple.html">Simple Tables</a></li>
+                                <li><a class="ajax-link" href="ajax/tables_datatables.html">Data Tables</a></li>
+                                <li><a class="ajax-link" href="ajax/tables_beauty.html">Beauty Tables</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                <i class="fa fa-pencil-square-o"></i>
+                                <span class="hidden-xs">Payment</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="ajax-link" href="ajax/forms_elements.html">Elements</a></li>
+                                <li><a class="ajax-link" href="ajax/forms_layouts.html">Layouts</a></li>
+                                <li><a class="ajax-link" href="ajax/forms_file_uploader.html">File Uploader</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                <i class="fa fa-desktop"></i>
+                                <span class="hidden-xs">Reporting</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="ajax-link" href="ajax/ui_grid.html">Grid</a></li>
+                                <li><a class="ajax-link" href="ajax/ui_buttons.html">Buttons</a></li>
+                                <li><a class="ajax-link" href="ajax/ui_progressbars.html">Progress Bars</a></li>
+                                <li><a class="ajax-link" href="ajax/ui_jquery-ui.html">Jquery UI</a></li>
+                                <li><a class="ajax-link" href="ajax/ui_icons.html">Icons</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--Start Content-->
+                <div id="content" class="col-xs-12 col-sm-10">
+                    <div id="about">
+                        <div class="about-inner">
+                            <h4 class="page-header">Open-source admin theme for you</h4>
+                            <p>DevOOPS team</p>
+                            <p>Homepage - <a href="http://devoops.me" target="_blank">http://devoops.me</a></p>
+                            <p>Email - <a href="mailto:devoopsme@gmail.com">devoopsme@gmail.com</a></p>
+                            <p>Twitter - <a href="http://twitter.com/devoopsme" target="_blank">http://twitter.com/devoopsme</a></p>
+                            <p>Donate - BTC 123Ci1ZFK5V7gyLsyVU36yPNWSB5TDqKn3</p>
+                        </div>
+                    </div>
+                    <div class="preloader">
+                        <img src="img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
+                    </div>
+                    <div id="ajax-content">
+                        @yield('content')
+                    </div>
+                </div>
+                <!--End Content-->
+            </div>
+        </div>
+        <!--End Container-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+        <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
+        <script src="plugins/tinymce/tinymce.min.js"></script>
+        <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
+        <!-- All functions for this theme + document.ready processing -->
+        <script src="js/devoops.js"></script>
+    </body>
 </html>
