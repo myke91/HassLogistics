@@ -51,7 +51,8 @@
             <div class="container-fluid expanded-panel">
                 <div class="row">
                     <div id="logo" class="col-xs-12 col-sm-2">
-                        <a href="/">HASS Logistics</a>
+                        <a href="/"><span style="color: #ff2d55">H</span><span style="color: #20895e">A</span><span style="color: #F4C63D">S</span><span style="color: #0066ff">S</span> 
+                            Logistics</a>
                     </div>
                     <div id="top-panel" class="col-xs-12 col-sm-10">
                         <div class="row">
@@ -128,7 +129,7 @@
                 </div>
                 <!--Start Content-->
                 <div id="content" class="col-xs-12 col-sm-10">
-                    
+
                     <div id="ajax-content">
                         @yield('content')
                     </div>
