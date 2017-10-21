@@ -138,9 +138,9 @@
                             <p>Donate - BTC 123Ci1ZFK5V7gyLsyVU36yPNWSB5TDqKn3</p>
                         </div>
                     </div>
-                    <div class="preloader">
+<!--                    <div class="preloader">
                         <img src="img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
-                    </div>
+                    </div>-->
                     <div id="ajax-content">
                         @yield('content')
                     </div>

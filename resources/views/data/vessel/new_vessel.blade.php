@@ -358,7 +358,7 @@
         </div>
     </div>
 </div>
-@endsection
+
 <script type="text/javascript">
 // Run Select2 plugin on elements
     function DemoSelect2() {
@@ -388,3 +388,4 @@
         WinMove();
     });
 </script>
+@endsection
