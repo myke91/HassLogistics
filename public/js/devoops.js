@@ -56,8 +56,9 @@ function LoadLeafletScript(callback){
 		}
 	}
 }
+
 //
-//  Dynamically load  jQuery Timepicker plugin
+//  Dynamically load  jsPDF plugin
 //  homepage: http://trentrichardson.com/examples/timepicker/
 //
 function LoadTimePickerScript(callback){

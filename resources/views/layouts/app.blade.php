@@ -147,6 +147,12 @@
         <script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
         <script src="plugins/tinymce/tinymce.min.js"></script>
         <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
+        <!-- jsPDF scripts -->
+        <script src="plugins/jspdf/jspdf.js"></script>
+        <script src="plugins/jspdf/from_html.js"></script>
+        <script src="plugins/jspdf/split_text_to_size.js"></script>
+        <script src="plugins/jspdf/standard_fonts_metrics.js"></script>
+        <script src="plugins/jspdf/cell.js"></script>
         <!-- All functions for this theme + document.ready processing -->
         <script src="js/devoops.js"></script>
         

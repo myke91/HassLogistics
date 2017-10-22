@@ -18,3 +18,8 @@ Route::get('/dashboard',['as'=>'dashboard','uses'=>'DashboardController@dashboar
 Route::get('/logout',['as'=>'logout','uses'=>'LoginController@getLogout']);
 
 Route::get('/add_vessel', ['as'=>'add_vessel','uses'=>'VesselController@addVessel']);
+
+
+Route::get('/invoice',function(){
+    return view('invoicing/invoice');
+});
