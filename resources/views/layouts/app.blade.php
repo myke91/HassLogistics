@@ -95,9 +95,10 @@
                                 <span class="hidden-xs">Invoicing</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="ajax-link" href="ajax/tables_simple.html">Simple Tables</a></li>
-                                <li><a class="ajax-link" href="ajax/tables_datatables.html">Data Tables</a></li>
-                                <li><a class="ajax-link" href="ajax/tables_beauty.html">Beauty Tables</a></li>
+                                <li><a href="{{route('invoice')}}"><i class="fa fa-book">&nbsp;</i>Prepare Invoice</a></li>
+                                <li><a href="ajax/charts_flot.html"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
+                                <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Invoice Modifications </a></li>
+                                <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -153,9 +154,10 @@
         <script src="plugins/jspdf/split_text_to_size.js"></script>
         <script src="plugins/jspdf/standard_fonts_metrics.js"></script>
         <script src="plugins/jspdf/cell.js"></script>
+        <script src="plugins/jspdf/html2pdf.js"></script>
         <!-- All functions for this theme + document.ready processing -->
         <script src="js/devoops.js"></script>
-        
+
         @yield('additional_script')
     </body>
 </html>
