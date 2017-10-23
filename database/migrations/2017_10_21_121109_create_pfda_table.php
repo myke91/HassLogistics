@@ -24,7 +24,7 @@ class CreatePfdaTable extends Migration
             $table->Decimal('pfda_vat')->nullable();
             $table->boolean('pfda_status')->nullable();
             $table->timestamps();
-            $table->foreign('vessel_id')->references('vessel_id')->on('vessel');
+            $table->foreign('vessel_id')->references('vessel_id')->on('vessels');
         });
     }
 

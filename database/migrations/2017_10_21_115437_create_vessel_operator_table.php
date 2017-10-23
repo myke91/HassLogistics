@@ -13,7 +13,7 @@ class CreateVesselOperatorTable extends Migration
      */
     public function up()
     {
-        Schema::create('vessel_operator', function (Blueprint $table) {
+        Schema::create('vessel_operators', function (Blueprint $table) {
             $table->increments('vessel_operator_id');
             $table->string('operator_name');
             $table->timestamps();

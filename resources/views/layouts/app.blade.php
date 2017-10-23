@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>HASS Logistics</title>
         <meta name="description" content="description">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="author" content="AharaSolutions">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet">
@@ -51,7 +52,7 @@
             <div class="container-fluid expanded-panel">
                 <div class="row">
                     <div id="logo" class="col-xs-12 col-sm-2">
-                        <a href="/"><span style="color: #ff2d55">H</span><span style="color: #20895e">A</span><span style="color: #F4C63D">S</span><span style="color: #0066ff">S</span> 
+                        <a href="{{route('dashboard')}}"><span style="color: #ff2d55">H</span><span style="color: #20895e">A</span><span style="color: #F4C63D">S</span><span style="color: #0066ff">S</span>
                             Logistics</a>
                     </div>
                     <div id="top-panel" class="col-xs-12 col-sm-10">
@@ -82,7 +83,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('add_vessel')}}"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
-                                <li><a href="ajax/charts_flot.html"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
+                                <li><a href="{{route('add_client')}}"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
                                 <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
                                 <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Cargo</a></li>
                                 <li><a href="ajax/charts_amcharts.html"><i class="fa fa-book">&nbsp;</i>Unit Of Measurement</a></li>
@@ -152,4 +153,13 @@
         
         @yield('additional_script')
     </body>
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+</script>
 </html>

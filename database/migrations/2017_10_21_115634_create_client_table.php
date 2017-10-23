@@ -13,10 +13,10 @@ class CreateClientTable extends Migration
      */
     public function up()
     {
-        Schema::create('client', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->increments('client_id');
             $table->string('client_name')->nullable();
-            $table->string('vessel_office_desc')->nullable();
+            $table->string('client_office_desc')->nullable();
             $table->string('client_head_office')->nullable();
             $table->string('client_number')->nullable();
             $table->timestamps();
