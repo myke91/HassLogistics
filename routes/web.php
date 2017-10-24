@@ -26,7 +26,7 @@ Route::post('/update/vesselinfo',['as'=>'updateVessel','uses'=>'VesselController
 Route::post('/delete/vesselinfo',['as'=>'deleteVessel','uses'=>'VesselController@deleteVessel']);
 
 Route::get('/add_client', ['as'=>'add_client','uses'=>'ClientController@addClient']);
-Route::post('/post/client',['as'=>'postCreateClient','uses'=>'ClientController@createClient']);
+Route::post('/post/client',['as'=>'createClient','uses'=>'ClientController@createClient']);
 Route::get('/show/client',['as'=>'showClientInfo','uses'=>'ClientController@showClientInformation']);
 Route::get('/edit/client',['as'=>'editClient','uses'=>'ClientController@editClient']);
 Route::post('/update/client',['as'=>'updateClient','uses'=>'ClientController@updateClient']);

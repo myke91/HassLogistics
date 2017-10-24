@@ -224,10 +224,10 @@ $('#frm-create-vessel').on('submit',function (e) {
     var url = $(this).attr('action');
     $.post(url,data,function (data) {
     })
-    $(this).trigger('reset');
     $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
     $('#messages_content').html('<h4>Vessel Created Successfully</h4>');
     $('#modal').modal('show');
+    $(this).trigger('reset');
 })
 
 

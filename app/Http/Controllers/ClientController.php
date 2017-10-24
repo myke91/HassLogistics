@@ -21,13 +21,13 @@ class ClientController extends Controller
     }
     public function showClientInformation()
     {
-        $clients= $this->ClientInformation()->get();
+        $clients= $this->ClientInformation();
         return view('data.client.clientInfo',compact('clients'));
     }
 
     public function ClientInformation()
     {
-        return Client();
+        return Client::all();
     }
     public function editClient(Request $request)
     {
