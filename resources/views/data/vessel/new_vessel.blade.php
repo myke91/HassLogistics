@@ -33,9 +33,9 @@
             </div>
             <div class="box-content">
                 <h4 class="page-header">VESSEL DATA</h4>
-                <div id="messages" class="hide" role="alert">
+                <div id="createvesselmessages" class="hide" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div id="messages_content">
+                    <div id="createvesselmessages_content">
                     </div>
                 </div>
                 <form class="form-horizontal" role="form" id="frm-create-vessel" action="{{route('postCreateVessel')}}">
@@ -223,9 +223,10 @@ $('#frm-create-vessel').on('submit',function (e) {
     var data = $(this).serialize();
     var url = $(this).attr('action');
     $.post(url,data,function (data) {
+        showVesselInfo(data.vessel_name)
     })
-    $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-    $('#messages_content').html('<h4>Vessel Created Successfully</h4>');
+    $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+    $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
     $('#modal').modal('show');
     $(this).trigger('reset');
 })
@@ -239,14 +240,6 @@ function showVesselInfo()
     })
 }
 
-$('#frm-create-vessel').on('submit',function (e) {
-    e.preventDefault();
-    var data = $(this).serialize();
-    var url = $(this).attr('action');
-    $.post(url, data, function (data) {
-        showVesselInfo(data.vessel_name);
-    })
-})
     $(document).on('click','.class-edit',function (e) {
         $('#vessel-show').modal('show');
         vessel_id = $(this).val();
