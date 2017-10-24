@@ -31,3 +31,10 @@ Route::get('/show/client',['as'=>'showClientInfo','uses'=>'ClientController@show
 Route::get('/edit/client',['as'=>'editClient','uses'=>'ClientController@editClient']);
 Route::post('/update/client',['as'=>'updateClient','uses'=>'ClientController@updateClient']);
 Route::post('/delete/client',['as'=>'deleteClient','uses'=>'ClientController@deleteClient']);
+=======
+
+
+Route::get('/invoice',['as'=>'invoice',function(){
+    return view('invoicing/invoice');
+}]);
+
