@@ -17,8 +17,8 @@ class CreateVesselTable extends Migration
             $table->increments('vessel_id');
             $table->string('vessel_name')->unique();
             $table->string('vessel_callsign')->nullable();
-            $table->Integer('vessel_class')->nullable();
-            $table->Integer('vessel_operator_id')->unsigned();
+            $table->integer('vessel_class')->nullable();
+            $table->integer('vessel_operator_id')->unsigned();
             $table->string('vessel_type')->nullable();
             $table->string('vessel_flag')->nullable();
             $table->string('vessel_owner')->nullable();

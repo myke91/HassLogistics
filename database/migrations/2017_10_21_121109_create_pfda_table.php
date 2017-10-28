@@ -15,13 +15,13 @@ class CreatePfdaTable extends Migration
     {
         Schema::create('pfda', function (Blueprint $table) {
             $table->increments('pfda_id');
-            $table->Integer('vessel_id')->unsigned();
+            $table->integer('vessel_id')->unsigned();
             $table->string('pfda_template')->nullable();
-            $table->String('pfda_eta')->nullable();
-            $table->String('pfda_number')->nullable();
-            $table->Decimal('pfda_amount')->nullable();
-            $table->Decimal('pfda_rebate')->nullable();
-            $table->Decimal('pfda_vat')->nullable();
+            $table->string('pfda_eta')->nullable();
+            $table->string('pfda_number')->nullable();
+            $table->decimal('pfda_amount',10,2)->nullable();
+            $table->decimal('pfda_rebate',10,2)->nullable();
+            $table->decimal('pfda_vat',10,2)->nullable();
             $table->boolean('pfda_status')->nullable();
             $table->timestamps();
             $table->foreign('vessel_id')->references('vessel_id')->on('vessels');
