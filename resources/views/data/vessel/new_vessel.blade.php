@@ -62,7 +62,7 @@
                                     <option value="{{$v->vessel_operator_id}}">{{$v->operator_name}}</option>
                                 @endforeach
                             </select>
-                            <span class="fa fa-plus txt-warning form-control-feedback" id="add-more-operator"></span>
+                            <span class="fa fa-plus txt-warning form-control-feedback" id="add-more"></span>
                         </div>
                     </div>
                     <div class="form-group has-warning has-feedback">
@@ -204,7 +204,8 @@ $('#arrival_date').datepicker({
 $('#departure_date').datepicker({
     dateFormat:'yy-mm-dd'
 });
-$('#add-more-operator').on('click',function () {
+
+$('#add-more').on('click',function () {
     $('#vesseloperator-show').modal();
 })
 

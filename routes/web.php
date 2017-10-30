@@ -14,6 +14,8 @@
 Route::get('/',['as'=>'/','uses'=>'LoginController@getLogin']);
 Route::post('/login',['as'=>'login','uses'=>'LoginController@postLogin']);
 
+Auth::routes();
+
 Route::get('/dashboard',['as'=>'dashboard','uses'=>'DashboardController@dashboard']);
 Route::get('/logout',['as'=>'logout','uses'=>'LoginController@getLogout']);
 
