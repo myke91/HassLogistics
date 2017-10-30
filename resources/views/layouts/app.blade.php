@@ -22,6 +22,7 @@
         <!--[if lt IE 9]>
                         <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
                         <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+                        <script type="text/javascript" src="...js/paging.js"></script>
         <![endif]-->
     </head>
     <body>
@@ -70,7 +71,7 @@
                             </div>
                             <div class="col-xs-4 col-sm-4 pull-right" >
                                 <div id="search" style="color: green">
-                                   {{Auth::user()->name}}
+                                   {{--{{Auth::user()->name}}--}}
                                 </div>
                             </div>
                         </div>

@@ -62,7 +62,6 @@
                                 <option value="{{$v->vessel_operator_id}}">{{$v->operator_name}}</option>
                                 @endforeach
                             </select>
-                            <span class="fa fa-plus txt-warning form-control-feedback" id="add-more"></span>
                         </div>
                         <span class="fa fa-plus txt-warning form-control-feedback add-more-operator"></span>
                     </div>
@@ -291,6 +290,7 @@ $('#add-more').on('click',function () {
             showVesselInfo($('#vessel_name').val());
         })
     })
+
 
 </script>
 @endsection
