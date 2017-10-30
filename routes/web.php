@@ -34,7 +34,9 @@ Route::get('/edit/client',['as'=>'editClient','uses'=>'ClientController@editClie
 Route::post('/update/client',['as'=>'updateClient','uses'=>'ClientController@updateClient']);
 Route::post('/delete/client',['as'=>'deleteClient','uses'=>'ClientController@deleteClient']);
 
-Route::get('/invoice',['as'=>'invoice',function(){
-    return view('invoicing/invoice');
-}]);
+Route::get('/invoice',['as'=>'invoice','uses'=>'InvoiceController@prepareInvoice']);
+
+//Route::get('/invoice',['as'=>'invoice',function(){
+//    return view('invoicing/invoice');
+//}]);
 

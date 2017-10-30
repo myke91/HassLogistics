@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('popups.add_tarrif')
 
 <style>
     .invoice-box {
@@ -124,76 +125,45 @@
             </div>
             <div class="box-content">
                 <h4 class="page-header">INVOICE DETAILS</h4>
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Vessel Name</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" placeholder="First name" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name">
-                        </div>
+                <form class="form-horizontal form-invoice" role="form">
 
-                    </div>
                     <div class="form-group has-success has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Class</label>
+                        <label class="col-sm-2 control-label">Client</label>
                         <div class="col-sm-4">
-                            <select id="s2_with_tag" class="populate placeholder">
-                                <option>Linux</option>
-                                <option>Windows</option>
-                                <option>OpenSolaris</option>
-                                <option>FirefoxOS</option>
-                                <option>MeeGo</option>
-                                <option>Android</option>
-                                <option>Sailfish OS</option>
-                                <option>Plan9</option>
-                                <option>DOS</option>
-                                <option>AIX</option>
-                                <option>HP/UP</option>
+                            <select class="s2 populate placeholder">
+                                <option>---------</option>
+                                @foreach($clients as $key =>$v)
+                                <option value="{{$v->client_id}}">{{$v->client_name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                     </div>
-                    <div class="form-group has-warning has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Type</label>
+
+                    <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">Vessel</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" placeholder="City">
-                            <span class="fa fa-key txt-warning form-control-feedback"></span>
+                            <select class="s2 populate placeholder">
+                                <option>---------</option>
+                                @foreach($vessels as $key =>$v)
+                                <option value="{{$v->vessel_id}}">{{$v->vessel_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
-                    </div>
-                    <div class="form-group has-warning has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Owner</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" placeholder="Another info" data-toggle="tooltip" data-placement="top" title="Hello world!">
-                        </div>
-
-
-                    </div>
-                    <div class="form-group has-warning has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Owner</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" placeholder="Another info" data-toggle="tooltip" data-placement="top" title="Hello world!">
-                        </div>
-
-                    </div>
-                    <div class="form-group has-error has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Arrival Date</label>
-                        <div class="col-sm-4">
-                            <input type="text" id="input_date" class="form-control" placeholder="Date">
-                            <span class="fa fa-calendar txt-danger form-control-feedback"></span>
-                        </div>
-
-                    </div>                                                                                
+                    </div>                                                                         
                     <div class="clearfix"></div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-2">
-                            <button type="cancel" class="btn btn-default btn-label-left">
-                                <span><i class="fa fa-clock-o txt-danger"></i></span>
-                                Cancel
+                        <div class="col-sm-2">
+                            <button class="btn btn-info btn-label-left add-tarrif">
+                                <span><i class="fa fa-clock-o"></i></span>
+                                Add Tarrif
                             </button>
                         </div>
                         <div class="col-sm-2">
                             <button type="submit" class="btn btn-primary btn-label-left submit">
                                 <span><i class="fa fa-clock-o"></i></span>
-                                Submit
+                                Generate
                             </button>
                         </div>
                     </div>
@@ -329,8 +299,8 @@ DISPLAY TABLE
 <script type="text/javascript">
 // Run Select2 plugin on elements
     function DemoSelect2() {
-        $('#s2_with_tag').select2({placeholder: "Select OS"});
-        $('#s2_country').select2();
+        $('.s2').select2({placeholder: "Select"});
+        $('.s2').select2({placeholder: "Select"});
     }
 // Run timepicker
     function DemoTimePicker() {
@@ -368,14 +338,18 @@ DISPLAY TABLE
         LoadTimePickerScript(DemoTimePicker);
         // Add tooltip to form-controls
         $('.form-control').tooltip();
+        LoadSelect2Script(DemoSelect2);
         $('.submit').click(function (e) {
             e.preventDefault();
+//            var data = $('.form-invoice').serialize();
+//            var url = $('.form-invoice').attr('action');
+//            $.post(url, data, function (data) {
             MakePDFInvoice();
+//            })
         });
         // Add drag-n-drop feature to boxes
         WinMove();
     });
-
-
 </script>
+<script  type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script> 
 @endsection

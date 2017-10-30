@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <form class="form-horizontal" role="form" id="frm-update-vessel" action="">
-                                <input type="text" name="vessel_id" id="vessel_id_edit">
+                                <input type="text" name="vessel_id" hidden="hidden" id="vessel_id_edit">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Vessel Name</label>
                                     <div class="col-sm-4">
@@ -60,8 +60,9 @@
                                                 <option value="{{$v->vessel_operator_id}}">{{$v->operator_name}}</option>
                                             @endforeach
                                         </select>
-                                        <span class="fa fa-plus txt-warning form-control-feedback" id="add-more-operator"></span>
+                                        
                                     </div>
+                                    <!--<span class="fa fa-plus txt-warning form-control-feedback add-more-operator"></span>-->
                                 </div>
                                 <div class="form-group has-warning has-feedback">
                                     <label class="col-sm-2 control-label">Vessel Type</label>

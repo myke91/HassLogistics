@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    @include('popups.vesseloperator')
-    @include('data.vessel.editVesselInfo')
+@include('popups.vesseloperator')
+@include('data.vessel.editVesselInfo')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -55,15 +55,16 @@
                             <input type="number" class="form-control" id="vessel_class" name="vessel_class" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
                         </div>
                         <label class="col-sm-2 control-label">Vessel Operator</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <select id="vessel_operator_id" name="vessel_operator_id" class="populate placeholder">
                                 <option>--------</option>
                                 @foreach($vesseloperator as $key =>$v)
-                                    <option value="{{$v->vessel_operator_id}}">{{$v->operator_name}}</option>
+                                <option value="{{$v->vessel_operator_id}}">{{$v->operator_name}}</option>
                                 @endforeach
                             </select>
                             <span class="fa fa-plus txt-warning form-control-feedback" id="add-more"></span>
                         </div>
+                        <span class="fa fa-plus txt-warning form-control-feedback add-more-operator"></span>
                     </div>
                     <div class="form-group has-warning has-feedback">
                         <label class="col-sm-2 control-label">Vessel Type</label>
@@ -93,11 +94,11 @@
                     <div class="form-group has-warning has-feedback">
                         <label class="col-sm-2 control-label">Vessel Owner</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="vessel_owner" id="vessel_owner" data-toggle="tooltip" data-placement="top" title="Hello world!">
+                            <input type="text" class="form-control" name="vessel_owner" id="vessel_owner" data-toggle="tooltip" data-placement="top">
                         </div>
                         <label class="col-sm-2 control-label">Vessel LOA</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_LOA" name="vessel_LOA" data-toggle="tooltip" data-placement="top" title="Hello world!">
+                            <input type="text" class="form-control" id="vessel_LOA" name="vessel_LOA" data-toggle="tooltip" data-placement="top">
                         </div>
 
                     </div>
@@ -198,6 +199,7 @@ DISPLAY TABLE
         // Add drag-n-drop feature to boxes
         WinMove();
     });
+
 $('#arrival_date').datepicker({
     dateFormat:'yy-mm-dd'
 });
@@ -209,42 +211,53 @@ $('#add-more').on('click',function () {
     $('#vesseloperator-show').modal();
 })
 
-$('.btn-save-vesseloperator').on('click',function () {
-    var vesseloperators = $('#vessel_operator').val();
-    $.post("{{route('postVesseOperator')}}",{operator_name:vesseloperators},function (data) {
-        $('#vessel_operator_id').append($("<option/>",{
-            value : data.vessel_operator_id,
-            text  : data.operator_name
-        }))
-        $('#vessel_operator').val("");
+    $('#arrival_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    $('#departure_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    $('.add-more-operator').on('click', function () {
+        $('#vesseloperator-show').modal();
     })
-})
-$('#frm-create-vessel').on('submit',function (e) {
-    e.preventDefault();
-    var data = $(this).serialize();
-    var url = $(this).attr('action');
-    $.post(url,data,function (data) {
-        showVesselInfo(data.vessel_name)
-    })
-    $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-    $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
-    $('#modal').modal('show');
-    $(this).trigger('reset');
-})
 
 
-function showVesselInfo()
-{
-    var data = $('#frm-create-vessel').serialize();
-    $.get("{{route('showVesselInfo')}}",data,function (data) {
-        $('#add-vessel-info').empty().append(data);
+    $('.btn-save-vesseloperator').on('click', function () {
+        var vesseloperators = $('#vessel_operator').val();
+        $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
+            $('#vessel_operator_id').append($("<option/>", {
+                value: data.vessel_operator_id,
+                text: data.operator_name
+            }))
+            $('#vessel_operator').val("");
+        })
     })
-}
+    $('#frm-create-vessel').on('submit', function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        var url = $(this).attr('action');
+        $.post(url, data, function (data) {
+            showVesselInfo(data.vessel_name)
+        })
+        $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+        $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
+        $('#modal').modal('show');
+        $(this).trigger('reset');
+    })
 
-    $(document).on('click','.class-edit',function (e) {
+
+    function showVesselInfo()
+    {
+        var data = $('#frm-create-vessel').serialize();
+        $.get("{{route('showVesselInfo')}}", data, function (data) {
+            $('#add-vessel-info').empty().append(data);
+        })
+    }
+
+    $(document).on('click', '.class-edit', function (e) {
         $('#vessel-show').modal('show');
         vessel_id = $(this).val();
-        $.get("{{route('editVessel')}}",{vessel_id:vessel_id},function (data) {
+        $.get("{{route('editVessel')}}", {vessel_id: vessel_id}, function (data) {
 
             $('#vessel_name_edit').val(data.vessel_name);
             $('#vessel_callsign_edit').val(data.vessel_callsign);
@@ -261,7 +274,7 @@ function showVesselInfo()
 
         })
     })
-    $('.btn-update-vessel').on('click',function (e) {
+    $('.btn-update-vessel').on('click', function (e) {
         e.preventDefault();
         var data = $('#frm-update-vessel').serialize();
         $.post("{{route('updateVessel')}}", data, function (data) {
@@ -272,9 +285,9 @@ function showVesselInfo()
         $('#modal').modal('show');
         $('#frm-update-class').trigger('reset');
     })
-    $(document).on('click','.del-class',function (e) {
+    $(document).on('click', '.del-class', function (e) {
         vessel_id = $(this).val();
-        $.post("{{route('deleteVessel')}}",{vessel_id:vessel_id},function(data){
+        $.post("{{route('deleteVessel')}}", {vessel_id: vessel_id}, function (data) {
             showVesselInfo($('#vessel_name').val());
         })
     })
