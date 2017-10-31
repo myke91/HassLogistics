@@ -22,6 +22,7 @@
         <!--[if lt IE 9]>
                         <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
                         <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+                        <script type="text/javascript" src="...js/paging.js"></script>
         <![endif]-->
     </head>
     <body>
@@ -56,18 +57,29 @@
                             Logistics</a>
                     </div>
                     <div id="top-panel" class="col-xs-12 col-sm-10">
-                        <div class="row">
-
+                        <div class="row" style="width: 100%">
                             <div class="col-xs-8 col-sm-4 top-panel-right">
                                 <div id="search">
                                     <input type="text" placeholder="search"/>
                                     <i class="fa fa-search"></i>
                                 </div>
                             </div>
+                            <div class="col-xs-4 col-sm-4 pull-right" >
+                                <div id="search">
+                                    <a href="{{route('logout')}}">Logout</a>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 pull-right" >
+                                <div id="search" style="color: green">
+                                   {{--{{Auth::user()->name}}--}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </header>
         <!--End Header-->
         <!--Start Container-->

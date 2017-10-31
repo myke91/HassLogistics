@@ -36,9 +36,3 @@ Route::post('/delete/client', ['as' => 'deleteClient', 'uses' => 'ClientControll
 // api urls
 Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);
 Route::get('/api/tarrif-types', ['as' => 'getTarrifTypes', 'uses' => 'InvoiceController@getTarrifTypes']);
-
-
-//Route::get('/invoice',['as'=>'invoice',function(){
-//    return view('invoicing/invoice');
-//}]);
-

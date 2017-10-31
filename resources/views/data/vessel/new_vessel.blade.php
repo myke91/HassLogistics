@@ -198,6 +198,18 @@ DISPLAY TABLE
         // Add drag-n-drop feature to boxes
         WinMove();
     });
+
+$('#arrival_date').datepicker({
+    dateFormat:'yy-mm-dd'
+});
+$('#departure_date').datepicker({
+    dateFormat:'yy-mm-dd'
+});
+
+$('#add-more').on('click',function () {
+    $('#vesseloperator-show').modal();
+})
+
     $('#arrival_date').datepicker({
         dateFormat: 'yy-mm-dd'
     });
@@ -207,6 +219,7 @@ DISPLAY TABLE
     $('.add-more-operator').on('click', function () {
         $('#vesseloperator-show').modal();
     })
+
 
     $('.btn-save-vesseloperator').on('click', function () {
         var vesseloperators = $('#vessel_operator').val();
@@ -277,6 +290,7 @@ DISPLAY TABLE
             showVesselInfo($('#vessel_name').val());
         })
     })
+
 
 </script>
 @endsection
