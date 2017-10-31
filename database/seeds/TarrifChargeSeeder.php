@@ -11,10 +11,12 @@ class TarrifChargeSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        TarrifCharge::create([
-            'billable' => 'PER TONNE',
-            'cost' => 50000.28,
-            'tarrif_param_id' => 1
+        TarrifCharge::insert([
+            [
+                'billable' => 'PER TONNE',
+                'cost' => 2.00,
+                'tarrif_param_id' => 1
+            ]
         ]);
     }
 

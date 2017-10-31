@@ -13,7 +13,8 @@ class TarrifSeeder extends Seeder
     public function run()
     {
         Tarrif::create([
-            'tarrif_name'=>'PORT DUES'
+            'tarrif_name'=>'PORT DUES',
+            'tarrif_name'=>'VESSEL HANDELING CHARGES'
         ]);
     }
 }

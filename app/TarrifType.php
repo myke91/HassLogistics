@@ -11,4 +11,8 @@ class TarrifType extends Model {
     protected $primaryKey = 'tarrif_type_id';
     public $timestamps = false;
 
+    public function tarrif() {
+        return $this->belongsTo('App\Tarrif', 'tarrif_id', 'tarrif_id');
+    }
+
 }

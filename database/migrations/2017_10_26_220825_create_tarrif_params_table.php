@@ -14,6 +14,7 @@ class CreateTarrifParamsTable extends Migration {
     public function up() {
         Schema::create('tarrif_params', function (Blueprint $table) {
             $table->increments('tarrif_param_id');
+            $table->string('tarrif_param_code');
             $table->string('tarrif_param_name');
             $table->enum('tarrif_param_charge_type', array('QUANTITY', 'SPECIFICS', 'HYBRID'));
             $table->string('tarrif_param_remarks');

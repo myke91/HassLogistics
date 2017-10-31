@@ -14,6 +14,7 @@ class CreateTarrifTypeTable extends Migration {
     public function up() {
         Schema::create('tarrif_type', function (Blueprint $table) {
             $table->increments('tarrif_type_id');
+             $table->string('tarrif_type_code');
             $table->string('tarrif_type_name');
             $table->integer('tarrif_id')->unsigned();
             $table->foreign('tarrif_id')->references('tarrif_id')->on('tarrif');

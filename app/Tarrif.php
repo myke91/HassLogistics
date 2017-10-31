@@ -11,4 +11,8 @@ class Tarrif extends Model {
     protected $primaryKey = 'tarrif_id';
     public $timestamps = false;
 
+    public function types() {
+        return $this->hasMany('App\TarrifType', 'tarrif_id', 'tarrif_id');
+    }
+
 }
