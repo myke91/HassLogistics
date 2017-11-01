@@ -156,7 +156,7 @@
                     <div class="form-group">
                         <div class="col-sm-2">
                             <button class="btn btn-info btn-label-left add-tarrif">
-                                <span><i class="fa fa-clock-o"></i></span>
+                                <span><i class="fa fa-money"></i></span>
                                 Add Tarrif
                             </button>
                         </div>

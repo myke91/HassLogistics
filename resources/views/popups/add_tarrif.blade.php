@@ -34,7 +34,6 @@
                     <label class="col-sm-4 control-label">Tarrif Type</label>
                     <div class="col-sm-6">
                         <select id="tarrif-type" name="tarrif-type" class="s2 trigger-tarrif-params">
-                            <option>--------</option>
                         </select>
                     </div>
                 </div>
@@ -55,10 +54,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <label class="col-sm-2 control-label">Tarrif Params</label>
-                    <div class="col-sm-4">
-                        <select id="tarrif_params" name="tarrif_params" class="s2 trigger-tarrif-charges">
-                            <option>--------</option>
+                    <label class="col-sm-4 control-label">Tarrif Params</label>
+                    <div class="col-sm-6">
+                        <select id="tarrif-params" name="tarrif-params" class="s2 trigger-tarrif-charges">
+
                         </select>
                     </div>
                 </div>
@@ -75,32 +74,41 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close"data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Select Tarrif Charges</h4>
+                <h4 class="modal-title">Tarrif Charges</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <label class="col-sm-4 control-label">Tarrif Param</label>
-                    <div class="col-sm-4">
-                        <input id="tarrif-param" name="tarrif-param" class="form-control" disabled placeholder="Date" />                       
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">Tarrif Param</label>
+                        <div class="col-sm-8">
+                            <input id="tarrif-charge-param" name="tarrif-charge-param" class="form-control" disabled />                       
+                        </div>
                     </div>
-                    <label class="col-sm-4 control-label">QUANTITY</label>
-                    <div class="col-sm-4">
-                        <input id="quantity" name="quantity" class="form-control" placeholder="Quantity" />                       
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">Billable</label>
+                        <div class="col-sm-8">
+                            <select id="billable" name="billable" class="s2">
+
+                            </select>
+                        </div>
                     </div>
-                    <label class="col-sm-4 control-label">COST</label>
-                    <div class="col-sm-4">
-                        <input id="cost" name="cost" class="form-control" disabled placeholder="Cost" />                       
+                    <div class="form-group">
+                        <label class="col-sm-8 control-label">Cost</label>
+                        <div class="col-sm-8">
+                            <input id="tarrif-charge-cost" name="tarrif-charge-cost" class="form-control" disabled placeholder="Cost" />    
+                        </div>
                     </div>
-                    <label class="col-sm-2 control-label">Tarrif Charges</label>
-                    <div class="col-sm-4">
-                        <select id="billable" name="billable" class="s2">
-                            <option>--------</option>
-                        </select>
+                    <div class="form-group quantity">
+                        <label class="col-sm-8 control-label">Quantity</label>
+                        <div class="col-sm-8">
+                            <input id="quantity" name="quantity" class="form-control" placeholder="Quantity" />                       
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-
+                <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+                <button class="btn btn-success save-tarrif" type="button">Save</button>
             </div>
         </div>
     </div>

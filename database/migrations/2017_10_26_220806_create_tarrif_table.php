@@ -15,7 +15,6 @@ class CreateTarrifTable extends Migration
     {
         Schema::create('tarrif', function (Blueprint $table) {
             $table->increments('tarrif_id');
-            $table->string('tarrif_code');
             $table->string('tarrif_name');
             $table->timestamps();
         });

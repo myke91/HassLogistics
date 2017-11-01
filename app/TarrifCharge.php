@@ -11,4 +11,8 @@ class TarrifCharge extends Model {
     protected $primaryKey = 'tarrif_charge_id';
     public $timestamps = false;
 
+    public function param()
+    {
+        return $this->belongsTo('App\TarrifCharge', 'tarrif_param_id', 'tarrif_param_id');
+    }
 }

@@ -23,13 +23,58 @@ $(document).on('change', '.trigger-tarrif-type', function (e) {
         console.log(data);
         $('#tarrif-type').html($('<option>').text('CHOOSE TARRIF TYPE'));
         $.each(data, function (i, value) {
-            console.log(value.tarrif_name);
-            $('#tarrif-type').append($('<option>').text(value.tarrif_type_name).attr('key', value.tarrif_type_id));
+            $('#tarrif-type').append($('<option>').text(value.tarrif_type_name).attr('value', value.tarrif_type_id));
         });
     });
     ;
     showTarrifTypeModal();
 });
+
+
+$(document).on('change', '.trigger-tarrif-params', function (e) {
+    e.preventDefault();
+    var key = $('#tarrif-type').val();
+    $.get('/api/tarrif-params', {type: key}, function (data) {
+        console.log(data);
+        $('#tarrif-params').html($('<option>').text('CHOOSE TARRIF PARAMETER'));
+        $.each(data, function (i, value) {
+            console.log(value.tarrif_param_name);
+            $('#tarrif-params').append($('<option>').text(value.tarrif_param_name).attr('value', value.tarrif_param_id));
+        });
+    });
+    showTarrifParamModal();
+});
+
+$(document).on('change', '.trigger-tarrif-charges', function (e) {
+    e.preventDefault();
+    var key = $('#tarrif-params').val();
+    var value = $('#tarrif-params option:selected').text();
+    $('#tarrif-charge-param').val(value);
+    $.get('/api/tarrif-charges', {param: key}, function (data) {
+        console.log(data);
+        data.tarrif_param_charge_type !== 'QUANTITY' ? $('.quantity').hide() : $('.quantity').show();
+
+        $('#billable').html($('<option>').text('CHOOSE BILLING OPTION'));
+        $('#tarrif-charge-cost').val(" ");
+        $.each(data.charges, function (i, value) {
+            console.log(value.billable);
+            $('#billable').append($('<option>').text(value.billable).attr('value', value.tarrif_charge_id));
+        });
+    });
+    showTarrifChargeModal();
+});
+
+$(document).on('change', '#billable', function (e) {
+    e.preventDefault();
+    var key = $('#billable').val();
+
+    $.get('/api/bill-charge', {charge: key}, function (data) {
+        console.log(data);
+        $('#tarrif-charge-cost').val(data.cost);
+    });
+    showTarrifChargeModal();
+});
+
 function showTarrifModal() {
     $('#tarrif-modal').modal('show');
 }
@@ -37,4 +82,14 @@ function showTarrifModal() {
 function showTarrifTypeModal() {
     $('#tarrif-modal').modal('hide');
     $('#tarrif-type-modal').modal('show');
+}
+
+function showTarrifParamModal() {
+    $('#tarrif-type-modal').modal('hide');
+    $('#tarrif-param-modal').modal('show');
+}
+
+function showTarrifChargeModal() {
+    $('#tarrif-param-modal').modal('hide');
+    $('#tarrif-charge-modal').modal('show');
 }
