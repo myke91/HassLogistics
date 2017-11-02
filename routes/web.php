@@ -32,6 +32,7 @@ Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@postLogin']);
 Route::post('/post/client', ['as' => 'createClient', 'uses' => 'ClientController@createClient']);
 Route::post('/update/client', ['as' => 'updateClient', 'uses' => 'ClientController@updateClient']);
 Route::post('/delete/client', ['as' => 'deleteClient', 'uses' => 'ClientController@deleteClient']);
+Route::post('/api/save-invoice',['as'=>'saveInvoice', 'uses'=>'InvoiceController@saveInvoice']);
 
 // api urls
 Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);
@@ -39,4 +40,4 @@ Route::get('/api/tarrif-types', ['as' => 'getTarrifTypes', 'uses' => 'InvoiceCon
 Route::get('/api/tarrif-params', ['as' => 'getTarrifParams', 'uses' => 'InvoiceController@getTarrifParams']);
 Route::get('/api/tarrif-charges', ['as' => 'getTarrifCharges', 'uses' => 'InvoiceController@getTarrifCharges']);
 Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
-Route::post('/api/save-invoice',['as'=>'saveInvoice', 'uses'=>'InvoiceController@saveInvoice']);
+

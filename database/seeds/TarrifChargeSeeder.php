@@ -33,15 +33,15 @@ class TarrifChargeSeeder extends Seeder {
             [
                 'billable' => 'CONTAINER UP TO 20" IN LENGTH',
                 'cost' => 45.00,
-                'tarrif_param_id' => 9
+                'tarrif_param_id' => 10
             ],[
                 'billable' => 'CONTAINER ABOVE 20" BUT NOT MORE THAN 40" IN LENGTH',
                 'cost' => 83.50,
-                'tarrif_param_id' => 9
+                'tarrif_param_id' => 10
             ],[
                 'billable' => 'CONTAINER ABOVE 40" IN LENGTH',
                 'cost' => 96.50,
-                'tarrif_param_id' => 9
+                'tarrif_param_id' => 10
             ]
         ]);
     }

@@ -100,7 +100,7 @@
 
                         <label class="col-sm-2 control-label">Vessel Owner</label>
                         <div class="col-sm-2">
-                            <select id="client_id" name="client_id" class="populate placeholder">
+                            <select id="vessel_owner" name="vessel_owner" class="populate placeholder">
                                 <option>--------</option>
                                 @foreach($clients as $key =>$v)
                                 <option value="{{$v->client_id}}">{{$v->client_name}}</option>
