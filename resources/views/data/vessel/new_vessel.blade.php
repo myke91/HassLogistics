@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('popups.vesseloperator')
+@include('popups.client')
 @include('data.vessel.editVesselInfo')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
@@ -39,7 +40,7 @@
                     </div>
                 </div>
                 <form class="form-horizontal" role="form" id="frm-create-vessel" action="{{route('postCreateVessel')}}">
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Vessel Name</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="vessel_name" name="vessel_name" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" required>
@@ -65,7 +66,7 @@
                         </div>
                         <span class="fa fa-plus txt-warning form-control-feedback add-more-operator"></span>
                     </div>
-                    <div class="form-group has-warning has-feedback">
+                    <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel Type</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="vessel_type" name="vessel_type" >
@@ -90,18 +91,25 @@
                         </div>
 
                     </div>
-                    <div class="form-group has-warning has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Owner</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" name="vessel_owner" id="vessel_owner" data-toggle="tooltip" data-placement="top">
-                        </div>
+                    <div class="form-group has-success has-feedback">
+
                         <label class="col-sm-2 control-label">Vessel LOA</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="vessel_LOA" name="vessel_LOA" data-toggle="tooltip" data-placement="top">
                         </div>
 
+                        <label class="col-sm-2 control-label">Vessel Owner</label>
+                        <div class="col-sm-2">
+                            <select id="client_id" name="client_id" class="populate placeholder">
+                                <option>--------</option>
+                                @foreach($clients as $key =>$v)
+                                <option value="{{$v->client_id}}">{{$v->client_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <span class="fa fa-plus txt-warning form-control-feedback add-more-client"></span>
                     </div>
-                    <div class="form-group has-error has-feedback">
+                    <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel Arrival Date</label>
                         <div class="col-sm-4">
                             <input type="text" id="arrival_date" name="arrival_date" class="form-control" placeholder="Date">
@@ -199,16 +207,16 @@ DISPLAY TABLE
         WinMove();
     });
 
-$('#arrival_date').datepicker({
-    dateFormat:'yy-mm-dd'
-});
-$('#departure_date').datepicker({
-    dateFormat:'yy-mm-dd'
-});
+    $('#arrival_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    $('#departure_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
 
-$('#add-more').on('click',function () {
-    $('#vesseloperator-show').modal();
-})
+    $('#add-more').on('click', function () {
+        $('#vesseloperator-show').modal();
+    });
 
     $('#arrival_date').datepicker({
         dateFormat: 'yy-mm-dd'
@@ -218,26 +226,44 @@ $('#add-more').on('click',function () {
     });
     $('.add-more-operator').on('click', function () {
         $('#vesseloperator-show').modal();
-    })
+    });
+    $('.add-more-client').on('click', function () {
+        $('#client-modal').modal();
+    });
 
+    $('.create-client').on('click', function (e) {
+        e.preventDefault();
+        console.log('received click event for additional client creation');
+        var data = $("#frm-create-client").serialize();
+        var url = $("#frm-create-client").attr('action');
+        $.post(url, data, function (data) {
+            $('#client_id').append($("<option/>", {
+                value: data.client_id,
+                text: data.client_name
+            }));
+        });
+        $('#client-modal').modal('hide');
+    });
 
     $('.btn-save-vesseloperator').on('click', function () {
         var vesseloperators = $('#vessel_operator').val();
+        console.log(vesseloperators);
         $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
             $('#vessel_operator_id').append($("<option/>", {
                 value: data.vessel_operator_id,
                 text: data.operator_name
-            }))
+            }));
             $('#vessel_operator').val("");
-        })
-    })
+        });
+        $('#vesseloperator-show').modal('hide');
+    });
     $('#frm-create-vessel').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            showVesselInfo(data.vessel_name)
-        })
+            showVesselInfo(data.vessel_name);
+        });
         $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
         $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
         $('#modal').modal('show');

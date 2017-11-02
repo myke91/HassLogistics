@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Vessel;
+use App\Client;
 use App\VesselOperator;
+use View;
 
 class VesselController extends Controller
 {
     public function addVessel()
     {
         $vesseloperator = VesselOperator::all();
-        return view('data.vessel.new_vessel',compact('vesseloperator'));
+        $clients = Client::all();
+        return View::make('data.vessel.new_vessel')
+                ->with(compact('vesseloperator'))
+                ->with(compact('clients'));
     }
     public function createVesselOperator(Request $request)
     {

@@ -32,22 +32,30 @@ class InvoiceController extends Controller {
         Log::debug('Getting tarrif types for tarrif_id: ' . $id);
         return response()->json(Tarrif::find($id)->types()->get());
     }
-    
-     public function getTarrifParams(Request $request) {
+
+    public function getTarrifParams(Request $request) {
         $id = $request->type;
         Log::debug('Getting tarrif params for tarrif_type_id: ' . $id);
         return response()->json(TarrifType::find($id)->params()->get());
     }
-    
-     public function getTarrifCharges(Request $request) {
+
+    public function getTarrifCharges(Request $request) {
         $id = $request->param;
         Log::debug('Getting tarrif charges for tarrif_param_id: ' . $id);
         return response()->json(TarrifParams::with('charges')->find($id));
     }
 
-     public function getBillCharge(Request $request) {
+    public function getBillCharge(Request $request) {
         $id = $request->charge;
         Log::debug('Getting tarrif charges for tarrif_param_id: ' . $id);
         return response()->json(TarrifCharge::find($id));
     }
+
+    public function saveInvoice(Request $request) {
+        $data = $request->all();
+        Log::debug('payload for saving invoice ');
+        Log::debug($data);
+        Log::debug($data['data']['client']);
+    }
+
 }

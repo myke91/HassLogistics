@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <form class="form-horizontal" role="form" id="frm-create-client" action="{{route('createClient')}}">
-                        <div class="form-group">
+                        <div class="form-group has-success">
                             <label class="col-sm-2 control-label">Client Name</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" id="client_name" name="client_name"required>
@@ -149,7 +149,7 @@
             $('#clientmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
             $('#clientmessages_content').html('<h4>Client Created Successfully</h4>');
             $('#modal').modal('show');
-        })
+        });
         function showClientInfo()
         {
             var data = $('#frm-create-client').serialize();

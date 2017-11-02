@@ -130,7 +130,7 @@
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Client</label>
                         <div class="col-sm-4">
-                            <select class="s2 populate placeholder">
+                            <select class="s2 populate placeholder clients">
                                 <option>---------</option>
                                 @foreach($clients as $key =>$v)
                                 <option value="{{$v->client_id}}">{{$v->client_name}}</option>
@@ -143,7 +143,7 @@
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel</label>
                         <div class="col-sm-4">
-                            <select class="s2 populate placeholder">
+                            <select class="s2 populate placeholder vessels">
                                 <option>---------</option>
                                 @foreach($vessels as $key =>$v)
                                 <option value="{{$v->vessel_id}}">{{$v->vessel_name}}</option>
@@ -332,6 +332,10 @@ DISPLAY TABLE
         doc.output("dataurlnewwindow");
     }
     $(document).ready(function () {
+        //disable vessel dropdown and add tarrif button
+        $('.vessels').attr("disabled", "disabled");
+        $('.add-tarrif').attr("disabled", "disabled");
+        $('.submit').attr("disabled", "disabled");
         // Initialize datepicker
         $('#input_date').datepicker({setDate: new Date()});
         // Load Timepicker plugin
@@ -347,8 +351,14 @@ DISPLAY TABLE
             MakePDFInvoice();
 //            })
         });
-        // Add drag-n-drop feature to boxes
-        WinMove();
+        $('.clients').change(function (e) {
+            e.preventDefault();
+            $('.vessels').removeAttr("disabled");
+        });
+        $('.vessels').change(function (e) {
+            e.preventDefault();
+            $('.add-tarrif').removeAttr("disabled");
+        });
     });
 </script>
 <script  type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script> 

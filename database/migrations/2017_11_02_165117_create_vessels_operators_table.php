@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVesselOperatorTable extends Migration
+class CreateVesselsOperatorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVesselOperatorTable extends Migration
      */
     public function up()
     {
-        Schema::create('vessel_operators', function (Blueprint $table) {
+        Schema::create('vessels_operators', function (Blueprint $table) {
             $table->increments('vessel_operator_id');
             $table->string('operator_name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateVesselOperatorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vessel_operator');
+        Schema::dropIfExists('vessels_operators');
     }
 }
