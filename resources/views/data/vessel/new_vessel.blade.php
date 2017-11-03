@@ -34,12 +34,12 @@
             </div>
             <div class="box-content">
                 <h4 class="page-header">VESSEL DATA</h4>
-                <div id="createvesselmessages" class="hide" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div id="createvesselmessages_content">
-                    </div>
-                </div>
                 <form class="form-horizontal" role="form" id="frm-create-vessel" action="{{route('postCreateVessel')}}">
+                    <div id="createvesselmessages" class="hide" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="createvesselmessages_content">
+                        </div>
+                    </div>
                     <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Vessel Name</label>
                         <div class="col-sm-4">
@@ -259,16 +259,27 @@ DISPLAY TABLE
     });
     $('#frm-create-vessel').on('submit', function (e) {
         e.preventDefault();
-        var data = $(this).serialize();
+        var data = $('#frm-create-vessel').serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
+            console.log(data)
             showVesselInfo(data.vessel_name);
         });
-        $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
-        $('#modal').modal('show');
+//        if(data.save==true){
+//            $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+//            $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
+//            $('#modal').modal('show');
+//            $("#createvesselmessages").fadeOut(4000);
+//        } else {
+//            $('#createvesselmessages').removeClass('hide').addClass('alert alert-danger alert-dismissible').slideDown().show();
+//            $('#createvesselmessages_content').html('<h4>Vessel not created please check your entries</h4>');
+//            $('#modal').modal('show');
+//            $("#createvesselmessages").fadeOut(4000);
+        //}
+
         $(this).trigger('reset');
     })
+
 
 
     function showVesselInfo()
@@ -300,15 +311,12 @@ DISPLAY TABLE
         })
     })
     $('.btn-update-vessel').on('click', function (e) {
+        $('.alert-success').show();
         e.preventDefault();
         var data = $('#frm-update-vessel').serialize();
-        $.post("{{route('updateVessel')}}", data, function (data) {
+       $.post("{{route('updateVessel')}}", data, function (data) {
             showVesselInfo(data.vessel_name);
         })
-        $('#updatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#updatemessages_content').html('<h4>Vessel updated successfully</h4>');
-        $('#modal').modal('show');
-        $('#frm-update-class').trigger('reset');
     })
     $(document).on('click', '.del-class', function (e) {
         vessel_id = $(this).val();

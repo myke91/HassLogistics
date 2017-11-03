@@ -12,7 +12,7 @@
                         <div class="form-group">
                             <label class="col-sm-8 control-label">Client Name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="client_name" name="client_name" required>
+                                <input type="text" class="form-control" id="client_name_pop" name="client_name" required>
                             </div>
                             <label class="col-sm-8 control-label">Office Desc</label>
                             <div class="col-sm-8">

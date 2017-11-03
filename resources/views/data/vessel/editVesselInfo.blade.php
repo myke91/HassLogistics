@@ -26,22 +26,13 @@
                         </div>
                         <div class="box-content">
                             <h4 class="page-header"></h4>
-                            <div id="messages" class="hide" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div id="messages_content">
-                                </div>
-                            </div>
-                            <div id="updatemessages" class="hide" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div id="updatemessages_content">
-                                </div>
-                            </div>
+                            <div class="alert alert-success hide">Vessel updated successfully</div>
                             <form class="form-horizontal" role="form" id="frm-update-vessel" action="">
                                 <input type="text" name="vessel_id" hidden="hidden" id="vessel_id_edit">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Vessel Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="vessel_name_edit" name="vessel_name" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name">
+                                        <input type="text" class="form-control" id="vessel_name_edit" name="vessel_name" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" required>
                                     </div>
                                     <label class="col-sm-2 control-label">Vessel Callsign</label>
                                     <div class="col-sm-4">
@@ -91,7 +82,11 @@
                                 <div class="form-group has-warning has-feedback">
                                     <label class="col-sm-2 control-label">Vessel Owner</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" name="vessel_owner" id="vessel_owner_edit" data-toggle="tooltip" data-placement="top" title="Hello world!">
+                                        <select  name="vessel_owner" id="vessel_owner_edit" class="populate placeholder">
+                                            @foreach($clients as $key =>$c)
+                                                <option value="{{$c->client_id}}">{{$c->client_name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <label class="col-sm-2 control-label">Vessel LOA</label>
                                     <div class="col-sm-4">
