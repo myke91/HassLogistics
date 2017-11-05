@@ -35,11 +35,6 @@
             </div>
             <div class="box-content">
                 <h4 class="page-header">VESSEL DATA</h4>
-                <div id="createvesselmessages" class="hide" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div id="createvesselmessages_content">
-                    </div>
-                </div>
                 <div class="row">
                     <div class="form-group">
                         <div class="col-sm-8">
@@ -57,6 +52,11 @@
 
                 </div>
                 <form class="form-horizontal" role="form" id="frm-create-vessel" action="{{route('postCreateVessel')}}">
+                    <div id="createvesselmessages" class="hide" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="createvesselmessages_content">
+                        </div>
+                    </div>
                     <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Vessel Name</label>
                         <div class="col-sm-4">
@@ -387,8 +387,8 @@
         LoadDataTablesScripts(AllTables);
         dateFormat:'yy-mm-dd';
         disableFormFields();
-        $('.add-vessel').click(function(e){
-              $('#frm-create-vessel :input').attr("disabled", false);
+        $('.add-vessel').click(function (e) {
+            $('#frm-create-vessel :input').attr("disabled", false);
         });
         // Add drag-n-drop feature to boxes
         WinMove();
@@ -397,6 +397,123 @@
     function disableFormFields() {
         $('#frm-create-vessel :input').attr("disabled", true);
     }
+    $('#arrival_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    $('#departure_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+
+    $('#add-more').on('click', function () {
+        $('#vesseloperator-show').modal();
+    });
+
+    $('#arrival_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    $('#departure_date').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    $('.add-more-operator').on('click', function () {
+        $('#vesseloperator-show').modal();
+    });
+    $('.add-more-client').on('click', function () {
+        $('#client-modal').modal();
+    });
+
+    $('.create-client').on('click', function (e) {
+        e.preventDefault();
+        console.log('received click event for additional client creation');
+        var data = $("#frm-create-client").serialize();
+        var url = $("#frm-create-client").attr('action');
+        $.post(url, data, function (data) {
+            $('#client_id').append($("<option/>", {
+                value: data.client_id,
+                text: data.client_name
+            }));
+        });
+        $('#client-modal').modal('hide');
+    });
+
+    $('.btn-save-vesseloperator').on('click', function () {
+        var vesseloperators = $('#vessel_operator').val();
+        console.log(vesseloperators);
+        $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
+            $('#vessel_operator_id').append($("<option/>", {
+                value: data.vessel_operator_id,
+                text: data.operator_name
+            }));
+            $('#vessel_operator').val("");
+        });
+        $('#vesseloperator-show').modal('hide');
+    });
+    $('#frm-create-vessel').on('submit', function (e) {
+        e.preventDefault();
+        var data = $('#frm-create-vessel').serialize();
+        var url = $(this).attr('action');
+        $.post(url, data, function (data) {
+            console.log(data)
+            showVesselInfo(data.vessel_name);
+        });
+//        if(data.save==true){
+//            $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+//            $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
+//            $('#modal').modal('show');
+//            $("#createvesselmessages").fadeOut(4000);
+//        } else {
+//            $('#createvesselmessages').removeClass('hide').addClass('alert alert-danger alert-dismissible').slideDown().show();
+//            $('#createvesselmessages_content').html('<h4>Vessel not created please check your entries</h4>');
+//            $('#modal').modal('show');
+//            $("#createvesselmessages").fadeOut(4000);
+        //}
+
+        $(this).trigger('reset');
+    });
+
+
+
+    function showVesselInfo()
+    {
+        var data = $('#frm-create-vessel').serialize();
+        $.get("{{route('showVesselInfo')}}", data, function (data) {
+            $('#add-vessel-info').empty().append(data);
+        });
+    }
+
+    $(document).on('click', '.class-edit', function (e) {
+        $('#vessel-show').modal('show');
+        vessel_id = $(this).val();
+        $.get("{{route('editVessel')}}", {vessel_id: vessel_id}, function (data) {
+
+            $('#vessel_name_edit').val(data.vessel_name);
+            $('#vessel_callsign_edit').val(data.vessel_callsign);
+            $('#vessel_type_edit').val(data.vessel_type);
+            $('#vessel_class_edit').val(data.vessel_class);
+            $('#vessel_flag_edit').val(data.vessel_flag);
+            $('#vessel_operator_id_edit').val(data.vessel_operator_id);
+            $('#vessel_owner_edit').val(data.vessel_owner);
+            $('#vessel_LOA_edit').val(data.vessel_LOA);
+            $('#arrival_date_edit').val(data.arrival_date);
+            $('#departure_date_edit').val(data.departure_date);
+            $('#vessel_id_edit').val(data.vessel_id);
+
+
+        });
+    });
+    $('.btn-update-vessel').on('click', function (e) {
+        $('.alert-success').show();
+        e.preventDefault();
+        var data = $('#frm-update-vessel').serialize();
+        $.post("{{route('updateVessel')}}", data, function (data) {
+            showVesselInfo(data.vessel_name);
+        });
+    });
+    $(document).on('click', '.del-class', function (e) {
+        vessel_id = $(this).val();
+        $.post("{{route('deleteVessel')}}", {vessel_id: vessel_id}, function (data) {
+            showVesselInfo($('#vessel_name').val());
+        });
+    });
 </script>
 <script  type="text/javascript" src="{{ URL::asset('js/vessel.js') }}"></script> 
 @endsection

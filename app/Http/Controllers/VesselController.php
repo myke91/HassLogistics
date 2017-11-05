@@ -36,7 +36,8 @@ class VesselController extends Controller {
     }
 
     public function VesselInformation() {
-        return Vessel::join('vessel_operators', 'vessel_operators.vessel_operator_id', '=', 'vessels.vessel_operator_id');
+        return Vessel::join('vessel_operators', 'vessel_operators.vessel_operator_id', '=', 'vessels.vessel_operator_id')
+                        ->join('clients', 'clients.client_id', '=', 'vessels.vessel_owner');
     }
 
     public function editVessel(Request $request) {
@@ -59,7 +60,8 @@ class VesselController extends Controller {
 
     public function findVesselByName(Request $request) {
         $name = $request->vessel_name;
-        $result = Vessel::where('vessel_name', 'like', '%'.$name.'%')->get();
+        $result = Vessel::where('vessel_name', 'like', '%' . $name . '%')->get();
         return response()->json($result);
     }
+
 }

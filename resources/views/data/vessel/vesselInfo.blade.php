@@ -43,7 +43,7 @@
         <tr>
             <td>{{$v->vessel_name}}</td>
             <td>{{$v->operator_name}}</td>
-            <td>{{$v->vessel_owner}}</td>
+            <td>{{$v->client_name}}</td>
             <td>{{$v->vessel_type}}</td>
             <td>{{$v->arrival_date}}</td>
             <td>{{$v->departure_date}}</td>
@@ -62,11 +62,9 @@
 </table>
 <script>
 
-    $('td', 'table').each(function(i) {
-        $(this).text(i+1);
-    });
-
-
+//    $('td', 'table').each(function(i) {
+//        $(this).text(i+1);
+//    });
 
     $('table.table-datatable').each(function() {
         var currentPage = 0;
