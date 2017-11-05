@@ -2,6 +2,7 @@
 @section('content')
 @include('popups.vesseloperator')
 @include('popups.client')
+@include('popups.vessel_search_result')
 @include('data.vessel.editVesselInfo')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
@@ -38,6 +39,22 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <div id="createvesselmessages_content">
                     </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="vessel-search-field" name="vessel-search-field" title="Vessel search">
+                            <button type="submit" class="btn btn-primary btn-label-left search-vessel">
+                                <span><i class="fa fa-search"></i></span>
+                                Search
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-label-left add-vessel">
+                                <span><i class="fa fa-plus"></i></span>
+                                Add Vessel
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
                 <form class="form-horizontal" role="form" id="frm-create-vessel" action="{{route('postCreateVessel')}}">
                     <div class="form-group has-success">
@@ -95,7 +112,7 @@
 
                         <label class="col-sm-2 control-label">Vessel LOA</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_LOA" name="vessel_LOA" data-toggle="tooltip" data-placement="top">
+                            <input type="text" class="form-control" id="vessel_loa" name="vessel_loa" data-toggle="tooltip" data-placement="top">
                         </div>
 
                         <label class="col-sm-2 control-label">Vessel Owner</label>
@@ -120,11 +137,207 @@
                             <input type="text" id="departure_date" name="departure_date" class="form-control" placeholder="Date">
                             <span class="fa fa-calendar txt-danger form-control-feedback"></span>
                         </div>
-                    </div>                                                                                
+                    </div> 
+                    <fieldset>
+                        <legend>Registration Info</legend>
+
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">IMO / Lloydsnr</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="imo" name="imo" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">Reg Place</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="reg_place" name="reg_place" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">Construction Year</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="construction_year" name="construction_year" class="form-control" >
+
+                            </div>
+                        </div> 
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Crew</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="crew" name="crew" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">Reg Year</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="reg_year" name="reg_year" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">Homeport</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="homeport" name="homeport" class="form-control" >
+
+                            </div>
+                        </div> 
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Tonnage Certificate</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="tonnage_certificate" name="tonnage_certificate" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">MMSI</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="mmsi" name="mmsi" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">ISPS No</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="isps_no" name="isps_no" class="form-control" >
+
+                            </div>
+                        </div> 
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Ice Class</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="ice_class" name="ice_class" class="form-control" >
+
+                            </div>
+
+                        </div> 
+                    </fieldset>
+                    <fieldset>
+                        <legend>Particulars</legend>
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">DWT</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="dwt" name="dwt" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">SBT</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="sbt" name="sbt" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">Air Draft</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="air_draft" name="air_draft" class="form-control" >
+
+                            </div>
+                        </div>
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">LL</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="ll" name="ll" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">GT</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="gt" name="gt" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">LOA</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="loa" name="loa" class="form-control" >
+
+                            </div>
+                        </div> 
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Knots</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="knots" name="knots" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">FTC</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="ftc" name="ftc" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">NT</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="nt" name="nt" class="form-control" >
+
+                            </div>
+                        </div>
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Beam</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="beam" name="beam" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">CBM Tank</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="cbm_tank" name="cbm_tank" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">RGT</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="rgt" name="rgt" class="form-control" >
+
+                            </div>
+                        </div> 
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Max Draft</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="max_draft" name="max_draft" class="form-control" >
+
+                            </div>
+                            <label class="col-sm-2 control-label">G-Factor</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="g_factor" name="g_factor" class="form-control" >
+
+                            </div>
+
+                        </div> 
+                    </fieldset>
+                    <fieldset> 
+                        <legend>Properties</legend>
+                        <div class="form-group has-success has-feedback">
+                            <div class="col-sm-8">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="double_bottom" name="double_bottom"> Double Bottom
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="double_skin" name="double_skin"> Double Skin
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="double_sides" name="double_sides"> Double Sides
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="bow_thrusters" name="bow_thrusters"> Bow Thrusters
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="stern_thrusters" name="stern_thrusters"> Stern Thrusters
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="annual_fee" name="annual_fee"> Annual Fee
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" id="inactive" name="inactive"> Inactive
+                                        <i class="fa fa-square-o"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+
+                    </fieldset>
                     <div class="clearfix"></div>
                     <div class="panel-footer">
-                        <button type="submit" class="btn btn-success btn-sm">Create Vessel</button>
-                        <!-- <button type="button" class="btn btn-success btn-sm  btn-update-class">Update Course</button>-->
+                        <button type="submit" class="btn btn-success btn-sm">Save Vessel</button>
                     </div>
                 </form>
             </div>
@@ -132,41 +345,11 @@
     </div>
 </div>
 
-<!-------------------------------------------------------------------->
-<!--
-DISPLAY TABLE
--->
-<!--------------------------------------------------------------------->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <div class="box-name">
-                    <i class="fa fa-linux"></i>
-                    <span>VESSEL LIST</span>
-                </div>
-                <div class="box-icons">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="expand-link">
-                        <i class="fa fa-expand"></i>
-                    </a>
 
-                </div>
-                <div class="no-move"></div>
-            </div>
-            <div class="box-content no-padding" id="add-vessel-info">
-
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section('additional_script')
 <script type="text/javascript">
-    showVesselInfo();
 // Run Select2 plugin on elements
     function DemoSelect2() {
         $('#s2_with_tag').select2({placeholder: "Select OS"});
@@ -202,121 +385,18 @@ DISPLAY TABLE
         LoadBootstrapValidatorScript(DemoFormValidator);
         // Load Datatables and run plugin on tables 
         LoadDataTablesScripts(AllTables);
-        dateFormat:'yy-mm-dd'
+        dateFormat:'yy-mm-dd';
+        disableFormFields();
+        $('.add-vessel').click(function(e){
+              $('#frm-create-vessel :input').attr("disabled", false);
+        });
         // Add drag-n-drop feature to boxes
         WinMove();
     });
 
-    $('#arrival_date').datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-    $('#departure_date').datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-
-    $('#add-more').on('click', function () {
-        $('#vesseloperator-show').modal();
-    });
-
-    $('#arrival_date').datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-    $('#departure_date').datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
-    $('.add-more-operator').on('click', function () {
-        $('#vesseloperator-show').modal();
-    });
-    $('.add-more-client').on('click', function () {
-        $('#client-modal').modal();
-    });
-
-    $('.create-client').on('click', function (e) {
-        e.preventDefault();
-        console.log('received click event for additional client creation');
-        var data = $("#frm-create-client").serialize();
-        var url = $("#frm-create-client").attr('action');
-        $.post(url, data, function (data) {
-            $('#client_id').append($("<option/>", {
-                value: data.client_id,
-                text: data.client_name
-            }));
-        });
-        $('#client-modal').modal('hide');
-    });
-
-    $('.btn-save-vesseloperator').on('click', function () {
-        var vesseloperators = $('#vessel_operator').val();
-        console.log(vesseloperators);
-        $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
-            $('#vessel_operator_id').append($("<option/>", {
-                value: data.vessel_operator_id,
-                text: data.operator_name
-            }));
-            $('#vessel_operator').val("");
-        });
-        $('#vesseloperator-show').modal('hide');
-    });
-    $('#frm-create-vessel').on('submit', function (e) {
-        e.preventDefault();
-        var data = $(this).serialize();
-        var url = $(this).attr('action');
-        $.post(url, data, function (data) {
-            showVesselInfo(data.vessel_name);
-        });
-        $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
-        $('#modal').modal('show');
-        $(this).trigger('reset');
-    })
-
-
-    function showVesselInfo()
-    {
-        var data = $('#frm-create-vessel').serialize();
-        $.get("{{route('showVesselInfo')}}", data, function (data) {
-            $('#add-vessel-info').empty().append(data);
-        })
+    function disableFormFields() {
+        $('#frm-create-vessel :input').attr("disabled", true);
     }
-
-    $(document).on('click', '.class-edit', function (e) {
-        $('#vessel-show').modal('show');
-        vessel_id = $(this).val();
-        $.get("{{route('editVessel')}}", {vessel_id: vessel_id}, function (data) {
-
-            $('#vessel_name_edit').val(data.vessel_name);
-            $('#vessel_callsign_edit').val(data.vessel_callsign);
-            $('#vessel_type_edit').val(data.vessel_type);
-            $('#vessel_class_edit').val(data.vessel_class);
-            $('#vessel_flag_edit').val(data.vessel_flag);
-            $('#vessel_operator_id_edit').val(data.vessel_operator_id);
-            $('#vessel_owner_edit').val(data.vessel_owner);
-            $('#vessel_LOA_edit').val(data.vessel_LOA);
-            $('#arrival_date_edit').val(data.arrival_date);
-            $('#departure_date_edit').val(data.departure_date);
-            $('#vessel_id_edit').val(data.vessel_id);
-
-
-        })
-    })
-    $('.btn-update-vessel').on('click', function (e) {
-        e.preventDefault();
-        var data = $('#frm-update-vessel').serialize();
-        $.post("{{route('updateVessel')}}", data, function (data) {
-            showVesselInfo(data.vessel_name);
-        })
-        $('#updatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#updatemessages_content').html('<h4>Vessel updated successfully</h4>');
-        $('#modal').modal('show');
-        $('#frm-update-class').trigger('reset');
-    })
-    $(document).on('click', '.del-class', function (e) {
-        vessel_id = $(this).val();
-        $.post("{{route('deleteVessel')}}", {vessel_id: vessel_id}, function (data) {
-            showVesselInfo($('#vessel_name').val());
-        })
-    })
-
-
 </script>
+<script  type="text/javascript" src="{{ URL::asset('js/vessel.js') }}"></script> 
 @endsection
