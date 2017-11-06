@@ -4,27 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/HassLogistics/public/js/tarrif-form-builder.js</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/invoicing/invoice.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/ClientController.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_09_11_105907_create_users_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/routes/web.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/popups/client.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_20_165117_create_vessels_operators_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_200_115634_create_client_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_26_220806_create_tarrif_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/InvoiceController.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/VesselController.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_26_220816_create_tarrif_type_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/popups/vesseloperator.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_11_01_142156_create_invoice_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Client.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/storage/logs/laravel.log</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Tarrif.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/data/client/clientInfo.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/data/vessel/new_vessel.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/data/client/add_client.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_21_115439_create_vessel_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/popups/add_tarrif.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Vessel.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_26_220825_create_tarrif_params_table.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_26_220806_create_tarrif_table.php</file>
         </group>
     </open-files>
 </project-private>
