@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/HassLogistics/public/js/tarrif-form-builder.js</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/storage/logs/laravel.log</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/invoicing/invoice.blade.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Tarrif.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_26_220825_create_tarrif_params_table.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/database/migrations/2017_10_26_220806_create_tarrif_table.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/popups/vessel_search_result.blade.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/data/vessel/vesselInfo.blade.php</file>
         </group>
     </open-files>
 </project-private>

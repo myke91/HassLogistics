@@ -124,7 +124,8 @@ $('.search-vessel').on('click', function (e) {
                 $('#vessel_name').val(data[0].vessel_name);
                 $('#vessel_callsign').val(data[0].vessel_callsign);
                 $('#vessel_class').val(data[0].vessel_class);
-                $('#vessel_operator select').val(data[0].vessel_operator);
+                console.log('vessel operator value ' + data[0].vessel_operator_id);
+                $('#vessel_operator select').val(data[0].vessel_operator_id);
                 $('#vessel_type').val(data[0].vessel_type);
                 $('#vessel_flag select').val(data[0].vessel_flag);
                 $('#vessel_loa').val(data[0].vessel_loa);
@@ -172,14 +173,64 @@ $('.search-vessel').on('click', function (e) {
 
 function vesselSearchPopup(data) {
     console.log('showing result in popup');
+
     $.each(data, function (i, item) {
         var $tr = $('<tr>').append(
                 $('<td>').text(item.vessel_name),
                 $('<td>').text(item.vessel_type),
                 $('<td>').text(item.tonnage_certificate),
-                $('<td>').text('<button class="btn btn-success btn-sm">LOAD</button>')
+                $('<td>').html('<button class="btn btn-primary load-vessel" value="' + item.vessel_id + '">LOAD</button>')
                 ).appendTo('#vessel_results');
 //        console.log($tr.wrap('<p>').html());
     });
     $('#vessel_search_result').modal('show');
 }
+
+$(document).on('click', '.load-vessel', function (e) {
+    vessel_id = $(this).val();
+    $.get("/api/vessel-detail", {vessel_id: vessel_id}, function (data) {
+        $('#vessel_search_result').modal('hide');
+
+        $('#vessel_name').val(data.vessel_name);
+        $('#vessel_callsign').val(data.vessel_callsign);
+        $('#vessel_class').val(data.vessel_class);
+        $('#vessel_operator option:selected').val(data.vessel_operator);
+        $('#vessel_type').val(data.vessel_type);
+        $('#vessel_flag select').val(data.vessel_flag);
+        $('#vessel_loa').val(data.vessel_loa);
+        $('#vessel_owner').val(data.vessel_owner);
+        $('#arrival_date').val(data.arrival_date);
+        $('#departure_date').val(data.departure_date);
+        $('#imo').val(data.imo);
+        $('#reg_place').val(data.reg_place);
+        $('#construction_year').val(data.construction_year);
+        $('#crew').val(data.crew);
+        $('#reg_year').val(data.reg_year);
+        $('#homeport').val(data.homeport);
+        $('#tonnage_certificate').val(data.tonnage_certificate);
+        $('#mmsi').val(data.mmsi);
+        $('#isps_no').val(data.isps_no);
+        $('#ice_class').val(data.ice_class);
+        $('#dwt').val(data.dwt);
+        $('#sbt').val(data.sbt);
+        $('#air_draft').val(data.air_draft);
+        $('#ll').val(data.ll);
+        $('#gt').val(data.gt);
+        $('#loa').val(data.loa);
+        $('#knots').val(data.knots);
+        $('#ftc').val(data.ftc);
+        $('#nt').val(data.nt);
+        $('#beam').val(data.beam);
+        $('#cbm_tank').val(data.cbm_tank);
+        $('#rgt').val(data.rgt);
+        $('#max_draft').val(data.max_draft);
+        $('#g_factor').val(data.g_factor);
+        data.double_bottom === 'on' ? $('#double_bottom').prop('checked', true) : $('#double_bottom').prop('checked', false);
+        data.double_skin === 'on' ? $('#double_skin').prop('checked', true) : $('#double_skin').prop('checked', false);
+        data.double_sides === 'on' ? $('#double_sides').prop('checked', true) : $('#double_sides').prop('checked', false);
+        data.bow_thrusters === 'on' ? $('#bow_thrusters').prop('checked', true) : $('#bow_thrusters').prop('checked', false);
+        data.stern_thrusters === 'on' ? $('#stern_thrusters').prop('checked', true) : $('#stern_thrusters').prop('checked', false);
+        data.annual_fee === 'on' ? $('#annual_fee').prop('checked', true) : $('#annual_fee').prop('checked', false);
+        data.inactive === 'on' ? $('#inactive').prop('checked', true) : $('#inactive').prop('checked', false);
+    });
+});

@@ -44,3 +44,4 @@ Route::get('/api/tarrif-params', ['as' => 'getTarrifParams', 'uses' => 'InvoiceC
 Route::get('/api/tarrif-charges', ['as' => 'getTarrifCharges', 'uses' => 'InvoiceController@getTarrifCharges']);
 Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
 Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
+Route::get('/api/vessel-detail',['as' => 'getVesselDetail','uses'=>'VesselController@getVesselDetail']);

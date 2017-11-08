@@ -64,4 +64,7 @@ class VesselController extends Controller {
         return response()->json($result);
     }
 
+     public function getVesselDetail(Request $request) {
+        return response()->json(Vessel::find($request->vessel_id));
+    }
 }
