@@ -150,9 +150,11 @@
             $('#clientmessages_content').html('<h4>Client Created Successfully</h4>');
             $('#modal').modal('show');
         });
+
         function showClientInfo()
         {
             var data = $('#frm-create-client').serialize();
+            console.log(data);
             $.get("{{route('showClientInfo')}}",data,function (data) {
                 $('#add-client-info').empty().append(data);
             })
