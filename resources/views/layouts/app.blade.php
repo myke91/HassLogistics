@@ -109,7 +109,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('invoice')}}"><i class="fa fa-book">&nbsp;</i>Prepare Invoice</a></li>
-                                <li><a href="ajax/charts_flot.html"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
+                                <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
                                 <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Invoice Modifications </a></li>
                                 <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
                             </ul>

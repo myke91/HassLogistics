@@ -10,6 +10,7 @@ use App\TarrifCharge;
 use App\Client;
 use App\Vessel;
 use App\TarrifParams;
+use App\Invoice;
 use View;
 
 class InvoiceController extends Controller {
@@ -57,5 +58,27 @@ class InvoiceController extends Controller {
         Log::debug($data);
         Log::debug($data['data']['client']);
     }
+ public function createInvoice(Request $request){
+        if ($request->ajax())
+        {
+            //return $request->all();
+            return response(Invoice::create($request->all()));
+        }
+
+}
+public function getInvoiceInfo()
+{
+    return view('invoicing.invoiceInfo');
+}
+public function showInvoiceInfo()
+{
+    $invoices= $this->InvoiceInformation()->get();
+    return view('invoicing.invoiceTable',compact('invoices'));
+}
+public function InvoiceInformation()
+{
+    return Invoice::join('clients','clients.client_id','=','invoice.client_id')
+                    ->join('vessels','vessels.vessel_id','=','invoice.vessel_id');
+}
 
 }

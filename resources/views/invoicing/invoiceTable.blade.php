@@ -1,9 +1,8 @@
 <style>
-    .del{
+    .del {
         text-align: center;
         vertical-align: middle;
         width: 40px;
-
     }
     div.pager {
         text-align: center;
@@ -27,31 +26,35 @@
 
     }
 </style>
-<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
     <thead>
-        <tr>
-            <th>Client Name</th>
-            <th>Office Descriprion</th>
-            <th>Head Office</th>
-            <th>Client Number</th>
-            <th colspan="2">Actions</th>
-        </tr>
+    <tr>
+        <th>Vessel Name</th>
+        <th>Client Name</th>
+        <th>Bill Item</th>
+        <th>Vat</th>
+        <th>Invoice Details</th>
+        <th>Invoice Date</th>
+        <th colspan="2">Actions</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach($clients as $key => $c)
+    @foreach($invoices as $key => $i)
         <tr>
-            <td>{{$c->client_name}}</td>
-            <td>{{$c->client_office_desc}}</td>
-            <td>{{$c->client_head_office}}</td>
-            <td>{{$c->client_number}}</td>
+            <td>{{$i->client_name}}</td>
+            <td>{{$i->vessel_name}}</td>
+            <td>{{$i->bill_item}}</td>
+            <td>{{$i->vat}}</td>
+            <td>{{$->}}</td>
+            <td>Unit Price: {{$i->unit_price }} / Quanity: {{$i->quantity}} / Total Cost: {{$i->actual_cost}}</td>
             <td class="del">
-                <Button value="{{$c->client_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
+                <Button value="{{$i->invoice_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
             </td>
             <td class="del">
-                <Button value="{{$c->client_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                <Button value="{{$i->invoice_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></Button>
             </td>
         </tr>
-        @endforeach
+    @endforeach
     </tbody>
     <tfoot>
 
@@ -83,5 +86,3 @@
     });
 
 </script>
-
-

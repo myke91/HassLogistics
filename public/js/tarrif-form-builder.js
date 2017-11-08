@@ -9,6 +9,10 @@ $(document).on('click', '.add-tarrif', function (e) {
     $.get('/api/tarrifs', function (data) {
         console.log(data);
         $('#tarrif-name').html($('<option>').text('CHOOSE TARRIF'));
+        var vesseldata = $('#vessel_choose').val()
+        $('#vessel').val(vesseldata);
+        var clientdata = $('#client_choose').val()
+        $('#client').val(clientdata);
         $.each(data, function (i, value) {
             console.log(value.tarrif_name);
             $('#tarrif-name').append($('<option>').text(value.tarrif_name).attr('value', value.tarrif_id));
@@ -75,28 +79,28 @@ $(document).on('change', '#billable', function (e) {
     showTarrifChargeModal();
 });
 
-$(document).on('click', '.save-tarrif', function (e) {
-    e.preventDefault();
-    var client = $('.clients option:selected').text();
-    var vessel = $('.vessels option:selected').text();
-    var param = $('#tarrif-charge-param').val();
-    var billable = $('#billable option:selected').text();
-    var cost = $('#tarrif-charge-cost').val();
-    var quantity = $('#quantity').val();
-    var payload = {};
-    payload.client = client;
-    payload.vessel = vessel;
-    payload.param = param;
-    payload.billable = billable;
-    payload.cost = cost;
-    payload.quantity = quantity;
-    
-    $.post('/api/save-invoice', {data: payload}, function (data) {
-        console.log(data);
-       
-    });
-   
-});
+// $(document).on('click', '.save-tarrif', function (e) {
+//     e.preventDefault();
+//     var client = $('.clients option:selected').text();
+//     var vessel = $('.vessels option:selected').text();
+//     var param = $('#tarrif-charge-param').val();
+//     var billable = $('#billable option:selected').text();
+//     var cost = $('#tarrif-charge-cost').val();
+//     var quantity = $('#quantity').val();
+//     var payload = {};
+//     payload.client = client;
+//     payload.vessel = vessel;
+//     payload.param = param;
+//     payload.billable = billable;
+//     payload.cost = cost;
+//     payload.quantity = quantity;
+//
+//     $.post('/api/save-invoice', {data: payload}, function (data) {
+//         console.log(data);
+//
+//     });
+//
+// });
 
 function showTarrifModal() {
     $('#tarrif-modal').modal('show');
