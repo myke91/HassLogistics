@@ -21,6 +21,9 @@ Route::get('/edit/vesselinfo', ['as' => 'editVessel', 'uses' => 'VesselControlle
 Route::get('/add_client', ['as' => 'add_client', 'uses' => 'ClientController@addClient']);
 Route::get('/show/client', ['as' => 'showClientInfo', 'uses' => 'ClientController@showClientInformation']);
 Route::get('/edit/client', ['as' => 'editClient', 'uses' => 'ClientController@editClient']);
+Route::get('/add/vessel_operator', ['as' => 'add_vessel_operator', 'uses' => 'VesselController@addVesselOperator']);
+Route::get('/show/vessel_operators', ['as' => 'vessel_operators', 'uses' => 'VesselController@showVesselOperators']);
+Route::get('/edit/vessel_operator', ['as' => 'edit_vessel_operator', 'uses' => 'VesselController@editVesselOperator']);
 Route::get('/invoice', ['as' => 'invoice', 'uses' => 'InvoiceController@prepareInvoice']);
 
 // post urls
@@ -32,6 +35,9 @@ Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@postLogin']);
 Route::post('/post/client', ['as' => 'createClient', 'uses' => 'ClientController@createClient']);
 Route::post('/update/client', ['as' => 'updateClient', 'uses' => 'ClientController@updateClient']);
 Route::post('/delete/client', ['as' => 'deleteClient', 'uses' => 'ClientController@deleteClient']);
+Route::post('/post/vessel_operator', ['as' => 'createVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
+Route::post('/update/vessel_operator', ['as' => 'updateVesselOperator', 'uses' => 'VesselController@updateVesselOperator']);
+Route::post('/delete/vessel_operator', ['as' => 'deleteOperator', 'uses' => 'VesselController@deleteVesselOperator']);
 Route::post('/api/save-invoice',['as'=>'saveInvoice', 'uses'=>'InvoiceController@saveInvoice']);
 
 // api urls

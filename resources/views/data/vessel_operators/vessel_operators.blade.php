@@ -13,7 +13,7 @@
             <th>Office Descriprion</th>
             <th>Head Office</th>
             <th>Client Number</th>
-            <th>Actions</th>
+            <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -23,9 +23,11 @@
             <td>{{$c->client_office_desc}}</td>
             <td>{{$c->client_head_office}}</td>
             <td>{{$c->client_number}}</td>
-
             <td class="del">
-                <button value="{{$c->client_id}}" class="btn btn-info class-edit">EDIT</button>
+                <Button value="{{$c->client_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
+            </td>
+            <td class="del">
+                <Button value="{{$c->client_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></Button>
             </td>
         </tr>
         @endforeach

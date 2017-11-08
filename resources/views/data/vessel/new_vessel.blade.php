@@ -436,14 +436,14 @@
     });
 
     $('.btn-save-vesseloperator').on('click', function () {
-        var vesseloperators = $('#vessel_operator').val();
+        var vesseloperators = $('#vessel_operator_id').val();
         console.log(vesseloperators);
         $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
             $('#vessel_operator_id').append($("<option/>", {
                 value: data.vessel_operator_id,
                 text: data.operator_name
             }));
-            $('#vessel_operator').val("");
+            $('#vessel_operator_id').val("");
         });
         $('#vesseloperator-show').modal('hide');
     });

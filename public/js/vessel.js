@@ -43,14 +43,14 @@ $('.create-client').on('click', function (e) {
 });
 
 $('.btn-save-vesseloperator').on('click', function () {
-    var vesseloperators = $('#vessel_operator').val();
+    var vesseloperators = $('#vessel_operator_id').val();
     console.log(vesseloperators);
     $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
         $('#vessel_operator_id').append($("<option/>", {
             value: data.vessel_operator_id,
             text: data.operator_name
         }));
-        $('#vessel_operator').val("");
+        $('#vessel_operator_id').val("");
     });
     $('#vesseloperator-show').modal('hide');
 });
@@ -124,12 +124,11 @@ $('.search-vessel').on('click', function (e) {
                 $('#vessel_name').val(data[0].vessel_name);
                 $('#vessel_callsign').val(data[0].vessel_callsign);
                 $('#vessel_class').val(data[0].vessel_class);
-                console.log('vessel operator value ' + data[0].vessel_operator_id);
-                $('#vessel_operator select').val(data[0].vessel_operator_id);
+                $('#vessel_operator_id').val(data[0].vessel_operator_id).change();
                 $('#vessel_type').val(data[0].vessel_type);
-                $('#vessel_flag select').val(data[0].vessel_flag);
+                $('#vessel_flag').val(data[0].vessel_flag).change();
                 $('#vessel_loa').val(data[0].vessel_loa);
-                $('#vessel_owner').val(data[0].vessel_owner);
+                $('#vessel_owner').val(data[0].vessel_owner).change();
                 $('#arrival_date').val(data[0].arrival_date);
                 $('#departure_date').val(data[0].departure_date);
                 $('#imo').val(data[0].imo);
@@ -173,7 +172,7 @@ $('.search-vessel').on('click', function (e) {
 
 function vesselSearchPopup(data) {
     console.log('showing result in popup');
-
+    $('#vessel_results > tbody').empty();
     $.each(data, function (i, item) {
         var $tr = $('<tr>').append(
                 $('<td>').text(item.vessel_name),
@@ -194,11 +193,11 @@ $(document).on('click', '.load-vessel', function (e) {
         $('#vessel_name').val(data.vessel_name);
         $('#vessel_callsign').val(data.vessel_callsign);
         $('#vessel_class').val(data.vessel_class);
-        $('#vessel_operator option:selected').val(data.vessel_operator);
+        $('#vessel_operator_id').val(data.vessel_operator_id).change();
         $('#vessel_type').val(data.vessel_type);
-        $('#vessel_flag select').val(data.vessel_flag);
+        $('#vessel_flag').val(data.vessel_flag).change();
         $('#vessel_loa').val(data.vessel_loa);
-        $('#vessel_owner').val(data.vessel_owner);
+        $('#vessel_owner').val(data.vessel_owner).change();
         $('#arrival_date').val(data.arrival_date);
         $('#departure_date').val(data.departure_date);
         $('#imo').val(data.imo);
