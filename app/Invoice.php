@@ -17,5 +17,5 @@ class Invoice extends Model
         'vat',
         'invoice_status'];
     protected $primaryKey = 'invoice_id';
-    public $timestamps = false;
+    public $timestamps = true;
 }

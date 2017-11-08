@@ -45,7 +45,7 @@
             <td>{{$i->vessel_name}}</td>
             <td>{{$i->bill_item}}</td>
             <td>{{$i->vat}}</td>
-            <td>{{$->}}</td>
+            <td>{{$i->created_at}}</td>
             <td>Unit Price: {{$i->unit_price }} / Quanity: {{$i->quantity}} / Total Cost: {{$i->actual_cost}}</td>
             <td class="del">
                 <Button value="{{$i->invoice_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
