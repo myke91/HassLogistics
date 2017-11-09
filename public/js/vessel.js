@@ -43,14 +43,15 @@ $('.create-client').on('click', function (e) {
 });
 
 $('.btn-save-vesseloperator').on('click', function () {
-    var vesseloperators = $('#vessel_operator_id').val();
+    var vesseloperators = $('#operator_name').val();
     console.log(vesseloperators);
-    $.post("{{route('postVesseOperator')}}", {operator_name: vesseloperators}, function (data) {
+    console.log();
+    $.post("/add_vessel_operator", {operator_name: vesseloperators}, function (data) {
         $('#vessel_operator_id').append($("<option/>", {
             value: data.vessel_operator_id,
             text: data.operator_name
         }));
-        $('#vessel_operator_id').val("");
+        $('#operator_name').val("");
     });
     $('#vesseloperator-show').modal('hide');
 });
@@ -71,7 +72,7 @@ $('#frm-create-vessel').on('submit', function (e) {
 function showVesselInfo()
 {
     var data = $('#frm-create-vessel').serialize();
-    $.get("{{route('showVesselInfo')}}", data, function (data) {
+    $.get("/show/vesselinfo", data, function (data) {
         $('#add-vessel-info').empty().append(data);
     });
 }
@@ -79,7 +80,7 @@ function showVesselInfo()
 $(document).on('click', '.class-edit', function (e) {
     $('#vessel-show').modal('show');
     vessel_id = $(this).val();
-    $.get("{{route('editVessel')}}", {vessel_id: vessel_id}, function (data) {
+    $.get("/edit/vesselinfo", {vessel_id: vessel_id}, function (data) {
 
         $('#vessel_name_edit').val(data.vessel_name);
         $('#vessel_callsign_edit').val(data.vessel_callsign);
@@ -97,7 +98,7 @@ $(document).on('click', '.class-edit', function (e) {
 $('.btn-update-vessel').on('click', function (e) {
     e.preventDefault();
     var data = $('#frm-update-vessel').serialize();
-    $.post("{{route('updateVessel')}}", data, function (data) {
+    $.post("/update/vesselinfo", data, function (data) {
         showVesselInfo(data.vessel_name);
     });
     $('#updatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
@@ -107,7 +108,7 @@ $('.btn-update-vessel').on('click', function (e) {
 });
 $(document).on('click', '.del-class', function (e) {
     vessel_id = $(this).val();
-    $.post("{{route('deleteVessel')}}", {vessel_id: vessel_id}, function (data) {
+    $.post("/delete/vesselinfo", {vessel_id: vessel_id}, function (data) {
         showVesselInfo($('#vessel_name').val());
     });
 });

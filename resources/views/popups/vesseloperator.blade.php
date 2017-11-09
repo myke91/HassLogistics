@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="text" name="operator_name" id="vessel_operator" class="form-control" placeholder="Vessel Operator">
+                        <input type="text" name="operator_name" id="operator_name" class="form-control" placeholder="Vessel Operator">
                     </div>
                 </div>
             </div>

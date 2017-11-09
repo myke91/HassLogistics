@@ -27,9 +27,10 @@ Route::get('/edit/vessel_operator', ['as' => 'edit_vessel_operator', 'uses' => '
 Route::get('/invoice', ['as' => 'invoice', 'uses' => 'InvoiceController@prepareInvoice']);
 Route::get('/invoice-history', ['as' => 'invoiceInfoPage', 'uses' => 'InvoiceController@getInvoiceInfo']);
 Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
+Route::get('/invoice/pdf', ['as' => 'generateInvoicePdfStream', 'uses' => 'InvoiceController@generateInvoicePdfStream']);
 
 // post urls
-Route::post('/add_vessel_operator', ['as' => 'postVesseOperator', 'uses' => 'VesselController@createVesselOperator']);
+Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
 Route::post('/post_vessel', ['as' => 'postCreateVessel', 'uses' => 'VesselController@createVessel']);
 Route::post('/update/vesselinfo', ['as' => 'updateVessel', 'uses' => 'VesselController@updateVessel']);
 Route::post('/delete/vesselinfo', ['as' => 'deleteVessel', 'uses' => 'VesselController@deleteVessel']);
@@ -40,8 +41,8 @@ Route::post('/delete/client', ['as' => 'deleteClient', 'uses' => 'ClientControll
 Route::post('/post/vessel_operator', ['as' => 'createVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
 Route::post('/update/vessel_operator', ['as' => 'updateVesselOperator', 'uses' => 'VesselController@updateVesselOperator']);
 Route::post('/delete/vessel_operator', ['as' => 'deleteOperator', 'uses' => 'VesselController@deleteVesselOperator']);
-Route::post('/api/save-invoice',['as'=>'saveInvoice', 'uses'=>'InvoiceController@saveInvoice']);
-Route::post('/api/create-invoice',['as'=>'createInvoice', 'uses'=>'InvoiceController@createInvoice']);
+Route::post('/api/save-invoice', ['as' => 'saveInvoice', 'uses' => 'InvoiceController@saveInvoice']);
+Route::post('/api/create-invoice', ['as' => 'createInvoice', 'uses' => 'InvoiceController@createInvoice']);
 
 // api urls
 Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);
@@ -50,4 +51,4 @@ Route::get('/api/tarrif-params', ['as' => 'getTarrifParams', 'uses' => 'InvoiceC
 Route::get('/api/tarrif-charges', ['as' => 'getTarrifCharges', 'uses' => 'InvoiceController@getTarrifCharges']);
 Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
 Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
-Route::get('/api/vessel-detail',['as' => 'getVesselDetail','uses'=>'VesselController@getVesselDetail']);
+Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);

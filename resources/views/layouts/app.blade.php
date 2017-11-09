@@ -96,9 +96,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('add_vessel')}}"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
                                 <li><a href="{{route('add_client')}}"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
-                                <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
-                                <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Cargo</a></li>
-                                <li><a href="ajax/charts_amcharts.html"><i class="fa fa-book">&nbsp;</i>Unit Of Measurement</a></li>
+                                <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
                                 <li><a href="ajax/charts_chartist.html"><i class="fa fa-book">&nbsp;</i>Load Port Charges</a></li>
                             </ul>
                         </li>
@@ -110,7 +108,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{route('invoice')}}"><i class="fa fa-book">&nbsp;</i>Prepare Invoice</a></li>
                                 <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
-                                <li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Invoice Modifications </a></li>
+                                <!--<li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Invoice Modifications </a></li>-->
                                 <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
                             </ul>
                         </li>
@@ -120,12 +118,13 @@
                                 <span class="hidden-xs">Payment</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="ajax-link" href="ajax/forms_elements.html">Elements</a></li>
-                                <li><a class="ajax-link" href="ajax/forms_layouts.html">Layouts</a></li>
-                                <li><a class="ajax-link" href="ajax/forms_file_uploader.html">File Uploader</a></li>
+                                <li><a class="ajax-link" href="ajax/forms_elements.html">Make Payment</a></li>
+                                <li><a class="ajax-link" href="ajax/forms_elements.html">Cash Payments</a></li>
+                                <li><a class="ajax-link" href="ajax/forms_layouts.html">Cheque Payments</a></li>
+                                <li><a class="ajax-link" href="ajax/forms_file_uploader.html">Payment On Account</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+<!--                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle">
                                 <i class="fa fa-desktop"></i>
                                 <span class="hidden-xs">Reporting</span>
@@ -137,7 +136,7 @@
                                 <li><a class="ajax-link" href="ajax/ui_jquery-ui.html">Jquery UI</a></li>
                                 <li><a class="ajax-link" href="ajax/ui_icons.html">Icons</a></li>
                             </ul>
-                        </li>
+                        </li>-->
 
                     </ul>
                 </div>

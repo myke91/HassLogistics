@@ -18,10 +18,8 @@ class VesselController extends Controller {
                         ->with(compact('clients'));
     }
 
-    public function addVesselOperators() {
-        return view('data.vessel.new_vessel')
-                        ->with(compact('vesseloperator'))
-                        ->with(compact('clients'));
+    public function addVesselOperator() {
+        return view('data.vessel_operators.add_vessel_operator');
     }
 
     public function createVesselOperator(Request $request) {
