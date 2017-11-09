@@ -11,10 +11,15 @@
   |
  */
 
+Route::group(['middleware'=>['visitors','roles']],function (){
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@getLogout']);
+    Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@dashboard']);
+});
+
 //get urls
 Route::get('/', ['as' => '/', 'uses' => 'LoginController@getLogin']);
-Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@dashboard']);
-Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@getLogout']);
+
+
 Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@addVessel']);
 Route::get('/show/vesselinfo', ['as' => 'showVesselInfo', 'uses' => 'VesselController@showVesselInformation']);
 Route::get('/edit/vesselinfo', ['as' => 'editVessel', 'uses' => 'VesselController@editVessel']);
@@ -27,6 +32,7 @@ Route::get('/edit/vessel_operator', ['as' => 'edit_vessel_operator', 'uses' => '
 Route::get('/invoice', ['as' => 'invoice', 'uses' => 'InvoiceController@prepareInvoice']);
 Route::get('/invoice-history', ['as' => 'invoiceInfoPage', 'uses' => 'InvoiceController@getInvoiceInfo']);
 Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
+Route::get('/invoice-modification', ['as' => 'invoiceModification', 'uses' => 'InvoiceController@getInvoiceModification']);
 Route::get('/invoice/pdf', ['as' => 'generateInvoicePdfStream', 'uses' => 'InvoiceController@generateInvoicePdfStream']);
 
 // post urls
@@ -52,3 +58,4 @@ Route::get('/api/tarrif-charges', ['as' => 'getTarrifCharges', 'uses' => 'Invoic
 Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
 Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
 Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
+

@@ -14,11 +14,11 @@ class VisitorsMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = 'web')
     {
-        if(Auth::check())
-            return $next($request);
-        else
-            return redirect('/');
+       if(!Auth::guard($guard)->check()){
+           return redirect()->route('/');
+       }
+       return $next($request);
     }
 }

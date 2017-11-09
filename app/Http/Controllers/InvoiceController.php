@@ -80,6 +80,10 @@ class InvoiceController extends Controller {
         return Invoice::join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id');
     }
+    public function getInvoiceModification()
+    {
+        return view('invoicing.invoiceModification');
+    }
 
     public function generateInvoicePdfStream() {
         $pdf = \App::make('dompdf.wrapper');

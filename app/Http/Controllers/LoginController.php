@@ -1,28 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
 
 class LoginController extends Controller
 {
-    protected function guard()
-    {
-        return Auth::guard('secure');
-    }
+    use AuthenticatesUsers;
+    protected $username = 'username';
+    protected $redirectTo = '/dashboard';
+    protected $guard = 'web';
+
     public function getLogin()
     {
+        if (Auth::guard('web')->check())
+        {
+            return redirect()->route('dashboard');
+        }
         return view('login');
     }
     public function postLogin(Request $request)
     {
 
-        if (Auth::attempt(['username'=>$request->username,
-            'password'=>$request->password,'active'=> 1]))
+        $auth = Auth::guard('web')->attempt(['username'=>$request->username,
+            'password'=>$request->password,'active'=> 1]);
+        if($auth)
         {
-            return redirect()->intended('dashboard');
+            return redirect()->route('dashboard');
 
         }
         return redirect()->back()->with(['error' =>'Wrong Credentials']);
@@ -32,7 +39,7 @@ class LoginController extends Controller
 
     public function getLogout()
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
         return redirect()->route('/');
     }
 }

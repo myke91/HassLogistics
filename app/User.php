@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     private function checkIfUserHasRole($need_role)
     {
-        return (strtolower($need_role)->strtolower($this->role->name)) ? true : null;
+        return (strtolower($need_role)==strtolower($this->role->name)) ? true : null;
     }
 
     public function hasRole($roles)
@@ -43,13 +43,12 @@ class User extends Authenticatable
             foreach ($roles as $need_role) {
                 if ($this->checkIfUserHasRole($need_role))
                 {
-            return true;
+                    return true;
+                }
+            }
+        }else{
+            return $this->checkIfUserHasRole($roles);
         }
+        return false;
     }
-}else{
-    return $this->checkIfUserHasRole($roles);
 }
-return false;
-}
-}
-
