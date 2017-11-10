@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
         @section('content')
             <div class="row">
                 <div id="breadcrumb" class="col-xs-12">

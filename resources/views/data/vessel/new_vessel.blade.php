@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('content')
 @include('popups.vesseloperator')
 @include('popups.client')
