@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
-class VisitorsMiddleware
+class Authen
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,6 @@ class VisitorsMiddleware
     {
         if(Auth::check())
             return $next($request);
-        else
-            return redirect('/');
+        return redirect('/');
     }
 }
