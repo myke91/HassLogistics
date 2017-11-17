@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
 @include('data.vessel_operators.edit_vessel_operator')
 <div class="row">

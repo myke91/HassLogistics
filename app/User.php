@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'active', 'role_id',
+        'username','name', 'email', 'password',
     ];
 
     /**
@@ -26,29 +26,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function role()
-    {
-        return $this->hasOne('App\Role', 'user_id', 'role_id');
-    }
-
-    private function checkIfUserHasRole($need_role)
-    {
-        return (strtolower($need_role)==strtolower($this->role->name)) ? true : null;
-    }
-
-    public function hasRole($roles)
-    {
-        if (is_array($roles)) {
-            foreach ($roles as $need_role) {
-                if ($this->checkIfUserHasRole($need_role))
-                {
-                    return true;
-                }
-            }
-        }else{
-            return $this->checkIfUserHasRole($roles);
-        }
-        return false;
-    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
     @include('data.client.editClientInfo')
     <div class="row">
