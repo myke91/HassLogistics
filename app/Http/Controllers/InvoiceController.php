@@ -83,8 +83,11 @@ class InvoiceController extends Controller {
 
     public function generateInvoicePdfStream() {
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1> <br /><h2>Small Test</h2>');
-        return $pdf->stream();
+        $pdf = $pdf->loadView('pdf.invoice',[]);
+        return $pdf->download('invoice.pdf');
+
+
+//        return $pdf->stream();
     }
 
 }
