@@ -32,6 +32,7 @@ Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@add
     Route::get('/invoice/pdf', ['as' => 'generateInvoicePdfStream', 'uses' => 'InvoiceController@generateInvoicePdfStream']);
     Route::get('show-payment',['as'=>'getPayment','uses'=>'PaymentController@getPayment']);
     Route::get('/invoice-payment',['as'=>'showPayment','uses'=>'PaymentController@showPayment']);
+    Route::get('/add_new_user',['as'=>'add_new_user','uses'=>'IndexController@getAddUser']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -47,6 +48,7 @@ Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@add
     Route::post('/api/save-invoice', ['as' => 'saveInvoice', 'uses' => 'InvoiceController@saveInvoice']);
     Route::post('/api/create-invoice', ['as' => 'createInvoice', 'uses' => 'InvoiceController@createInvoice']);
     Route::post('/save-payment',['as'=>'savePayment','uses'=>'PaymentController@savePayment']);
+    Route::post('/post-user',['as'=>'postUser','uses'=>'IndexController@postUser']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);
@@ -65,7 +67,4 @@ Route::get('password/reset', ['as' => 'password.request', 'uses' => 'Auth\Forgot
 Route::post('password/reset', ['as' => '', 'uses' => 'Auth\ResetPasswordController@reset']);
 Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
 
-// Registration Routes...
-Route::get('register', ['as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm']);
-Route::post('register', ['as' => '', 'uses' => 'Auth\RegisterController@register']);
 
