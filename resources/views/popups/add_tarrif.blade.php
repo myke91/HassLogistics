@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label class="col-sm-8 control-label">Cost</label>
                         <div class="col-sm-8">
-                            <input id="tarrif-charge-cost" name="unit_price" class="form-control"  placeholder="Cost" />
+                            <input id="tarrif-charge-cost" name="unit_price" class="form-control"  placeholder="Cost" readonly ="true">
                         </div>
                     </div>
                     <div class="form-group quantity">
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="col-sm-8 control-label">Actual Cost</label>
                         <div class="col-sm-8">
-                            <input id="actual_cost" name="actual_cost" class="form-control">
+                            <input id="actual_cost" name="actual_cost" class="form-control" readonly="true">
                         </div>
                     </div>
 

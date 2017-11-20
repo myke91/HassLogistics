@@ -51,7 +51,7 @@
                     </div>
 
                 </div>
-                <form class="form-horizontal" role="form" id="frm-create-vessel" action="/post_vessel">
+                <form class="form-horizontal" role="form" id="frm-create-vessel" action="{{route('postCreateVessel')}}">
                     <div id="createvesselmessages" class="hide" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <div id="createvesselmessages_content">

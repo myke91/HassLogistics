@@ -30,6 +30,8 @@ Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@add
     Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
     Route::get('/invoice-modification', ['as' => 'invoiceModification', 'uses' => 'InvoiceController@getInvoiceModification']);
     Route::get('/invoice/pdf', ['as' => 'generateInvoicePdfStream', 'uses' => 'InvoiceController@generateInvoicePdfStream']);
+    Route::get('show-payment',['as'=>'getPayment','uses'=>'PaymentController@getPayment']);
+    Route::get('/invoice-payment',['as'=>'showPayment','uses'=>'PaymentController@showPayment']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -44,6 +46,7 @@ Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@add
     Route::post('/delete/vessel_operator', ['as' => 'deleteOperator', 'uses' => 'VesselController@deleteVesselOperator']);
     Route::post('/api/save-invoice', ['as' => 'saveInvoice', 'uses' => 'InvoiceController@saveInvoice']);
     Route::post('/api/create-invoice', ['as' => 'createInvoice', 'uses' => 'InvoiceController@createInvoice']);
+    Route::post('/save-payment',['as'=>'savePayment','uses'=>'PaymentController@savePayment']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);

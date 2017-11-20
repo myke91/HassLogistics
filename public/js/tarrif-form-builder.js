@@ -120,3 +120,21 @@ function showTarrifChargeModal() {
     $('#tarrif-param-modal').modal('hide');
     $('#tarrif-charge-modal').modal('show');
 }
+
+$(document).on('change keyup', '#quantity', function(){
+
+    var fee = $('#tarrif-charge-cost').val();
+    var qty = $('#quantity').val();
+    //var vt = $('#vat').val();
+    $('#actual_cost').val(parseFloat(fee)*parseFloat(qty));
+});
+
+$(document).on('change keyup', '#vat', function(){
+
+    var fee = $('#tarrif-charge-cost').val();
+    var qty = $('#quantity').val();
+    var vatP =$('#vat').val() / 100;
+    var tVat = fee * qty * vatP;
+    var  tcost = (fee * qty) + tVat;
+    $('#actual_cost').val(parseFloat(tcost));
+});
