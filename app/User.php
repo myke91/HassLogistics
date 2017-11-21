@@ -33,7 +33,8 @@ class User extends Authenticatable
     }
     public function setRememberToken($value)
     {
-        $this->attributes['remember_token']=str_random($value);
+        $val = str_random(10);
+        $this->attributes['remember_token']=($val);
     }
 
 }
