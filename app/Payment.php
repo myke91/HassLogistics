@@ -11,6 +11,7 @@ class Payment extends Model
         'vessel_id',
         'client_id',
         'bill_item',
+        'payment_mode',
         'actual_cost',
         'amount_paid',
         'balance',
