@@ -67,7 +67,6 @@
                     <div class="col-xs-4 col-sm-4 pull-right" >
                         @guest
                         <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -115,7 +114,7 @@
                         <li><a href="{{route('add_vessel')}}"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
                         <li><a href="{{route('add_client')}}"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
                         <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
-                        <li><a href="ajax/charts_chartist.html"><i class="fa fa-book">&nbsp;</i>Load Port Charges</a></li>
+                        <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Load Port Charges</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -126,8 +125,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{route('invoice')}}"><i class="fa fa-book">&nbsp;</i>Prepare Invoice</a></li>
                         <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
-                        <!--<li><a href="ajax/charts_google.html"><i class="fa fa-book">&nbsp;</i>Invoice Modifications </a></li>-->
-                        <li><a href="ajax/charts_morris.html"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
+                        <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -137,9 +135,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('getPayment')}}">Make Payment</a></li>
-                        <li><a class="ajax-link" href="ajax/forms_elements.html">Cash Payments</a></li>
-                        <li><a class="ajax-link" href="ajax/forms_layouts.html">Cheque Payments</a></li>
-                        <li><a class="ajax-link" href="ajax/forms_file_uploader.html">Payment On Account</a></li>
+                        <li><a  href="{{route('getPayment')}}">Cash Payments</a></li>
+                        <li><a  href="{{route('getPayment')}}">Cheque Payments</a></li>
+                        <li><a  href="{{route('getPayment')}}">Payment On Account</a></li>
                     </ul>
                 </li>
                 <!--                        <li class="dropdown">

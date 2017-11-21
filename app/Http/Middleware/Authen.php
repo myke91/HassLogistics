@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
-class Authen
-{
+class Authen {
+
     /**
      * Handle an incoming request.
      *
@@ -14,10 +15,12 @@ class Authen
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-        if(Auth::check())
+    public function handle($request, Closure $next) {
+        Log::debug('inside handle authen middleware');
+        if (Auth::check()) {
             return $next($request);
+        }
         return redirect('/');
     }
+
 }

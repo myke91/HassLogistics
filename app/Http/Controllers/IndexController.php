@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 use App\User;
 
@@ -20,6 +19,6 @@ class IndexController extends Controller
     public function postUser(Request $request)
     {
         User::create($request->all());
-        return back()->with(['success'=>'User." username ".created successfully']);
+        return back()->with(['success'=>'User '. $request->username .'created successfully']);
     }
 }
