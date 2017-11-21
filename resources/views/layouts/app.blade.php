@@ -137,9 +137,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('getPayment')}}">Make Payment</a></li>
-                        <li><a class="ajax-link" href="ajax/forms_elements.html">Cash Payments</a></li>
-                        <li><a class="ajax-link" href="ajax/forms_layouts.html">Cheque Payments</a></li>
-                        <li><a class="ajax-link" href="ajax/forms_file_uploader.html">Payment On Account</a></li>
+                        <li><a href="{{route('cashPayments')}}">Cash Payments</a></li>
+                        <li><a  href="{{route('chequePayments')}}">Cheque Payments</a></li>
+                        <li><a  href="{{route('paymentOnAccount')}}">Payment On Account</a></li>
                     </ul>
                 </li>
                 <!--                        <li class="dropdown">

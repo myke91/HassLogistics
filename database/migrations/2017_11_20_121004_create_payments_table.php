@@ -17,8 +17,9 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->integer('client_id')->unsigned();
             $table->integer('vessel_id')->unsigned();
-            $table->Integer('user_id')->unsighned();
+            $table->Integer('user_id')->unsigned();
             $table->string('bill_item');
+            $table->string('payment_mode');
             $table->decimal('actual_cost');
             $table->decimal('amount_paid');
             $table->decimal('balance');

@@ -33,6 +33,9 @@ Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@add
     Route::get('show-payment',['as'=>'getPayment','uses'=>'PaymentController@getPayment']);
     Route::get('/invoice-payment',['as'=>'showPayment','uses'=>'PaymentController@showPayment']);
     Route::get('/add_new_user',['as'=>'add_new_user','uses'=>'IndexController@getAddUser']);
+    Route::get('/cashPayments',['as'=>'cashPayments','uses'=>'PaymentController@getCashPayments']);
+    Route::get('/chequesPayment',['as'=>'chequePayments','uses'=>'PaymentController@getChequePayments']);
+    Route::get('/paymentOnAccount',['as'=>'paymentOnAccount','uses'=>'PaymentController@getPaymentOnAccount']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);

@@ -41,4 +41,18 @@ class paymentController extends Controller
 
     }
 
+    public function getCashPayments()
+    {
+        return view('payment.cashPayment');
+    }
+
+    public function getChequePayments()
+    {
+        return view('payment.chequePayment');
+    }
+
+    public function getPaymentOnAccount()
+    {
+        return view('payment.paymentOnAccount');
+    }
 }

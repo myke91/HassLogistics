@@ -127,6 +127,21 @@
                                     </td>
                                 </tr>
                                 </tbody>
+                                <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <b>Payment Mode</b>
+                                    </td>
+                                    <td colspan="5">
+                                       <select name="payment_mode" id="paymentmode" required>
+                                           <option></option>
+                                           <option>Cash</option>
+                                           <option>Cheque</option>
+                                           <option>On Account</option>
+                                       </select>
+                                    </td>
+                                </tr>
+                                </tbody>
                             </table>
                         </div>
                         <div class="panel-footer">
