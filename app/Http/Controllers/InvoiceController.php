@@ -11,7 +11,7 @@ use App\Client;
 use App\Vessel;
 use App\TarrifParams;
 use App\Invoice;
-use \Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use View;
 
 class InvoiceController extends Controller {
@@ -86,12 +86,10 @@ class InvoiceController extends Controller {
     }
 
     public function generateInvoicePdfStream() {
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf = $pdf->loadView('pdf.invoice',[]);
-        return $pdf->download('invoice.pdf');
+        //$pdf = \App::make('dompdf.wrapper');
+        $pdf = PDF::loadView('pdf.invoice',[]);
+        return $pdf->stream();
 
-
-//        return $pdf->stream();
     }
 
 }

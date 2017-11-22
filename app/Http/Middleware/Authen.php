@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use Illuminate\Support\Facades\Log;
 
 class Authen {
 
@@ -16,7 +15,6 @@ class Authen {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        Log::debug('inside handle authen middleware');
         if (Auth::check()) {
             return $next($request);
         }

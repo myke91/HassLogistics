@@ -12,21 +12,15 @@ class UsersTableSeeder extends Seeder {
      */
     public function run() {
 
-        User::insert([
-                [
-                'name' => 'Fred Ahanogbe',
-                'username' => 'fred',
-                'email' => 'fred.ahanogbe@gmail.com',
-                'password' => '123456',
-                'remember_token' => str_random(10),
-            ],
+        User::create(
+              
                 [
                 'name' => 'Michael Dugah',
                 'username' => 'myke.dugah',
                 'email' => 'myke.dugah@gmail.com',
                 'password' => 'admin',
                 'remember_token' => str_random(10),
-            ]
+            
         ]);
     }
 

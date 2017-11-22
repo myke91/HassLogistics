@@ -35,7 +35,7 @@
         <th>Vat</th>
         <th>Invoice Details</th>
         <th>Invoice Date</th>
-        <th colspan="2">Actions</th>
+        
     </tr>
     </thead>
     <tbody>
@@ -47,12 +47,7 @@
             <td>{{$i->vat}}</td>
             <td>Unit Price: {{$i->unit_price }} / Quanity: {{$i->quantity}} / Total Cost: {{$i->actual_cost}}</td>
             <td>{{$i->created_at}}</td>
-            <td class="del">
-                <Button value="{{$i->invoice_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
-            </td>
-            <td class="del">
-                <Button value="{{$i->invoice_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></Button>
-            </td>
+            
         </tr>
     @endforeach
     </tbody>

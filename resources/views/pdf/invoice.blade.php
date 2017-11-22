@@ -10,7 +10,7 @@
                 <p>info@hasslogistics.com</p>	
             </td>							
             <td>
-                <img  src="{{asset('images/hass-bg.jpg')}}" height="100px" width="100px"/>
+                <img src="{{ public_path() . "app\hass-bg.jpg" }}" height="100px" width="100px"/>
             </td>
 
             <td>
