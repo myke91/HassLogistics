@@ -31,7 +31,11 @@ class paymentController extends Controller
     public function showPayment(Request $request)
     {
         $invoice_id = $request->invoice_id;
-        return $this->payment('payment.payment',$invoice_id);
+        if(count($invoice_id)>0)
+            return $this->payment('payment.payment', $invoice_id);
+
+         else  return redirect()->back()->with(['error' =>'Invoice Id does not exit']);
+
     }
 
     public function savePayment(Request $request)
@@ -43,12 +47,23 @@ class paymentController extends Controller
 
     public function getCashPayments()
     {
-        return view('payment.cashPayment');
+        $cash = Payment::where("payment_mode","Cash")
+            ->join('vessels','vessels.vessel_id','=','payments.vessel_id')
+            ->join('clients','clients.client_id','=','payments.client_id')
+            ->join('users','users.id','=','payments.user_id')
+            ->paginate(10);
+        return view('payment.cashPayment',compact('cash'));
     }
+
 
     public function getChequePayments()
     {
-        return view('payment.chequePayment');
+        $cheques = Payment::where("payment_mode","Cheque")
+            ->join('vessels','vessels.vessel_id','=','payments.vessel_id')
+            ->join('clients','clients.client_id','=','payments.client_id')
+            ->join('users','users.id','=','payments.user_id')
+            ->paginate(10);
+        return view('payment.chequePayment',compact('cheques'));
     }
 
     public function getPaymentOnAccount()
