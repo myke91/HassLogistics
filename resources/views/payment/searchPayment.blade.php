@@ -32,7 +32,6 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="col-md-3">
-
                             <form action="{{route('showPayment')}}" class="search-payment" method="GET">
                                 <input class="form-control" name="invoice_id"  id="invoice_id"  placeholder="Enter Invoice ID"   type="text" >
                             </form>
@@ -49,6 +48,12 @@
                             <label class="invoice-number">Receipt N<sub>0</sub>: <b></b></label>
                         </div>
                     </div>
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session('error')}}
+                        </div>
+                    @endif
                     <div class="panel-body">
                         <table style="margin-top: 12px;">
                             <caption class="academicDetail">

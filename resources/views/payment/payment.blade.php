@@ -35,6 +35,7 @@
                         {{session('success')}}
                     </div>
                 @endif
+
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="col-md-3">

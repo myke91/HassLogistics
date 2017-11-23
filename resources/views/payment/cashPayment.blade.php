@@ -11,6 +11,68 @@
             </ol>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span>PAYMENTS MADE BY CASH</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="expand-link">
+                            <i class="fa fa-expand"></i>
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <h4 class="page-header">CASH PAYMENTS</h4>
+                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
+                        <thead>
+
+                        <tr>
+                            <th>Vessel Name</th>
+                            <th>Client Name</th>
+                            <th>Bill Item</th>
+                            <th>Total Cost</th>
+                            <th>Amount Paid</th>
+                            <th>Balance</th>
+                            <th>Payment Details</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($cash as $c)
+                            <tr>
+                                <td>&nbsp;{{$c->vessel_name}}</td>
+                                <td>{{$c->client_name}}&nbsp;</td>
+                                <td>&nbsp;{{$c->bill_item}}</td>
+                                <td>&nbsp;{{$c->actual_cost}}</td>
+                                <td>{{$c->amount_paid}}&nbsp;</td>
+                                <td>{{$c->balance}}&nbsp;</td>
+                                <td>&nbsp;Discount: {{$c->discount}} / Payment Date: {{$c->payment_date}} /
+                                    Received By: {{ucfirst($c->username)}}</td>
+
+                            </tr>
+
+                        </tbody>
+                        @endforeach
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+
+                </div>
+                {{$cash->links()}}
+            </div>
+        </div>
+
+    </div>
+
 
 
 @endsection
