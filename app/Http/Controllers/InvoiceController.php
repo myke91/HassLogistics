@@ -67,10 +67,10 @@ class InvoiceController extends Controller {
         }
     }
 
-    public function confirmAndSaveInvoice(Request $request){
+    public function confirmAndSaveInvoice(Request $request) {
         
     }
-    
+
     public function getInvoiceInfo() {
         return view('invoicing.invoiceInfo');
     }
@@ -84,16 +84,17 @@ class InvoiceController extends Controller {
         return Invoice::join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id');
     }
-    public function getInvoiceModification()
-    {
+
+    public function getInvoiceModification() {
         return view('invoicing.invoiceModification');
     }
 
     public function generateInvoicePdfStream() {
         //$pdf = \App::make('dompdf.wrapper');
-        $pdf = PDF::loadView('pdf.invoice',[]);
+        $data = ['invoiceNumber' => '453433534'];
+        Log::debug($data);
+        $pdf = PDF::loadView('pdf.invoice', compact('data'));
         return $pdf->stream();
-
     }
 
 }

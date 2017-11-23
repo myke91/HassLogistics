@@ -14,7 +14,7 @@
             </td>
 
             <td>
-                <p>Invoice No: HLG/TEM/0000106</p>
+                <p>Invoice No: HLG/TEM/0000106 {{$data['invoiceNumber']}} </p>
                 <p>Date: 30/10/17</p>
                 <p>Customer ID:</p>
             </td>
