@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Vessel;
 use App\Client;
 use App\VesselOperator;
+use App\Audit;
 use View;
 
 class VesselController extends Controller {
@@ -24,12 +25,14 @@ class VesselController extends Controller {
 
     public function createVesselOperator(Request $request) {
         if ($request->ajax()) {
+            
             return response(VesselOperator::create($request->all()));
         }
     }
 
     public function createVessel(Request $request) {
         if ($request->ajax()) {
+            Audit::create(['user' => 'myke.dugah', 'activity' => 'Created Vessel' . $request->vessel_name, 'act_date' => date(), 'act_time' => time()]);
             return response(Vessel::create($request->all()));
         }
     }
@@ -63,6 +66,7 @@ class VesselController extends Controller {
 
     public function updateVessel(Request $request) {
         if ($request->ajax()) {
+            Audit::create(['user' => 'myke.dugah', 'activity' => 'Updated Vessel' . $request->vessel_name, 'act_date' => date(), 'act_time' => time()]);
             return response(Vessel::updateOrCreate(['vessel_id' => $request->vessel_id], $request->all()));
         }
     }

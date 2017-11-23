@@ -63,10 +63,14 @@ class InvoiceController extends Controller {
     public function createInvoice(Request $request) {
         if ($request->ajax()) {
             //return $request->all();
-            return response(Invoice::create($request->all()));
+            return response(\App\TempInvoice::create($request->all()));
         }
     }
 
+    public function confirmAndSaveInvoice(Request $request){
+        
+    }
+    
     public function getInvoiceInfo() {
         return view('invoicing.invoiceInfo');
     }
