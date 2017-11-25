@@ -1,99 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('popups.add_tarrif')
-<style>
-    .invoice-box {
-        max-width: 800px;
-        margin: auto;
-        padding: 30px;
-        border: 1px solid #eee;
-        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
-    }
 
-    .invoice-box table {
-        width: 100%;
-        line-height: inherit;
-        text-align: left;
-    }
-
-    .invoice-box table td {
-        padding: 5px;
-        vertical-align: top;
-    }
-
-    .invoice-box table tr td:nth-child(2) {
-        text-align: right;
-    }
-
-    .invoice-box table tr.top table td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.top table td.title {
-        font-size: 45px;
-        line-height: 45px;
-        color: #333;
-    }
-
-    .invoice-box table tr.information table td {
-        padding-bottom: 40px;
-    }
-
-    .invoice-box table tr.heading td {
-        background: #eee;
-        border-bottom: 1px solid #ddd;
-        font-weight: bold;
-    }
-
-    .invoice-box table tr.details td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.item td{
-        border-bottom: 1px solid #eee;
-    }
-
-    .invoice-box table tr.item.last td {
-        border-bottom: none;
-    }
-
-    .invoice-box table tr.total td:nth-child(2) {
-        border-top: 2px solid #eee;
-        font-weight: bold;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-
-        .invoice-box table tr.information table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-    }
-
-    /** RTL **/
-    .rtl {
-        direction: rtl;
-        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    }
-
-    .rtl table {
-        text-align: right;
-    }
-
-    .rtl table tr td:nth-child(2) {
-        text-align: left;
-    }
-</style>
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -194,7 +102,7 @@
                             <th>Vat</th>
                             <th>Invoice Details</th>
                             <th>Invoice Date</th>
-
+ <th colspan="2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -206,6 +114,12 @@
                             <td>&nbsp;</td>
                             <td>Unit Price: &nbsp; / Quanity: &nbsp; / Total Cost: &nbsp;</td>
                             <td>&nbsp;</td>
+                            <td class="del">
+                <button value="{{$v->vessel_id}}" class="del-class"><i class="fa fa-trash-o"></i></button>
+            </td>
+            <td class="del">
+                <button value="{{$v->vessel_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
+            </td>
                         </tr>
 
                     </tbody>
@@ -236,7 +150,6 @@
 // Run Select2 plugin on elements
     function DemoSelect2() {
         $('.s2').select2({placeholder: "Select"});
-        $('.s2').select2({placeholder: "Select"});
     }
     // Run timepicker
     function DemoTimePicker() {
@@ -249,24 +162,7 @@
             $(this).find('label input[type=text]').attr('placeholder', 'Search');
         });
     }
-    function MakePDFInvoice() {
-        var doc = new jsPDF();
-        var elementHandler = {
-            '#ignorePDF': function (element, renderer) {
-                return true;
-            }
-        };
-        var source = $('#invoice')[0];
-        doc.fromHTML(
-                source,
-                15,
-                15,
-                {
-                    'width': 180, 'elementHandlers': elementHandler
-                });
 
-        doc.output("dataurlnewwindow");
-    }
     $(document).ready(function () {
         //disable vessel dropdown and add tarrif button
         $('.vessels').attr("disabled", "disabled");

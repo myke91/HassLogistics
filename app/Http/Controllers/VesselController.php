@@ -25,15 +25,19 @@ class VesselController extends Controller {
 
     public function createVesselOperator(Request $request) {
         if ($request->ajax()) {
-            
+
             return response(VesselOperator::create($request->all()));
         }
     }
 
     public function createVessel(Request $request) {
         if ($request->ajax()) {
-            Audit::create(['user' => 'myke.dugah', 'activity' => 'Created Vessel' . $request->vessel_name, 'act_date' => date(), 'act_time' => time()]);
-            return response(Vessel::create($request->all()));
+            try {
+                Audit::create(['user' => 'myke.dugah', 'activity' => 'Created Vessel ' . $request->vessel_name, 'act_date' => date('Y-m-d'), 'act_time' => date('H:i:s')]);
+                return response(Vessel::create($request->all()));
+            } catch (\Illuminate\Database\QueryException $ex) {
+                return response()->json(['error' => 'An error occured'], 500);
+            }
         }
     }
 

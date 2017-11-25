@@ -60,21 +60,21 @@
                     <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Vessel Name</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_name" name="vessel_name" data-toggle="tooltip" data-placement="bottom" title="Tooltip for name" required>
+                            <input type="text" class="form-control" id="vessel_name" name="vessel_name" data-toggle="tooltip" data-placement="bottom"  >
                         </div>
                         <label class="col-sm-2 control-label">Vessel Callsign</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_callsign" name="vessel_callsign" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
+                            <input type="text" class="form-control" id="vessel_callsign" name="vessel_callsign" data-toggle="tooltip" data-placement="bottom" required>
                         </div>
                     </div>
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel Class</label>
                         <div class="col-sm-4">
-                            <input type="number" class="form-control" id="vessel_class" name="vessel_class" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
+                            <input type="number" class="form-control" id="vessel_class" name="vessel_class" data-toggle="tooltip" data-placement="bottom" required>
                         </div>
                         <label class="col-sm-2 control-label">Vessel Operator</label>
                         <div class="col-sm-2">
-                            <select id="vessel_operator_id" name="vessel_operator_id" class="populate placeholder">
+                            <select id="vessel_operator_id" name="vessel_operator_id" class="populate placeholder" required>
                                 <option>--------</option>
                                 @foreach($vesseloperator as $key =>$v)
                                 <option value="{{$v->vessel_operator_id}}">{{$v->operator_name}}</option>
@@ -86,7 +86,7 @@
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel Type</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_type" name="vessel_type" >
+                            <input type="text" class="form-control" id="vessel_type" name="vessel_type" required>
                         </div>
 
                         <label class="col-sm-2 control-label">Vessel Flag</label>
@@ -106,7 +106,7 @@
 
                         <label class="col-sm-2 control-label">Vessel LOA</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_loa" name="vessel_loa" data-toggle="tooltip" data-placement="top">
+                            <input type="text" class="form-control" id="vessel_loa" name="vessel_loa" data-toggle="tooltip" data-placement="top" required>
                         </div>
 
                         <label class="col-sm-2 control-label">Vessel Owner</label>
@@ -123,12 +123,12 @@
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel Arrival Date</label>
                         <div class="col-sm-4">
-                            <input type="text" id="arrival_date" name="arrival_date" class="form-control" placeholder="Date">
+                            <input type="text" id="arrival_date" name="arrival_date" class="form-control" placeholder="Date" required>
                             <span class="fa fa-calendar txt-danger form-control-feedback"></span>
                         </div>
                         <label class="col-sm-2 control-label">Vessel Departure Date</label>
                         <div class="col-sm-4">
-                            <input type="text" id="departure_date" name="departure_date" class="form-control" placeholder="Date">
+                            <input type="text" id="departure_date" name="departure_date" class="form-control" placeholder="Date" required>
                             <span class="fa fa-calendar txt-danger form-control-feedback"></span>
                         </div>
                     </div> 
@@ -138,58 +138,58 @@
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">IMO / Lloydsnr</label>
                             <div class="col-sm-2">
-                                <input type="text" id="imo" name="imo" class="form-control" >
+                                <input type="text" id="imo" name="imo" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Reg Place</label>
                             <div class="col-sm-2">
-                                <input type="text" id="reg_place" name="reg_place" class="form-control" >
+                                <input type="text" id="reg_place" name="reg_place" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Construction Year</label>
                             <div class="col-sm-2">
-                                <input type="text" id="construction_year" name="construction_year" class="form-control" >
+                                <input type="text" id="construction_year" name="construction_year" class="form-control" required>
 
                             </div>
                         </div> 
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">Crew</label>
                             <div class="col-sm-2">
-                                <input type="text" id="crew" name="crew" class="form-control" >
+                                <input type="text" id="crew" name="crew" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Reg Year</label>
                             <div class="col-sm-2">
-                                <input type="text" id="reg_year" name="reg_year" class="form-control" >
+                                <input type="text" id="reg_year" name="reg_year" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Homeport</label>
                             <div class="col-sm-2">
-                                <input type="text" id="homeport" name="homeport" class="form-control" >
+                                <input type="text" id="homeport" name="homeport" class="form-control" required>
 
                             </div>
                         </div> 
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">Tonnage Certificate</label>
                             <div class="col-sm-2">
-                                <input type="text" id="tonnage_certificate" name="tonnage_certificate" class="form-control" >
+                                <input type="text" id="tonnage_certificate" name="tonnage_certificate" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">MMSI</label>
                             <div class="col-sm-2">
-                                <input type="text" id="mmsi" name="mmsi" class="form-control" >
+                                <input type="text" id="mmsi" name="mmsi" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">ISPS No</label>
                             <div class="col-sm-2">
-                                <input type="text" id="isps_no" name="isps_no" class="form-control" >
+                                <input type="text" id="isps_no" name="isps_no" class="form-control" required>
 
                             </div>
                         </div> 
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">Ice Class</label>
                             <div class="col-sm-2">
-                                <input type="text" id="ice_class" name="ice_class" class="form-control" >
+                                <input type="text" id="ice_class" name="ice_class" class="form-control" required>
 
                             </div>
 
@@ -200,80 +200,80 @@
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">DWT</label>
                             <div class="col-sm-2">
-                                <input type="text" id="dwt" name="dwt" class="form-control" >
+                                <input type="text" id="dwt" name="dwt" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">SBT</label>
                             <div class="col-sm-2">
-                                <input type="text" id="sbt" name="sbt" class="form-control" >
+                                <input type="text" id="sbt" name="sbt" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Air Draft</label>
                             <div class="col-sm-2">
-                                <input type="text" id="air_draft" name="air_draft" class="form-control" >
+                                <input type="text" id="air_draft" name="air_draft" class="form-control" required>
 
                             </div>
                         </div>
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">LL</label>
                             <div class="col-sm-2">
-                                <input type="text" id="ll" name="ll" class="form-control" >
+                                <input type="text" id="ll" name="ll" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">GT</label>
                             <div class="col-sm-2">
-                                <input type="text" id="gt" name="gt" class="form-control" >
+                                <input type="text" id="gt" name="gt" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">LOA</label>
                             <div class="col-sm-2">
-                                <input type="text" id="loa" name="loa" class="form-control" >
+                                <input type="text" id="loa" name="loa" class="form-control" required>
 
                             </div>
                         </div> 
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">Knots</label>
                             <div class="col-sm-2">
-                                <input type="text" id="knots" name="knots" class="form-control" >
+                                <input type="text" id="knots" name="knots" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">FTC</label>
                             <div class="col-sm-2">
-                                <input type="text" id="ftc" name="ftc" class="form-control" >
+                                <input type="text" id="ftc" name="ftc" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">NT</label>
                             <div class="col-sm-2">
-                                <input type="text" id="nt" name="nt" class="form-control" >
+                                <input type="text" id="nt" name="nt" class="form-control" required>
 
                             </div>
                         </div>
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">Beam</label>
                             <div class="col-sm-2">
-                                <input type="text" id="beam" name="beam" class="form-control" >
+                                <input type="text" id="beam" name="beam" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">CBM Tank</label>
                             <div class="col-sm-2">
-                                <input type="text" id="cbm_tank" name="cbm_tank" class="form-control" >
+                                <input type="text" id="cbm_tank" name="cbm_tank" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">RGT</label>
                             <div class="col-sm-2">
-                                <input type="text" id="rgt" name="rgt" class="form-control" >
+                                <input type="text" id="rgt" name="rgt" class="form-control" required>
 
                             </div>
                         </div> 
                         <div class="form-group has-success has-feedback">
                             <label class="col-sm-2 control-label">Max Draft</label>
                             <div class="col-sm-2">
-                                <input type="text" id="max_draft" name="max_draft" class="form-control" >
+                                <input type="text" id="max_draft" name="max_draft" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">G-Factor</label>
                             <div class="col-sm-2">
-                                <input type="text" id="g_factor" name="g_factor" class="form-control" >
+                                <input type="text" id="g_factor" name="g_factor" class="form-control" required>
 
                             </div>
 

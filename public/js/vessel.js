@@ -30,7 +30,6 @@ $('.add-more-client').on('click', function () {
 
 $('.create-client').on('click', function (e) {
     e.preventDefault();
-    console.log('received click event for additional client creation');
     var data = $("#frm-create-client").serialize();
     var url = $("#frm-create-client").attr('action');
     $.post(url, data, function (data) {
@@ -59,13 +58,24 @@ $('#frm-create-vessel').on('submit', function (e) {
     e.preventDefault();
     var data = $(this).serialize();
     var url = $(this).attr('action');
-    $.post(url, data, function (data) {
-        showVesselInfo(data.vessel_name);
-    });
-    $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-    $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
-    $('#modal').modal('show');
+    $.post(url, data,
+            function (data) {
+                console.log(data);
+                 console.log('entered success');
+                $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+                $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
+                $('#modal').modal('show');
 //        $(this).trigger('reset');
+                showVesselInfo(data.vessel_name);
+            })
+            .fail(function () {
+                 console.log('entered failure');
+                $('#createvesselmessages').removeClass('hide').addClass('alert alert-danger alert-dismissible').slideDown().show();
+                $('#createvesselmessages_content').html('<h4>An error occurred</h4>');
+                $('#modal').modal('show');
+//        $(this).trigger('reset');
+            });
+
 });
 
 
