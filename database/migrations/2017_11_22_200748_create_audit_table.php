@@ -18,7 +18,7 @@ class CreateAuditTable extends Migration
             $table->string('user');
             $table->text('activity');
             $table->date('act_date');
-            $table->time('act_time');
+            $table->string('act_time');
             $table->timestamps();
         });
     }

@@ -2,20 +2,22 @@
 
 use Illuminate\Database\Seeder;
 use App\Role;
-class RolesTableSeeder  extends Seeder
-{
+
+class RolesTableSeeder extends Seeder {
+
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         Role::insert([
-         ['name'=>'Admin'] ,
-         ['name'=>'Receptionist'],
-            ['name'=>'Manager'],
-            ['name'=>'CEO']
+                ['name' => 'Admin'],
+                ['name' => 'Clerk'],
+                ['name' => 'Manager'],
+                ['name' => 'Cashier'],
+                ['name' => 'Front Desk']
         ]);
     }
+
 }

@@ -29,6 +29,13 @@
                                 <input type="number" class="form-control" id="client_number" name="client_number" data-placement="bottom" >
                             </div>
                         </div>
+                        <div class="form-group has-success has-feedback">
+                            <label class="col-sm-2 control-label">Digital Address</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="digital_address" name="digital_address" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                            
+                        </div>
                     </form>
                 </div>
             </div>

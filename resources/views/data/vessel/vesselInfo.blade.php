@@ -48,10 +48,10 @@
             <td>{{$v->arrival_date}}</td>
             <td>{{$v->departure_date}}</td>
             <td class="del">
-                <Button value="{{$v->vessel_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
+                <button value="{{$v->vessel_id}}" class="del-class"><i class="fa fa-trash-o"></i></button>
             </td>
             <td class="del">
-                <Button value="{{$v->vessel_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                <button value="{{$v->vessel_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
             </td>
         </tr>
         @endforeach

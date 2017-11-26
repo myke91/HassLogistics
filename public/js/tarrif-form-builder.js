@@ -9,9 +9,9 @@ $(document).on('click', '.add-tarrif', function (e) {
     $.get('/api/tarrifs', function (data) {
         console.log(data);
         $('#tarrif-name').html($('<option>').text('CHOOSE TARRIF'));
-        var vesseldata = $('#vessel_choose').val()
+        var vesseldata = $('#vessel_choose').val();
         $('#vessel').val(vesseldata);
-        var clientdata = $('#client_choose').val()
+        var clientdata = $('#client_choose').val();
         $('#client').val(clientdata);
         $.each(data, function (i, value) {
             console.log(value.tarrif_name);

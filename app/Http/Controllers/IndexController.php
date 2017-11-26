@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Role;
 
 class IndexController extends Controller
 {
@@ -14,7 +15,8 @@ class IndexController extends Controller
     }
     public function getAddUser()
     {
-        return view('auth.add_new_user');
+        $roles = Role::all();
+        return view('auth.add_new_user',compact('roles'));
     }
     public function postUser(Request $request)
     {
