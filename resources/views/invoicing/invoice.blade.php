@@ -133,7 +133,7 @@
     </div>
 
 </div>
-<div class="col-sm-2" style="float:right">
+<div class="col-sm-2" style="float:left">
     <button type="submit" class="btn btn-primary btn-label-left confirm">
         <span><i class="fa fa-money"></i></span>
         Confirm And Generate Invoice
