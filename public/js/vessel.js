@@ -68,8 +68,9 @@ $('#frm-create-vessel').on('submit', function (e) {
 //        $(this).trigger('reset');
                 showVesselInfo(data.vessel_name);
             })
-            .fail(function () {
+            .fail(function (data) {
                  console.log('entered failure');
+         console.log(data);
                 $('#createvesselmessages').removeClass('hide').addClass('alert alert-danger alert-dismissible').slideDown().show();
                 $('#createvesselmessages_content').html('<h4>An error occurred</h4>');
                 $('#modal').modal('show');

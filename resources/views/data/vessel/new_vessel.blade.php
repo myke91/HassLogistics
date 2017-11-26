@@ -57,6 +57,18 @@
                         <div id="createvesselmessages_content">
                         </div>
                     </div>
+                     <div class="form-group has-success has-feedback">
+                        <label class="col-sm-2 control-label">Vessel Owner</label>
+                        <div class="col-sm-9">
+                            <select id="vessel_owner" name="vessel_owner" class="populate placeholder">
+                                <option>--------</option>
+                                @foreach($clients as $key =>$v)
+                                <option value="{{$v->client_id}}">{{$v->client_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <span class="col-sm-4 fa fa-plus txt-warning form-control-feedback add-more-client"></span>
+                    </div>
                     <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Vessel Name</label>
                         <div class="col-sm-4">
@@ -108,17 +120,11 @@
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="vessel_loa" name="vessel_loa" data-toggle="tooltip" data-placement="top" required>
                         </div>
-
-                        <label class="col-sm-2 control-label">Vessel Owner</label>
-                        <div class="col-sm-2">
-                            <select id="vessel_owner" name="vessel_owner" class="populate placeholder">
-                                <option>--------</option>
-                                @foreach($clients as $key =>$v)
-                                <option value="{{$v->client_id}}">{{$v->client_name}}</option>
-                                @endforeach
-                            </select>
+                        <label class="col-sm-2 control-label">Vessel GRT</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="vessel_grt" name="vessel_grt" data-toggle="tooltip" data-placement="top" required>
                         </div>
-                        <span class="fa fa-plus txt-warning form-control-feedback add-more-client"></span>
+
                     </div>
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Vessel Arrival Date</label>
@@ -132,6 +138,8 @@
                             <span class="fa fa-calendar txt-danger form-control-feedback"></span>
                         </div>
                     </div> 
+                   
+
                     <fieldset>
                         <legend>Registration Info</legend>
 
