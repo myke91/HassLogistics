@@ -91,7 +91,6 @@ private $_pdf;
     }
 
     public function generateInvoicePdfStream() {
-        //$pdf = \App::make('dompdf.wrapper');
         $data = ['invoiceNumber' => '453433534'];
         Log::debug($data);
         $this->_pdf = PDF::loadView('pdf.invoice', compact('data'));
