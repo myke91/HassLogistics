@@ -131,7 +131,7 @@
                                  </td>
                             <td><input type="text" name="invoice_date" value="{{$t->invoice_date}}" size="8" style="border:none" readonly></td>
                             <td class="del">
-                            <button value="{{$t->invoice_id}}" class="del-class"
+                            <button value="{{$t->invoice_id}}" class="del-invoice"
                                    ><i class="fa fa-trash-o"></i></button>
                         </td>
                         <td class="del">
@@ -247,6 +247,17 @@
             return false;
         }
 
+    })
+    $(document).on('click', '.del-invoice', function (e) {
+        invoice_id = $(this).val();
+        var validate = confirm("Are you sure you want to delete this invoice? After deleting,you will not be able to edit it again");
+        if (validate== true) {
+            $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
+                console.log(data);
+            })
+            } else {
+                return false;
+            }
     })
 </script>
 
