@@ -51,9 +51,11 @@ Route::group(['middleware' => 'authen'], function () {
     Route::post('/update/vessel_operator', ['as' => 'updateVesselOperator', 'uses' => 'VesselController@updateVesselOperator']);
     Route::post('/delete/vessel_operator', ['as' => 'deleteOperator', 'uses' => 'VesselController@deleteVesselOperator']);
     Route::post('/api/save-invoice', ['as' => 'saveInvoice', 'uses' => 'InvoiceController@saveInvoice']);
-    Route::post('/api/create-invoice', ['as' => 'createInvoice', 'uses' => 'InvoiceController@createInvoice']);
+    Route::post('/create-tempinvoice', ['as' => 'createTempInvoice', 'uses' => 'InvoiceController@createTempInvoice']);
     Route::post('/save-payment', ['as' => 'savePayment', 'uses' => 'PaymentController@savePayment']);
     Route::post('/post-user', ['as' => 'postUser', 'uses' => 'IndexController@postUser']);
+    Route::post('/confirm-invoice',['as'=>'confirmInvoice','uses'=>'InvoiceController@confirmAndSaveInvoice']);
+    Route::post('/delete-invoice',['as'=>'deleteInvoce','uses'=>'InvoiceController@deleteTempInvoice']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);

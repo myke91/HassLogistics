@@ -15,6 +15,7 @@ class TempInvoice extends Model {
         'quantity',
         'actual_cost',
         'vat',
+        'invoice_date',
         'invoice_status'];
     protected $primaryKey = 'invoice_id';
     public $timestamps = true;

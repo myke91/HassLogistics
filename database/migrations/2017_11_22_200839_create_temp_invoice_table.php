@@ -22,6 +22,7 @@ class CreateTempInvoiceTable extends Migration
             $table->integer('quantity')->default('1');
             $table->decimal('actual_cost', 20, 2)->nullable();
             $table->decimal('vat', 20, 2)->nullable();
+            $table->date('invoice_date');
             $table->boolean('invoice_status')->nullable();
             $table->timestamps();
             $table->foreign('vessel_id')->references('vessel_id')->on('vessels');

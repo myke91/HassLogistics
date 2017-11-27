@@ -22,6 +22,7 @@ class CreateInvoiceTable extends Migration {
             $table->decimal('actual_cost', 20, 2)->nullable();
             $table->decimal('vat', 20, 2)->nullable();
             $table->boolean('invoice_status')->nullable();
+            $table->date('invoice_date');
             $table->timestamps();
             $table->foreign('vessel_id')->references('vessel_id')->on('vessels');
             $table->foreign('client_id')->references('client_id')->on('clients');
