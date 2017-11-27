@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use App\Tarrif;
 use App\TarrifType;
 use App\TarrifCharge;
@@ -18,14 +19,15 @@ use View;
 
 class InvoiceController extends Controller {
 
+    private $_pdf;
+
     public function prepareInvoice() {
         $clients = Client::all();
         $vessels = Vessel::all();
-        $temp = TempInvoice::join('clients','clients.client_id','=','temp_invoice.client_id')
-                                   ->join('vessels','vessels.vessel_id','=','temp_invoice.vessel_id')
-                                   ->get();
-        return view('invoicing.invoice',compact('clients','vessels','temp'));
-
+        $temp = TempInvoice::join('clients', 'clients.client_id', '=', 'temp_invoice.client_id')
+                ->join('vessels', 'vessels.vessel_id', '=', 'temp_invoice.vessel_id')
+                ->get();
+        return view('invoicing.invoice', compact('clients', 'vessels', 'temp'));
     }
 
     public function getTarrifs() {
@@ -72,33 +74,23 @@ class InvoiceController extends Controller {
     }
 
     public function confirmAndSaveInvoice(Request $request) {
-//        $in = new Invoice;
-//        $in->vessel_id=$request->vessel_id;
-//        $in->client_id=$request->client_id;
-//        $in->bill_item=$request->bill_item;
-//        $in->unit_price=$request->unit_price;
-//        $in->quantity=$request->quantity;
-//        $in->actual_cost=$request->actual_cost;
-//        $in->vat=$request->vat;
-//        $in->invoice_date=$request->invoice_date;
-//        $in->invoice_status=$request->invoice_status;
-//
-//        if($in->save())
-//        {
-//            return back()->with(['success'=>'Invoice confirmed successfully']);
-//        }
 
         if ($request->ajax())
         {
             return response(Invoice::create($request->all()));
+
         }
     }
-    public function deleteTempInvoice(Request $request)
-    {
-            if ($request->ajax())
-            {
-                TempInvoice::destroy($request->invoice_id);
-            }
+
+
+
+    public function deleteTempInvoice(Request $request) {
+
+        if ($request->ajax())
+        {
+            TempInvoice::destroy($request->invoice_id);
+        }
+
 
     }
 
@@ -121,11 +113,19 @@ class InvoiceController extends Controller {
     }
 
     public function generateInvoicePdfStream() {
-        //$pdf = \App::make('dompdf.wrapper');
         $data = ['invoiceNumber' => '453433534'];
         Log::debug($data);
-        $pdf = PDF::loadView('pdf.invoice', compact('data'));
-        return $pdf->stream();
+        $this->_pdf = PDF::loadView('pdf.invoice', compact('data'));
+        return $this->_pdf->stream();
+    }
+
+    public function emailInvoice() {
+        Mail::send('emails.welcome', $data, function($message) use ($input) {
+            $message->to('mail@domain.net');
+            $message->subject("Invoice to $client on vessel $vessel");
+            $message->from('sender@domain.net');
+            $message->attachData($this->_pdf->stream(), $client . '_' . $vessel . 'invoice.pdf');
+        });
     }
 
 }
