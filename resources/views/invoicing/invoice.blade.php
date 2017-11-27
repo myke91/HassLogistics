@@ -91,7 +91,7 @@
                 </div>
                 <div class="no-move"></div>
             </div>
-            <div class="box-content">
+            <div class="box-content" id="box-content">
                 <h4 class="page-header">BILL</h4>
 
                     @if(session('success'))
@@ -115,7 +115,7 @@
                     </thead>
 
                     @foreach($temp as $t)
-                        <form action="{{route('confirmInvoice')}}" method="POST">
+                        <form action="" method="POST" id="frm-confirm-invoice">
                             {{csrf_field()}}
                     <tbody>
                         <tr>
@@ -135,14 +135,13 @@
                             <td><input type="text" name="invoice_date" value="{{$t->invoice_date}}" size="8" style="border:none" readonly></td>
                             <td class="del">
                             <button value="{{$t->invoice_id}}" class="del-class"
-                                    onclick="return confirm('Are you sure you want to delete this invoice?');"><i class="fa fa-trash-o"></i></button>
+                                   ><i class="fa fa-trash-o"></i></button>
                         </td>
                         <td class="del">
 
                             <button value="{{$t->invoice_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
                         </td>
-                            <td><button type="submit" class="confirm-save" value="{{$t->invoice_id}}"
-                                onclick="return confirm('Are you sure you want to confirm this invoice? After confirming,will not be able to edit it again');">
+                            <td><button type="submit" class="confirm-save" value="{{$t->invoice_id}}">
                                     <i class="fa fa-check"></i>
                                 </button></td>
                         </tr>
@@ -216,22 +215,40 @@
             $('.add-tarrif').removeAttr("disabled");
         });
     });
+
     $('.save-tarrif').on('click', function (e) {
         e.preventDefault();
         console.log('received click event for additional invoice creation');
         var data = $("#frm-create-invoice").serialize();
         $.post("{{route('createTempInvoice')}}", data, function (data) {
             console.log(data);
+
+        });
+        $.get("{{route('invoice')}}", data, function (data) {
+
         });
         $(this).trigger('reset');
         $('#tarrif-charge-modal').modal('hide');
 
     });
-    $(document).on('click', '.confirm-save', function (e) {
-        invoice_id = $(this).val();
-        $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
 
-        })
+    $(document).on('click', '.confirm-save', function (e) {
+        e.preventDefault();
+        var data = $("#frm-confirm-invoice").serialize();
+        invoice_id = $(this).val();
+        var validate = confirm("Are you sure you want to confirm this invoice? After confirming,you will not be able to edit it again");
+        if (validate== true) {
+            $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
+                console.log(data);
+            })
+            $.post("{{route('confirmInvoice')}}", data, function (data) {
+                console.log(data);
+
+            });
+        } else {
+            return false;
+        }
+
     })
 </script>
 
