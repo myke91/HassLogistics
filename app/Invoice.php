@@ -14,8 +14,9 @@ class Invoice extends Model
         'unit_price',
         'quantity',
         'actual_cost',
+        'invoice_date',
         'vat',
         'invoice_status'];
     protected $primaryKey = 'invoice_id';
-    public $timestamps = true;
+    public $timestamps = false;
 }

@@ -93,6 +93,14 @@
             </div>
             <div class="box-content">
                 <h4 class="page-header">BILL</h4>
+
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session('success')}}
+                        </div>
+                    @endif
+
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
                     <thead>
                         <tr>
@@ -102,43 +110,59 @@
                             <th>Vat</th>
                             <th>Invoice Details</th>
                             <th>Invoice Date</th>
- <th colspan="2">Actions</th>
+                            <th colspan="3">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
 
+                    @foreach($temp as $t)
+                        <form action="{{route('confirmInvoice')}}" method="POST">
+                            {{csrf_field()}}
+                    <tbody>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>Unit Price: &nbsp; / Quanity: &nbsp; / Total Cost: &nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td>&nbsp;<select name="vessel_id" style="border:none" readonly="true">
+                                        <option value="{{$t->vessel_id}}">{{$t->vessel_name}}</option>
+                                </select></td>
+                            <td><select name="client_id" style="border:none" readonly="true">
+                                    <option value="{{$t->client_id}}">&nbsp;{{$t->client_name}}</option>
+                                </select></td>
+                            <td><input type="text" name="bill_item" value="{{$t->bill_item}}" style="border:none" readonly="true"> </td>
+                            <td><input type="text" name="vat" value="{{$t->vat}}" style="border:none" readonly="true" size="4"> </td>
+                            <td>Unit Price: <input type="text" name="unit_price" value="{{$t->unit_price}} " style="border:none" readonly="true" size="4">
+                                / Quanity: <input type="text" name="quantity" value="{{$t->quantity}} " style="border:none" readonly="true" size="4">
+                                / Total Cost:<input type="text" name="actual_cost" value="{{$t->actual_cost}}" style="border:none" readonly="true" size="4">
+                                <input type="hidden" name="invoice_status" value="{{$t->invoice_status}}">
+                                 </td>
+                            <td><input type="text" name="invoice_date" value="{{$t->invoice_date}}" size="8" style="border:none" readonly></td>
                             <td class="del">
-                <button value="{{$v->vessel_id}}" class="del-class"><i class="fa fa-trash-o"></i></button>
-            </td>
-            <td class="del">
-                <button value="{{$v->vessel_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
-            </td>
+                            <button value="{{$t->invoice_id}}" class="del-class"
+                                    onclick="return confirm('Are you sure you want to delete this invoice?');"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                        <td class="del">
+
+                            <button value="{{$t->invoice_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
+                        </td>
+                            <td><button type="submit" class="confirm-save" value="{{$t->invoice_id}}"
+                                onclick="return confirm('Are you sure you want to confirm this invoice? After confirming,will not be able to edit it again');">
+                                    <i class="fa fa-check"></i>
+                                </button></td>
                         </tr>
 
                     </tbody>
+                    @endforeach
                     <tfoot>
 
                     </tfoot>
                 </table>
+                </form>
+                    <div class="footer" >
+
+                    </div>
 
             </div>
         </div>
     </div>
+</div>
 
-</div>
-<div class="col-sm-2" style="float:left">
-    <button type="submit" class="btn btn-primary btn-label-left confirm">
-        <span><i class="fa fa-money"></i></span>
-        Confirm And Generate Invoice
-    </button>
-</div>
 
 
 @endsection
@@ -196,13 +220,19 @@
         e.preventDefault();
         console.log('received click event for additional invoice creation');
         var data = $("#frm-create-invoice").serialize();
-        $.post("{{route('createInvoice')}}", data, function (data) {
+        $.post("{{route('createTempInvoice')}}", data, function (data) {
             console.log(data);
         });
         $(this).trigger('reset');
         $('#tarrif-charge-modal').modal('hide');
 
     });
+    $(document).on('click', '.confirm-save', function (e) {
+        invoice_id = $(this).val();
+        $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
+
+        })
+    })
 </script>
 
 <script  type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script>

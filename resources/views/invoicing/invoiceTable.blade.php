@@ -46,7 +46,7 @@
             <td>{{$i->bill_item}}</td>
             <td>{{$i->vat}}</td>
             <td>Unit Price: {{$i->unit_price }} / Quanity: {{$i->quantity}} / Total Cost: {{$i->actual_cost}}</td>
-            <td>{{$i->created_at}}</td>
+            <td>{{$i->invoice_date}}</td>
             
         </tr>
     @endforeach
