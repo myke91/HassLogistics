@@ -12,3 +12,13 @@
     </div>
 </div>
 @endsection
+
+
+@section('additional_script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.get("{{route('ready')}}", function () {
+        });
+    });
+</script>
+@endsection

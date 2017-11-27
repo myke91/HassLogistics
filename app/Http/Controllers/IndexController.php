@@ -23,4 +23,8 @@ class IndexController extends Controller
         User::create($request->all());
         return back()->with(['success'=>'User '. $request->username .'created successfully']);
     }
+    
+    public function ready(Request $request){
+        return response()->json(['message'=>'Service running ...'.date('d-M-Y H:i:s')]);
+    }
 }

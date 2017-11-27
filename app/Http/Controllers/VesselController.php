@@ -25,16 +25,31 @@ class VesselController extends Controller {
 
     public function createVesselOperator(Request $request) {
         if ($request->ajax()) {
+            $data = $request->all();
+            $vessel = new VesselOperator();
 
-            return response(VesselOperator::create($request->all()));
+            if ($vessel->validate($data)) {
+                return response(VesselOperator::create($data));
+            } else {
+                $errors = $vessel->errors();
+                return response()->json($errors, 400);
+            }
         }
     }
 
     public function createVessel(Request $request) {
         if ($request->ajax()) {
             try {
-                Audit::create(['user' => 'myke.dugah', 'activity' => 'Created Vessel ' . $request->vessel_name, 'act_date' => date('Y-m-d'), 'act_time' => date('H:i:s')]);
-                return response(Vessel::create($request->all()));
+                $data = $request->all();
+                $vessel = new Vessel();
+
+                if ($vessel->validate($data)) {
+                    Audit::create(['user' => 'myke.dugah', 'activity' => 'Created Vessel ' . $request->vessel_name, 'act_date' => date('Y-m-d'), 'act_time' => date('H:i:s')]);
+                    return response(Vessel::create($data));
+                } else {
+                    $errors = $vessel->errors();
+                    return response()->json($errors, 400);
+                }
             } catch (\Illuminate\Database\QueryException $ex) {
                 return response()->json(['error' => 'An error occured'], 500);
             }

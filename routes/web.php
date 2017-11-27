@@ -12,7 +12,7 @@
  */
 
 Route::get('/', ['as' => '/', 'uses' => 'IndexController@getLogin']);
-
+Route::get('/ready', ['as' => 'ready', 'uses' => 'IndexController@ready']);
 Route::group(['middleware' => 'authen'], function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@addVessel']);
