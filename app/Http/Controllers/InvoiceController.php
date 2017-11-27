@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use App\Tarrif;
 use App\TarrifType;
 use App\TarrifCharge;
@@ -15,7 +16,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use View;
 
 class InvoiceController extends Controller {
-
+private $_pdf;
     public function prepareInvoice() {
         $clients = Client::all();
         $vessels = Vessel::all();
@@ -68,7 +69,7 @@ class InvoiceController extends Controller {
     }
 
     public function confirmAndSaveInvoice(Request $request) {
-        
+        emailInvoice();
     }
 
     public function getInvoiceInfo() {
@@ -93,8 +94,17 @@ class InvoiceController extends Controller {
         //$pdf = \App::make('dompdf.wrapper');
         $data = ['invoiceNumber' => '453433534'];
         Log::debug($data);
-        $pdf = PDF::loadView('pdf.invoice', compact('data'));
-        return $pdf->stream();
+        $this->_pdf = PDF::loadView('pdf.invoice', compact('data'));
+        return  $this->_pdf->stream();
+    }
+    
+    public function emailInvoice(){
+        Mail::send('emails.welcome', $data, function($message) use ($input) {
+            $message->to('mail@domain.net');
+            $message->subject("Invoice to $client on vessel $vessel");
+            $message->from('sender@domain.net');
+            $message->attachData($this->_pdf->stream(), $client.'_'.$vessel.'invoice.pdf');
+        });
     }
 
 }
