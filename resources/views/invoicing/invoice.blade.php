@@ -93,14 +93,11 @@
             </div>
             <div class="box-content" id="box-content">
                 <h4 class="page-header">BILL</h4>
-
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {{session('success')}}
-                        </div>
-                    @endif
-
+                <div id="invoiceconfirm" class="hide" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div id="invoiceconfirm_content">
+                    </div>
+                </div>
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
                     <thead>
                         <tr>
@@ -224,12 +221,9 @@
             console.log(data);
 
         });
-        $.get("{{route('invoice')}}", data, function (data) {
-
-        });
         $(this).trigger('reset');
         $('#tarrif-charge-modal').modal('hide');
-
+        location.reload();
     });
 
     $(document).on('click', '.confirm-save', function (e) {
@@ -245,6 +239,10 @@
                 console.log(data);
 
             });
+
+            $('#invoiceconfirm').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+            $('#invoiceconfirm_content').html('<h4>Invoice confirmed succussfully</h4>');
+            $('#modal').modal('show');
         } else {
             return false;
         }
