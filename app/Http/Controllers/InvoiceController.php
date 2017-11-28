@@ -128,4 +128,17 @@ class InvoiceController extends Controller {
         });
     }
 
+    public function editTempInvoice(Request $request)
+    {
+        if ($request->ajax()) {
+            return response(TempInvoice::find($request->invoice_id));
+        }
+    }
+
+    public function updateTempInvoice(Request $request) {
+        if ($request->ajax()) {
+            return response(TempInvoice::updateOrCreate(['invoice_id' => $request->invoice_id], $request->all()));
+        }
+    }
+
 }

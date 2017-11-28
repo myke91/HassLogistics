@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('popups.add_tarrif')
-
+@include('popups.edit_invoice')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -112,7 +112,7 @@
                     </thead>
 
                     @foreach($temp as $t)
-                        <form action="" method="POST" id="frm-confirm-invoice">
+                        <form action=""  id="frm-confirm-invoice">
                             {{csrf_field()}}
                     <tbody>
                         <tr>
@@ -129,18 +129,21 @@
                                 / Total Cost:<input type="text" name="actual_cost" value="{{$t->actual_cost}}" style="border:none" readonly="true" size="4">
                                 <input type="hidden" name="invoice_status" value="{{$t->invoice_status}}">
                                  </td>
+
                             <td><input type="text" name="invoice_date" value="{{$t->invoice_date}}" size="8" style="border:none" readonly></td>
-                            <td class="del">
+                        <td><button type="submit" class="confirm-save" value="{{$t->invoice_id}}">
+                                <i class="fa fa-check"></i>
+                            </button></td>
+                        </form>
+                        <td class="del">
                             <button value="{{$t->invoice_id}}" class="del-invoice"
                                    ><i class="fa fa-trash-o"></i></button>
                         </td>
                         <td class="del">
 
-                            <button value="{{$t->invoice_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
+                            <button value="{{$t->invoice_id}}" class="invoice-edit"><i class="fa fa-pencil-square-o"></i></button>
                         </td>
-                            <td><button type="submit" class="confirm-save" value="{{$t->invoice_id}}">
-                                    <i class="fa fa-check"></i>
-                                </button></td>
+
                         </tr>
 
                     </tbody>
@@ -149,11 +152,10 @@
 
                     </tfoot>
                 </table>
-                </form>
+
                     <div class="footer" >
 
                     </div>
-
             </div>
         </div>
     </div>
@@ -232,13 +234,13 @@
         invoice_id = $(this).val();
         var validate = confirm("Are you sure you want to confirm this invoice? After confirming,you will not be able to edit it again");
         if (validate== true) {
-            $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
-                console.log(data);
-            })
             $.post("{{route('confirmInvoice')}}", data, function (data) {
                 console.log(data);
 
             });
+            $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
+                console.log(data);
+            })
 
             $('#invoiceconfirm').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
             $('#invoiceconfirm_content').html('<h4>Invoice confirmed succussfully</h4>');
@@ -254,10 +256,14 @@
         if (validate== true) {
             $.post("{{route('deleteInvoce')}}", {invoice_id:invoice_id}, function (data) {
                 console.log(data);
+                location.reload();
             })
             } else {
                 return false;
             }
+    })
+    $(document).on('click', '.invoice-edit', function (e) {
+        $('#invoice-modal').modal('show');
     })
 </script>
 
