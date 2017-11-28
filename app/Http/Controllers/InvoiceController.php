@@ -76,20 +76,11 @@ class InvoiceController extends Controller {
     }
 
     public function confirmAndSaveInvoice(Request $request) {
-        $in = new Invoice;
-        $in->vessel_id = $request->vessel_id;
-        $in->client_id = $request->client_id;
-        $in->bill_item = $request->bill_item;
-        $in->unit_price = $request->unit_price;
-        $in->quantity = $request->quantity;
-        $in->actual_cost = $request->actual_cost;
-        $in->vat = $request->vat;
-        $in->invoice_date = $request->invoice_date;
-        $in->invoice_status = $request->invoice_status;
 
-        if ($in->save()) {
-//            emailInvoice();
-            return back()->with(['success' => 'Invoice confirmed successfully']);
+        if ($request->ajax())
+        {
+            return response(Invoice::create($request->all()));
+
         }
     }
 
@@ -121,12 +112,15 @@ class InvoiceController extends Controller {
         $this->generateInvoicePdfStream($invoiceItems);
     }
 
+
     public function deleteTempInvoice(Request $request) {
-        if ($request->ajax()) {
+
+        if ($request->ajax())
+        {
             TempInvoice::destroy($request->invoice_id);
         }
 
-        return back()->with(['sucess' => 'Invoice confirmed successfully']);
+
     }
 
     public function getInvoiceInfo() {
@@ -162,6 +156,19 @@ class InvoiceController extends Controller {
             $message->from('Hass Logistics');
             $message->attachData($this->_pdf->stream(), '_invoice.pdf');
         });
+    }
+
+    public function editTempInvoice(Request $request)
+    {
+        if ($request->ajax()) {
+            return response(TempInvoice::find($request->invoice_id));
+        }
+    }
+
+    public function updateTempInvoice(Request $request) {
+        if ($request->ajax()) {
+            return response(TempInvoice::updateOrCreate(['invoice_id' => $request->invoice_id], $request->all()));
+        }
     }
 
 }

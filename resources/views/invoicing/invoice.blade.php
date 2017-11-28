@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('popups.add_tarrif')
-
+@include('popups.edit_invoice')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -97,16 +97,14 @@
                 </div>
                 <div class="no-move"></div>
             </div>
-            <div class="box-content">
+            <div class="box-content" id="box-content">
                 <h4 class="page-header">BILL</h4>
-
                 @if(session('success'))
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{session('success')}}
                 </div>
                 @endif
-
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
                     <thead>
                         <tr>
@@ -119,9 +117,8 @@
                             <th colspan="3">Actions</th>
                         </tr>
                     </thead>
-
                     @foreach($temp as $t)
-                    <form action="{{route('confirmInvoice')}}" method="POST">
+                    <form  action=""  id="frm-confirm-invoice" method="POST">
                         {{csrf_field()}}
                         <tbody>
                             <tr class="data">
@@ -145,25 +142,19 @@
                                 </td>
                                 <td class="del">
 
-                                    <button value="{{$t->invoice_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></button>
-                                </td>
-                                <td><button type="submit" class="confirm-save" value="{{$t->invoice_id}}"
-                                            onclick="return confirm('Are you sure you want to confirm this invoice? After confirming,will not be able to edit it again');">
-                                        <i class="fa fa-check"></i>
-                                    </button></td>
+                                    <button value="{{$t->invoice_id}}" class="invoice-edit"><i class="fa fa-pencil-square-o"></i></button>
+                                </td>                       
                             </tr>
-
                         </tbody>
                         @endforeach
                         <tfoot>
 
                         </tfoot>
                 </table>
-                </form>
-                <div class="footer" >
+
+                <div class="footer">
 
                 </div>
-
             </div>
 
         </div>
@@ -182,7 +173,6 @@
 
 @section('additional_script')
 <script type="text/javascript">
-    // Run Select2 plugin on elements
 
 // Run Select2 plugin on elements
     function DemoSelect2() {
@@ -228,12 +218,14 @@
             e.preventDefault();
             $('.add-tarrif').removeAttr("disabled");
         });
+
     }).on('click', '.confirm-save', function (e) {
         var invoice_id = $(this).val();
         $.post("{{route('deleteInvoce')}}", {invoice_id: invoice_id}, function (data) {
 
         });
     }).on('click', '.save-tarrif', function (e) {
+
         e.preventDefault();
         console.log('received click event for additional invoice creation');
         var data = $("#frm-create-invoice").serialize();
@@ -242,9 +234,11 @@
             location.reload();
         }).fail(function (data) {
 
+
         });
         $(this).trigger('reset');
         $('#tarrif-charge-modal').modal('hide');
+
 
     }).on('click', '#generate-invoice', function (e) {
         e.preventDefault();
@@ -266,6 +260,45 @@
         }).fail(function (data) {
 
         });
+    });
+
+
+    $(document).on('click', '.confirm-save', function (e) {
+        e.preventDefault();
+        var data = $("#frm-confirm-invoice").serialize();
+        invoice_id = $(this).val();
+        var validate = confirm("Are you sure you want to confirm this invoice? After confirming,you will not be able to edit it again");
+        if (validate === true) {
+            $.post("{{route('confirmInvoice')}}", data, function (data) {
+                console.log(data);
+
+            });
+            $.post("{{route('deleteInvoce')}}", {invoice_id: invoice_id}, function (data) {
+                console.log(data);
+            });
+
+            $('#invoiceconfirm').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+            $('#invoiceconfirm_content').html('<h4>Invoice confirmed succussfully</h4>');
+            $('#modal').modal('show');
+        } else {
+            return false;
+        }
+
+    });
+    $(document).on('click', '.del-invoice', function (e) {
+        invoice_id = $(this).val();
+        var validate = confirm("Are you sure you want to delete this invoice? After deleting,you will not be able to edit it again");
+        if (validate === true) {
+            $.post("{{route('deleteInvoce')}}", {invoice_id: invoice_id}, function (data) {
+                console.log(data);
+                location.reload();
+            });
+        } else {
+            return false;
+        }
+    });
+    $(document).on('click', '.invoice-edit', function (e) {
+        $('#invoice-modal').modal('show');
     });
 </script>
 
