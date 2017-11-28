@@ -59,6 +59,10 @@
                         </div>
                     </div>
                     <div class="form-group has-success has-feedback">
+                         <label class="col-sm-2 control-label">Client Email Address</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="client_email" name="client_email" data-toggle="tooltip" data-placement="bottom">
+                        </div>
                         <label class="col-sm-2 control-label">Digital Address</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="digital_address" name="digital_address" data-toggle="tooltip" data-placement="bottom">

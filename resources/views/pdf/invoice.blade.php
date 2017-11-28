@@ -14,7 +14,7 @@
             </td>
 
             <td>
-                <p>Invoice No: HLG/TEM/0000106 {{$data['invoiceNumber']}} </p>
+                <p>Invoice No: HLG/TEM/0000106 </p>
                 <p>Date: 30/10/17</p>
                 <p>Customer ID:</p>
             </td>
@@ -39,26 +39,29 @@
     <p border="1">BL NO: BUCGHA001</p>
 
     <table border="1" width="100%">
-        <tr>
-            <td>Item No.</td> <td>Description</td> <td>Basis</td> <td>Per</td> <td>Rate</td> <td>Curr.</td> <td>Amount GHC</td>
-        </tr>
+        <tbody>
+            <tr>
+                <td>Item No.</td> <td>Description</td> <td>Basis</td> <td>Per</td> <td>Rate</td> <td>Curr.</td> <td>Amount GHC</td>
+            </tr>
+            @foreach($data as $entry)
+            <tr>
+                <td>Item No.</td> <td>{{$entry->bill_item}}</td> <td>Basis</td> <td>{{$entry->quantity}}</td> <td>{{$entry->unit_price}}</td> <td>{{$entry->actual_cost}}</td>
+            </tr>
+            @endforeach
 
-        <tr>
-            <td>1.</td> <td>Admin Fees</td> <td></td> <td>Unit</td> <td></td> <td>GHC.</td> <td>1000</td>
-        </tr>
-        <tr>
-            <td>2.</td> <td>Dozer</td> <td></td> <td>Unit</td> <td></td> <td>GHC.</td> <td>2300</td>
-        </tr>
+        </tbody>
         <!-- invoice footer -->
-        <tr>
-            <td colspan="6" style="text-align:right">SUBTOTAL</td> <td>2300</td>
-        </tr>
-        <tr>
-            <td colspan="6" style="text-align:right">VAT/NHIL</td>  <td>2300</td>
-        </tr>
-        <tr>
-            <td colspan="6" style="text-align:right">TOTAL</td> <td>2300</td>
-        </tr>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align:right">SUBTOTAL</td> <td>2300</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td>2300</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align:right">TOTAL</td> <td>2300</td>
+            </tr>
+        </tfoot>
     </table>
     <br />
     <div style="border-style: solid; border-width: 1px">

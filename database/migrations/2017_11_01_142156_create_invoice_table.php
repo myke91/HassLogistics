@@ -17,6 +17,7 @@ class CreateInvoiceTable extends Migration {
             $table->integer('vessel_id')->unsigned();
             $table->integer('client_id')->unsigned();
             $table->string('bill_item');
+             $table->string('billable');
             $table->decimal('unit_price',20,2);
             $table->integer('quantity')->default('1');
             $table->decimal('actual_cost', 20, 2)->nullable();

@@ -14,8 +14,6 @@ use App\TarrifParams;
 use App\Invoice;
 use App\TempInvoice;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Validation\Rules\In;
-use View;
 
 class InvoiceController extends Controller {
 
@@ -69,7 +67,11 @@ class InvoiceController extends Controller {
     public function createTempInvoice(Request $request) {
         if ($request->ajax()) {
             //return $request->all();
-            return response(TempInvoice::create($request->all()));
+            try {
+                TempInvoice::create($request->all());
+            } catch (\Exception $ex) {
+                return response()->json(['error' => 'An error occured']);
+            }
         }
     }
 
@@ -89,6 +91,34 @@ class InvoiceController extends Controller {
 //            emailInvoice();
             return back()->with(['success' => 'Invoice confirmed successfully']);
         }
+    }
+
+    public function saveAllAndGenerateInvoice(Request $request) {
+        $entries = $request->data;
+        $client = $request->client;
+        $vessel = $request->vessel;
+        $client_id = '';
+        $vessel_id = '';
+        foreach ($entries as $value) {
+            $row = array();
+            $row['vessel_id'] = $value[0];
+            $vessel_id = $value[0];
+            $row['client_id'] = $value[1];
+            $client_id = $value[1];
+            $row['bill_item'] = $value[2];
+            $row['vat'] = $value[3];
+            $row['unit_price'] = $value[4];
+            $row['quantity'] = $value[5];
+            $row['actual_cost'] = $value[6];
+            $row['invoice_status'] = $value[7];
+            $row['invoice_date'] = $value[8];
+            Invoice::create($row);
+            TempInvoice::destroy($value[9]);
+        }
+        $invoiceItems = Invoice::where(['client_id' => $client_id, 'vessel_id' => $vessel_id])->get();
+        $client_email = Client::where('client_id', '=', $client_id)->pluck('client_email');
+//        $this->emailInvoice($client, $client_email, $vessel);
+        $this->generateInvoicePdfStream($invoiceItems);
     }
 
     public function deleteTempInvoice(Request $request) {
@@ -117,19 +147,20 @@ class InvoiceController extends Controller {
         return view('invoicing.invoiceModification');
     }
 
-    public function generateInvoicePdfStream() {
-        $data = ['invoiceNumber' => '453433534'];
+    public function generateInvoicePdfStream($data) {
         Log::debug($data);
         $this->_pdf = PDF::loadView('pdf.invoice', compact('data'));
-        return $this->_pdf->stream();
+        Log::debug('returning pdf document');
+        return $this->_pdf->download('invoice.pdf');
     }
 
-    public function emailInvoice() {
-        Mail::send('emails.welcome', $data, function($message) use ($input) {
-            $message->to('mail@domain.net');
-            $message->subject("Invoice to $client on vessel $vessel");
-            $message->from('sender@domain.net');
-            $message->attachData($this->_pdf->stream(), $client . '_' . $vessel . 'invoice.pdf');
+    public function emailInvoice($client, $client_email, $vessel) {
+        $data['client'] = $client;
+        Mail::send('emails.invoice',$data , function($message) {
+            $message->to('Client');
+            $message->subject('Invoice to client');
+            $message->from('Hass Logistics');
+            $message->attachData($this->_pdf->stream(), '_invoice.pdf');
         });
     }
 

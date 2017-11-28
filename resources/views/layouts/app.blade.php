@@ -79,40 +79,52 @@
                         Logistics</a>
                 </div>
                 <div id="top-panel" class="col-xs-12 col-sm-10">
-                    <div class="row" style="width: 100%">
+                    <div class="row">
                         <div class="col-xs-8 col-sm-4 top-panel-right">
                             <div id="search">
                                 <input type="text" placeholder="search"/>
                                 <i class="fa fa-search"></i>
                             </div>
                         </div>
-                        <div class="col-xs-4 col-sm-4 pull-right" >
-                            @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                        <div class="col-xs-6 col-sm-8 top-panel-right">
+                            <ul class="nav navbar-nav pull-right panel-menu">
+                                @guest
+                                <li><a href="{{ route('login') }}">Login</a></li>
+                                @else
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+                                        <i class="fa fa-angle-down pull-right"></i>
+                                        <div class="user-mini pull-right">
+                                            <span class="welcome">Welcome,</span>
+                                            <span>{{ Auth::user()->name }}</span>
+                                        </div>
+                                    </a>
 
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('add_new_user') }}">Add New User</a></li>
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                   document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <i class="fa fa-user"></i>
+                                            <span>
+                                                <a href="{{route('add_new_user')}}">New User</a>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-power-off"></i>
+                                            <span><a href="{{ route('logout') }}"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Logout
+                                            </a>
+                                            </span>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                            @endguest
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endguest
+                            </ul>
                         </div>
-                        <
+
                     </div>
                 </div>
             </div>
@@ -198,7 +210,7 @@
     <script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
     <script src="plugins/tinymce/tinymce.min.js"></script>
     <script src="plugins/tinymce/jquery.tinymce.min.js"></script>
-   
+
     <!-- All functions for this theme + document.ready processing -->
     <script src="js/devoops.js"></script>
 
@@ -213,10 +225,10 @@
                                                    });
 
                                                }).ajaxStart(function () {
-                                                    $("#ajaxSpinnerContainer").show();
-                                                })
-                                                .ajaxStop(function () {
-                                                    $("#ajaxSpinnerContainer").hide();
-                                                });
+                                                   $("#ajaxSpinnerContainer").show();
+                                               })
+                                                       .ajaxStop(function () {
+                                                           $("#ajaxSpinnerContainer").hide();
+                                                       });
 </script>
 </html>

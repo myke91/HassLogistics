@@ -37,7 +37,7 @@ Route::group(['middleware' => 'authen'], function () {
     Route::get('/cashPayments', ['as' => 'cashPayments', 'uses' => 'PaymentController@getCashPayments']);
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
-
+    Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -54,8 +54,9 @@ Route::group(['middleware' => 'authen'], function () {
     Route::post('/create-tempinvoice', ['as' => 'createTempInvoice', 'uses' => 'InvoiceController@createTempInvoice']);
     Route::post('/save-payment', ['as' => 'savePayment', 'uses' => 'PaymentController@savePayment']);
     Route::post('/post-user', ['as' => 'postUser', 'uses' => 'IndexController@postUser']);
-    Route::post('/confirm-invoice',['as'=>'confirmInvoice','uses'=>'InvoiceController@confirmAndSaveInvoice']);
-    Route::post('/delete-invoice',['as'=>'deleteInvoce','uses'=>'InvoiceController@deleteTempInvoice']);
+    Route::post('/confirm-invoice', ['as' => 'confirmInvoice', 'uses' => 'InvoiceController@confirmAndSaveInvoice']);
+    Route::post('/confirm-all-invoice',['as'=>'saveAllAndGenerateInvoice','uses'=>'InvoiceController@saveAllAndGenerateInvoice']);
+    Route::post('/delete-invoice', ['as' => 'deleteInvoce', 'uses' => 'InvoiceController@deleteTempInvoice']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);

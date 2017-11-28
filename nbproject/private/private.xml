@@ -4,13 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/pdf/invoice.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/TempInvoice.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Audit.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/storage/logs/laravel.log</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/invoicing/invoice.blade.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Invoice.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Client.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/Auth/LoginController.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/emails/invoice.blade.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/InvoiceController.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/pdf/test.blade.php</file>
         </group>
     </open-files>
 </project-private>

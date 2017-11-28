@@ -112,4 +112,11 @@ class VesselController extends Controller {
         return response()->json(Vessel::find($request->vessel_id));
     }
 
+    public function getVesselsForClient(Request $request) {
+        $id = $request->id;
+        return Vessel::join('clients', 'clients.client_id', '=', 'vessels.vessel_owner')
+                        ->where('client_id', '=', $id)
+                        ->get();
+    }
+
 }
