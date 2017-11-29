@@ -96,10 +96,11 @@
                     <div class="form-group">
                         <label class="col-sm-8 control-label">Billable</label>
                         <div class="col-sm-8">
-                            <select id="billable" name="billable" class="s2">
+                            <select id="billable" class="s2">
 
                             </select>
                         </div>
+                        <input id="billable-name" name="billable" class="form-control" type="hidden" readonly ="true">
                     </div>
                     <div class="form-group">
                         <label class="col-sm-8 control-label">Cost</label>

@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder {
         $this->call(TarrifTypeSeeder::class);
         $this->call(TarrifParamsSeeder::class);
         $this->call(TarrifChargeSeeder::class);
+        $this->call(ClientSeeder::class);
+        $this->call(VesselOperatorSeeder::class);
     }
 
 }

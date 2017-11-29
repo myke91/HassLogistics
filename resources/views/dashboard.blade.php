@@ -1,16 +1,197 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<!--End Breadcrumb-->
+<!--Start Dashboard 1-->
+<div id="dashboard-header" class="row">
+    <div class="col-xs-12 col-sm-4 col-md-5">
+        <h3>HASS LOGISTICS INVOICING AND PAYMENT SYSTEM</h3>
+    </div>
+    <div class="clearfix visible-xs"></div>
+    <div class="col-xs-12 col-sm-8 col-md-7 pull-right">
+        <div class="row">
 
-
+            <div class="col-xs-6">
+                <div class="sparkline-dashboard" id="sparkline-2"></div>
+                <div class="sparkline-dashboard-info">
+                    GH¢ 245.12M
+                    <span class="txt-info">PENDING</span>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="sparkline-dashboard" id="sparkline-3"></div>
+                <div class="sparkline-dashboard-info">
+                    GH¢ 107.83M
+                    <span>PAYMETNS</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!--End Dashboard 1-->
+<!--Start Dashboard 2-->
+<div class="row-fluid">
+    <div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#" class="tab-link" id="overview">Overview</a></li>
+            <li><a href="#" class="tab-link" id="clients">Clients</a></li>
+            <li><a href="#" class="tab-link" id="vessels">Vessels</a></li>
+            <li><a href="#" class="tab-link" id="payments">Payments</a></li>
+        </ul>
+    </div>
+    <div id="dashboard_tabs" class="col-xs-12 col-sm-10">
+        <!--Start Dashboard Tab 1-->
+        <div id="dashboard-overview" class="row" style="visibility: visible; position: relative;">
+            <div id="ow-marketplace" class="col-sm-12 col-md-6">
+                <div id="ow-setting">
+                    <a href="#"><i class="fa fa-folder-open"></i></a>
+                    <a href="#"><i class="fa fa-credit-card"></i></a>
+                    <a href="#"><i class="fa fa-ticket"></i></a>
+                    <a href="#"><i class="fa fa-bookmark-o"></i></a>
+                    <a href="#"><i class="fa fa-globe"></i></a>
+                </div>
+                <h4 class="page-header">RECENT USER ACTIVITY</h4>
+                <table id="ticker-table" class="table m-table table-bordered table-hover table-heading">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Activity</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-ticker"><b>BRDM</b><span>Broadem Inc.</span></td>
+                            <td class="m-price">33.27</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div id="ow-donut" class="row">
+                    <div class="col-xs-4">
+                        <div id="morris_donut_1" style="width:120px;height:120px;"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div id="morris_donut_2" style="width:120px;height:120px;"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div id="morris_donut_3" style="width:120px;height:120px;"></div>
+                    </div>
+                </div>
+                
+                <div id="ow-summary" class="row">
+                    <div class="col-xs-12">
+                        <h4 class="page-header">&Sigma; SUMMARY</h4>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-6">Total clients<b>1245634</b></div>
+                                    <div class="col-xs-6">Total vessels<b>1245634</b></div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Dashboard Tab 1-->
+        <!--Start Dashboard Tab 2-->
+        <div id="dashboard-clients" class="row" style="visibility: hidden; position: absolute;">
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-users"></i></div>
+                <div class="col-xs-2"><b>Name</b></div>
+                <div class="col-xs-2">Head Office</div>
+                <div class="col-xs-2">Email</div>
+                <div class="col-xs-2">Contact Number</div>
+                <div class="col-xs-2">Digital Address</div>
+                <div class="col-xs-1">Date</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>USA</b></div>
+                <div class="col-xs-2">109455</div>
+                <div class="col-xs-2">54322344</div>
+                <div class="col-xs-2"> 354563</div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-1 message-date">12/31/13</div>
+            </div>
+          
+        </div>
+        <!--End Dashboard Tab 2-->
+        <!--Start Dashboard Tab 3-->
+     
+        <div id="dashboard-vessels" class="row" style="visibility: hidden; position: absolute;">
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-users"></i></div>
+                <div class="col-xs-2"><b>Name</b></div>
+                <div class="col-xs-2">Flag</div>
+                <div class="col-xs-2">Vessel Operator</div>
+                <div class="col-xs-1">Arrival</div>
+                <div class="col-xs-1">Departure</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>USA</b></div>
+                <div class="col-xs-2">109455</div>
+                <div class="col-xs-2">54322344</div>
+                <div class="col-xs-1 message-date">12/31/13</div>
+                <div class="col-xs-1 message-date">12/31/13</div>
+            </div>
+          
+        </div>
+        <!--End Dashboard Tab 3-->
+        <!--Start Dashboard Tab 4-->
+        <div id="dashboard-payments" class="row" style="visibility: hidden; position: absolute;">
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-users"></i></div>
+                <div class="col-xs-2"><b>Name</b></div>
+                <div class="col-xs-2">Head Office</div>
+                <div class="col-xs-2">Email</div>
+                <div class="col-xs-2">Contact Number</div>
+                <div class="col-xs-2">Digital Address</div>
+                <div class="col-xs-2">Date</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>USA</b></div>
+                <div class="col-xs-2">109455</div>
+                <div class="col-xs-2">54322344</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 354563</div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-2 message-date">12/31/13</div>
+            </div>
+
+        </div>
+        <!--End Dashboard Tab 4-->        
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--End Dashboard 2 -->
+<div style="height: 40px;"></div>
+
 @endsection
 
 
@@ -19,6 +200,24 @@
     $(document).ready(function () {
         $.get("{{route('ready')}}", function () {
         });
+    });
+// Array for random data for Sparkline
+    var sparkline_arr_1 = SparklineTestData();
+    var sparkline_arr_2 = SparklineTestData();
+    var sparkline_arr_3 = SparklineTestData();
+    $(document).ready(function () {
+        // Make all JS-activity for dashboard
+        DashboardTabChecker();
+        // Load Knob plugin and run callback for draw Knob charts for dashboard(tab-servers)
+        LoadKnobScripts(DrawKnobDashboard);
+        // Load Sparkline plugin and run callback for draw Sparkline charts for dashboard(top of dashboard + plot in tables)
+        LoadSparkLineScript(DrawSparklineDashboard);
+        // Load Morris plugin and run callback for draw Morris charts for dashboard
+        LoadMorrisScripts(MorrisDashboard);
+
+        // Make beauty hover in table
+        $("#ticker-table").beautyHover();
+
     });
 </script>
 @endsection

@@ -2582,27 +2582,6 @@ function SparklineLoop(){
 // Draw Morris charts on Dashboard (panel- Statistics - Planning + 3 donuts)
 //
 function MorrisDashboard(){
-	Morris.Line({
-		element: 'stat-graph',
-		data: [
-			{"period": "2014-01", "Win8": 13.4, "Win7": 55.3, 'Vista': 1.5, 'NT': 0.3, 'XP':11, 'Linux': 4.9, 'Mac': 9.6 , 'Mobile':4},
-			{"period": "2013-12", "Win8": 10, "Win7": 55.9, 'Vista': 1.5, 'NT': 3.1, 'XP':11.6, 'Linux': 4.8, 'Mac': 9.2 , 'Mobile':3.8},
-			{"period": "2013-11", "Win8": 8.6, "Win7": 56.4, 'Vista': 1.6, 'NT': 3.7, 'XP':11.7, 'Linux': 4.8, 'Mac': 9.6 , 'Mobile':3.7},
-			{"period": "2013-10", "Win8": 9.9, "Win7": 56.7, 'Vista': 1.6, 'NT': 1.4, 'XP':12.4, 'Linux': 4.9, 'Mac': 9.6 , 'Mobile':3.3},
-			{"period": "2013-09", "Win8": 10.2, "Win7": 56.8, 'Vista': 1.6, 'NT': 0.4, 'XP':13.5, 'Linux': 4.8, 'Mac': 9.3 , 'Mobile':3.3},
-			{"period": "2013-08", "Win8": 9.6, "Win7": 55.9, 'Vista': 1.7, 'NT': 0.4, 'XP':14.7, 'Linux': 5, 'Mac': 9.2 , 'Mobile':3.4},
-			{"period": "2013-07", "Win8": 9, "Win7": 56.2, 'Vista': 1.8, 'NT': 0.4, 'XP':15.8, 'Linux': 4.9, 'Mac': 8.7 , 'Mobile':3.2},
-			{"period": "2013-06", "Win8": 8.6, "Win7": 56.3, 'Vista': 2, 'NT': 0.4, 'XP':15.4, 'Linux': 4.9, 'Mac': 9.1 , 'Mobile':3.2},
-			{"period": "2013-05", "Win8": 7.9, "Win7": 56.4, 'Vista': 2.1, 'NT': 0.4, 'XP':15.7, 'Linux': 4.9, 'Mac': 9.7 , 'Mobile':2.6},
-			{"period": "2013-04", "Win8": 7.3, "Win7": 56.4, 'Vista': 2.2, 'NT': 0.4, 'XP':16.4, 'Linux': 4.8, 'Mac': 9.7 , 'Mobile':2.2},
-			{"period": "2013-03", "Win8": 6.7, "Win7": 55.9, 'Vista': 2.4, 'NT': 0.4, 'XP':17.6, 'Linux': 4.7, 'Mac': 9.5 , 'Mobile':2.3},
-			{"period": "2013-02", "Win8": 5.7, "Win7": 55.3, 'Vista': 2.4, 'NT': 0.4, 'XP':19.1, 'Linux': 4.8, 'Mac': 9.6 , 'Mobile':2.2},
-			{"period": "2013-01", "Win8": 4.8, "Win7": 55.3, 'Vista': 2.6, 'NT': 0.5, 'XP':19.9, 'Linux': 4.8, 'Mac': 9.3 , 'Mobile':2.2}
-		],
-		xkey: 'period',
-		ykeys: ['Win8', 'Win7','Vista','NT','XP', 'Linux', 'Mac', 'Mobile'],
-		labels: ['Win8', 'Win7','Vista','NT','XP', 'Linux', 'Mac', 'Mobile']
-	});
 	Morris.Donut({
 		element: 'morris_donut_1',
 		data: [
@@ -2634,70 +2613,6 @@ function MorrisDashboard(){
 		],
 		formatter: function (x, data) { return data.formatted; }
 	});
-	Morris.Bar({
-		element: 'planning-chart-1',
-		data: [
-			{x: 'Network upgrade', y: 179459},
-			{x: 'Improved power equipment', y: 59411},
-			{x: 'New ticket system', y: 14906},
-			{x: 'Storage area network', y: 250000},
-			{x: 'New optical channels', y: 22359},
-			{x: 'Load balance system', y: 33950}
-		],
-		xkey: 'x',
-		ykeys: ['y'],
-		labels: ['Y'],
-		barColors: function (row, series, type) {
-			if (type === 'bar') {
-				var red = Math.ceil(255 * row.y / this.ymax);
-				return 'rgb(' + red + ',0,0)';
-			}
-			else {
-				return '#000';
-			}
-		}
-	});
-	Morris.Bar({
-		element: 'planning-chart-2',
-		data: [
-			{x: "2015-01", y: 179459},
-			{x: "2015-02", y: 149459},
-			{x: "2015-03", y: 13849},
-			{x: "2015-04", y: 12349},
-			{x: "2015-05", y: 200019},
-			{x: "2015-06", y: 59459},
-			{x: "2015-07", y: 93459},
-			{x: "2015-08", y: 133044},
-			{x: "2015-09", y: 9244},
-			{x: "2015-10", y: 54144},
-			{x: "2015-11", y: 19954},
-			{x: "2015-11", y: 38452}
-		],
-		xkey: 'x',
-		ykeys: ['y'],
-		labels: ['Spending'],
-		barColors: function (row, series, type) {
-			if (type === 'bar') {
-				var red = Math.ceil(255 * row.y / this.ymax);
-				return 'rgb(0,' + red + ',0)';
-			}
-			else {
-				return '#000';
-			}
-		}
-	});
-	Morris.Donut({
-		element: 'planning-chart-3',
-		data: [
-			{label: 'Network upgrade', value: 179459},
-			{label: 'Improved power equipment', value: 59411},
-			{label: 'New ticket system', value: 14906},
-			{label: 'Storage area network', value: 250000},
-			{label: 'New optical channels', value: 22359},
-			{label: 'Load balance system', value: 33950}
-		],
-		colors: ['#CCC', '#DDD', '#BBB']
-	});
 }
 //
 // Draw SparkLine example Charts for Dashboard (table- Tickers)
@@ -2710,14 +2625,6 @@ function DrawSparklineDashboard(){
 		$(this).sparkline(sparkline_clients.map(SmallChangeVal), {type: 'bar', barWidth: 5, highlightColor: '#000', barSpacing: 2, height: 30, stackedBarColor: '#6AA6D6'});
 	});
 	var sparkline_table = [ [1,341], [2,464], [4,564], [5,235], [6,335], [7,535], [8,642], [9,342], [10,765] ];
-	$('.td-graph').each(function(){
-		var arr = $.map( sparkline_table, function(val, index) {
-			return [[val[0], SmallChangeVal([val[1]])]];
-		});
-		$(this).sparkline( arr ,
-			{defaultPixelsPerValue: 10, minSpotColor: null, maxSpotColor: null, spotColor: null,
-			fillColor: false, lineWidth: 2, lineColor: '#5A8DB6'});
-		});
 }
 //
 // Draw Knob Charts for Dashboard (for servers)
@@ -2864,42 +2771,6 @@ function FullScreenLeafletMap(){
 			circle.bindPopup("<b>Hello!</b><br>May be you here.").openPopup();
 		}
 	);
-}
-/*-------------------------------------------
-	Function for get stock from Yahoo finance to dashboard page
----------------------------------------------*/
-//
-// Make stock dashboard page
-//
-function CreateStockPage(){
-	var yqlURL="http://query.yahooapis.com/v1/public/yql?q=";
-	var dataFormat="&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-	$(function() { //Load jQueryUI DatePicker by class name
-		$( ".datePick" ).datepicker({dateFormat: 'yy-mm-dd'} );
-	});
-	$("#submit").click(function() {
-		var symbol = $("#txtSymbol").val();
-		var startDate=$("#startDate").val();
-		var endDate=$("#endDate").val();
-		var realtimeQ = yqlURL+"select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + symbol + "%22)%0A%09%09&"+ dataFormat;
-		var historicalQ = yqlURL+"select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22"+ symbol +"%22%20and%20startDate%20%3D%20%22"+ startDate +"%22%20and%20endDate%20%3D%20%22"+ endDate +"%22"+ dataFormat;
-		$(function() {
-			$.getJSON(realtimeQ, function(json) {//YQL Request
-				$('#symbol').text(json.query.results.quote.Name);//Assign quote.Param to span tag
-				$('#bidRealtime').text(json.query.results.quote.BidRealtime);
-			});
-		}); 
-		$(function() {
-			$.getJSON(historicalQ, function(json) {
-				$.each(json.query.results.quote, function(i, quote) {//loop results.quote object
-					$("#date").append('<span>' + quote.Date + '</span');//create span for each record
-				});
-				$.each(json.query.results.quote, function(i, quote) { //new each statement is needed
-					$("#closeValue").append('<span>' + quote.Close + '</span');
-				});
-			});
-		});
-	});
 }
 /*-------------------------------------------
 	Function for Flickr Gallery page (gallery_flickr.html)

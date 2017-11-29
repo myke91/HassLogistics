@@ -11,6 +11,7 @@ class TempInvoice extends Model {
         'vessel_id',
         'client_id',
         'bill_item',
+        'billable',
         'unit_price',
         'quantity',
         'actual_cost',

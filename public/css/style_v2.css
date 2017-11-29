@@ -1745,14 +1745,14 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
 #ow-stat .row {
   margin: 0;
 }
-#dashboard-clients .one-list-message {
+.one-list-message {
   background:none;
   padding:10px 15px;
 }
-#dashboard-clients .one-list-message:last-child {
+.one-list-message:last-child {
   border-bottom: 0;
 }
-#dashboard-clients .one-list-message .message-date {
+.one-list-message .message-date {
   position: relative;
   width: auto;
   right: auto;
