@@ -130,10 +130,17 @@
                                 </tbody>
                                 <tbody>
                                 <tr>
+                                    <tr>
+                                    <th colspan="2">
+                                      Payment Mode
+                                    </th>
+                                    <th colspan="2">Account Number</th>
+                                    <th colspan="2">Account Name</th>
+                                    <th>Cheque Date</th>
+                                </tr>
+                                </thead>
+                                <tr>
                                     <td colspan="2">
-                                        <b>Payment Mode</b>
-                                    </td>
-                                    <td colspan="5">
                                        <select name="payment_mode" id="paymentmode" required>
                                            <option></option>
                                            <option>Cash</option>
@@ -141,6 +148,9 @@
                                            <option>On Account</option>
                                        </select>
                                     </td>
+                                    <td colspan="2"><input type="text" name="account_name" id="account_name"></td>
+                                    <td colspan="2"><input type="text" name="account_number" id="account_number"></td>
+                                    <td><input type="text" name="cheque_date" id="cheque_date" placeholder="Click to add date"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -198,11 +208,11 @@
         }
         $(document).ready(function () {
             //disable vessel dropdown and add tarrif button
-            $('.vessels').attr("disabled", "disabled");
-            $('.add-tarrif').attr("disabled", "disabled");
-            $('.submit').attr("disabled", "disabled");
+
+            $('#cheque_date').datepicker({setDate: new Date()});
+            LoadDataTablesScripts(AllTables);
+            dateFormat:'yy-mm-dd';
             // Initialize datepicker
-            $('#input_date').datepicker({setDate: new Date()});
             // Load Timepicker plugin
             LoadTimePickerScript(DemoTimePicker);
             // Add tooltip to form-controls

@@ -40,22 +40,16 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-                        <label for="username" class="col-md-4 control-label">Role</label>
-
+                    <div class="form-group">
+                        <label for="role_id" class="col-md-4 control-label">Role</label>
                         <div class="col-md-6">
-                            <select id="role_id" name="role_id" class="s2 form-control" value="{{ old('username') }}" required>
-                                <option>--------</option>
+                            <select id="role_id" name="role_id" class="s2 form-control"  required>
+                                <option></option>
                                 @foreach($roles as $key =>$v)
                                 <option value="{{$v->role_id}}">{{$v->name}}</option>
                                 @endforeach
                             </select> 
 
-                            @if ($errors->has('username'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('username') }}</strong>
-                            </span>
-                            @endif
                         </div>
                     </div>
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

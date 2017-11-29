@@ -13,11 +13,20 @@
 
 Route::get('/', ['as' => '/', 'uses' => 'IndexController@getLogin']);
 Route::get('/ready', ['as' => 'ready', 'uses' => 'IndexController@ready']);
-Route::group(['middleware' => 'authen'], function () {
-    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::post('login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
+Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
+Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
+Route::get('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
+Route::post('password/reset', ['as' => '', 'uses' => 'Auth\ResetPasswordController@reset']);
+Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+
+Route::get('/noPermission',function (){
+    return view('permission.noPermission');
+});
+
+Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function () {
     Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@addVessel']);
-
-
     Route::get('/show/vesselinfo', ['as' => 'showVesselInfo', 'uses' => 'VesselController@showVesselInformation']);
     Route::get('/edit/vesselinfo', ['as' => 'editVessel', 'uses' => 'VesselController@editVessel']);
     Route::get('/add_client', ['as' => 'add_client', 'uses' => 'ClientController@addClient']);
@@ -67,12 +76,21 @@ Route::group(['middleware' => 'authen'], function () {
     Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
     Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
 });
-Route::post('login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
-Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
-
-Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
-Route::get('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
-Route::post('password/reset', ['as' => '', 'uses' => 'Auth\ResetPasswordController@reset']);
-Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
 
 
+Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function () {
+
+});
+Route::group(['middleware' => ['authen','roles'],'roles'=>['clerk']], function () {
+
+});
+Route::group(['middleware' => ['authen','roles'],'roles'=>['manager']], function () {
+
+});
+
+Route::group(['middleware' => ['authen','roles'],'roles'=>['cashier']], function () {
+
+});
+Route::group(['middleware' => ['authen','roles'],'roles'=>['front desk']], function () {
+
+});
