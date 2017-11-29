@@ -111,45 +111,47 @@
                             <th>Vessel Name</th>
                             <th>Client Name</th>
                             <th>Bill Item</th>
+                            <th>Billable</th>
                             <th>Vat</th>
                             <th>Invoice Details</th>
                             <th>Invoice Date</th>
                             <th colspan="3">Actions</th>
                         </tr>
                     </thead>
-                    @foreach($temp as $t)
-                    <form  action=""  id="frm-confirm-invoice" method="POST">
-                        {{csrf_field()}}
-                        <tbody>
-                            <tr class="data">
-                                <td>&nbsp;<select name="vessel_id" class="inputValue" style="border:none" readonly="true">
-                                        <option value="{{$t->vessel_id}}">{{$t->vessel_name}}</option>
-                                    </select></td>
-                                <td><select name="client_id" class="inputValue" style="border:none" readonly="true">
-                                        <option value="{{$t->client_id}}">&nbsp;{{$t->client_name}}</option>
-                                    </select></td>
-                                <td><input type="text" class="inputValue" name="bill_item" value="{{$t->bill_item}}" style="border:none" readonly="true"> </td>
-                                <td><input type="text" class="inputValue" name="vat" value="{{$t->vat}}" style="border:none" readonly="true" size="4"> </td>
-                                <td>Unit Price: <input type="text" class="inputValue" name="unit_price" value="{{$t->unit_price}} " style="border:none" readonly="true" size="4">
-                                    / Quanity: <input type="text" class="inputValue" name="quantity" value="{{$t->quantity}} " style="border:none" readonly="true" size="4">
-                                    / Total Cost:<input type="text" class="inputValue" name="actual_cost" value="{{$t->actual_cost}}" style="border:none" readonly="true" size="4">
-                                    <input type="hidden" class="inputValue" name="invoice_status" value="{{$t->invoice_status}}">
-                                </td>
-                                <td><input type="text" class="inputValue" name="invoice_date" value="{{$t->invoice_date}}" size="8" style="border:none" readonly></td>
-                                <td class="del">
-                                    <button value="{{$t->invoice_id}}" class="inputValue" class="del-class"
-                                            onclick="return confirm('Are you sure you want to delete this invoice?');"><i class="fa fa-trash-o"></i></button>
-                                </td>
-                                <td class="del">
-
-                                    <button value="{{$t->invoice_id}}" class="invoice-edit"><i class="fa fa-pencil-square-o"></i></button>
-                                </td>                       
-                            </tr>
-                        </tbody>
+                    <tbody>
+                        @foreach($temp as $tr)
+                        <tr class="data">
+                            <td style="display:none;" class="inputValue">{{$tr->vessel_id}}</td>
+                            <td class="inputValue">{{$tr->vessel_name}}</td>
+                            <td style="display:none;" class="inputValue">{{$tr->client_id}}</td>
+                            <td>{{$tr->client_name}}</td>
+                            <td class="inputValue">{{$tr->bill_item}}</td>
+                            <td class="inputValue">{{$tr->billable}}</td>
+                            <td class="inputValue">{{$tr->vat}}</td>
+                            <td>
+                                Unit Price: <span class="inputValue">{{$tr->unit_price}}</span>
+                                / Quantity:  <span class="inputValue">{{$tr->quantity}}</span>
+                                / Total Price:  <span class="inputValue">{{$tr->actual_cost}}</span>
+                            </td>
+                            <td style="display:none;" class="inputValue">{{$tr->invoice_status}}</td>
+                            <td class="inputValue">{{$tr->invoice_date}}</td>
+                            <td style="display:none;" class="inputValue">{{$tr->invoice_id}}</td>
+                            <td class="del">
+                                <button value="{{$tr->invoice_id}}" class="del-class" 
+                                        onclick="return confirm('Are you sure you want to delete this invoice?');"> <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                            <td class="del">
+                                <button value = "{{$tr->invoice_id}}" class="invoice-edit">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </td>
+                        </tr>
                         @endforeach
-                        <tfoot>
+                    </tbody>
+                    <tfoot>
 
-                        </tfoot>
+                    </tfoot>
                 </table>
 
                 <div class="footer">
@@ -231,10 +233,29 @@
         var data = $("#frm-create-invoice").serialize();
         $.post("{{route('createTempInvoice')}}", data, function (data) {
             console.log(data);
-            location.reload();
+            $('#invoice-table > tbody').append('<tr class="data"><td style="display:none;" class="inputValue">' + data.vessel_id + '</td>' +
+                    '<td class="inputValue">' + data.vessel_name + '</td>' +
+                    '<td style="display:none;" class="inputValue">' + data.client_id + '</td>' +
+                    '<td>' + data.client_name + '</td>' +
+                    '<td class="inputValue">' + data.bill_item + '</td>' +
+                    '<td class="inputValue">' + data.billable + '</td>' +
+                    '<td class="inputValue">' + data.vat + '</td>' +
+                    '<td> Unit Price: <span class="inputValue">' + data.unit_price + '</span>' +
+                    ' / Quantity:  <span class="inputValue">' + data.quantity + '</span>' +
+                    ' / Total Price: <span class="inputValue">' + data.actual_cost + '</span> </td>' +
+                    '<td style="display:none;" class="inputValue">' + data.invoice_status + '</td>' +
+                    '<td class="inputValue">' + data.invoice_date + '</td>' +
+                    '<td style="display:none;" class="inputValue">' + data.invoice_id + '</td>' +
+                    '<td class="del"><button value="' +
+                    data.invoice_id + 'class="del-invoice"' +
+                    ' onclick="return confirm(\'Are you sure you want to delete this invoice?\');">' +
+                    '<i class="fa fa-trash-o"></i></button></td>' +
+                    '<td class="del"><button value = "' +
+                    data.invoice_id +
+                    '" class="invoice-edit"><i class="fa fa-pencil-square-o"></i></button></td>'
+                    );
         }).fail(function (data) {
-
-
+            console.log(data);
         });
         $(this).trigger('reset');
         $('#tarrif-charge-modal').modal('hide');
@@ -253,12 +274,11 @@
             return ret;
         });
         console.log(entries);
-        var client = $('#client_choose').text();
-        var vessel = $('#vessel_choose').text();
-        $.post("{{route('saveAllAndGenerateInvoice')}}", {data: entries, client: client, vessel: vessel}, function (data) {
+        $.post("{{route('saveAllAndGenerateInvoice')}}", {data: entries}, function (data) {
+            console.log(data);
 
         }).fail(function (data) {
-
+            console.log(data);
         });
     });
 

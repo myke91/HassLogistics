@@ -41,13 +41,9 @@
     <table border="1" width="100%">
         <tbody>
             <tr>
-                <td>Item No.</td> <td>Description</td> <td>Basis</td> <td>Per</td> <td>Rate</td> <td>Curr.</td> <td>Amount GHC</td>
+                <td>Item No.</td> <td>Description</td> <td>Billable</td> <td>Quantity</td> <td>Unit Price</td> <td>Amount GHC</td>
             </tr>
-            @foreach($data as $entry)
-            <tr>
-                <td>Item No.</td> <td>{{$entry->bill_item}}</td> <td>Basis</td> <td>{{$entry->quantity}}</td> <td>{{$entry->unit_price}}</td> <td>{{$entry->actual_cost}}</td>
-            </tr>
-            @endforeach
+         
 
         </tbody>
         <!-- invoice footer -->
