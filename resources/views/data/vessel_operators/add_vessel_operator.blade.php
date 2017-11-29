@@ -73,7 +73,29 @@
                 </div>
                 <div class="no-move"></div>
             </div>
-            <div class="box-content no-padding" id="add-vessel-operator-info">
+            <div class="box-content no-padding" id="add-vessel-operator-info"><table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+                    <thead>
+                    <tr>
+                        <th>Operator id</th>
+                        <th>Operator Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($vesseloperators as $key => $v)
+                        <tr>
+                            <td>{{$v->vessel_operator_id}}</td>
+                            <td>{{$v->operator_name}}</td>
+                            <td class="del">
+                                <Button value="{{$v->vessel_operator_id}}" class="vo-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
 
             </div>
         </div>
@@ -115,20 +137,17 @@
             $('#add-client-info').empty().append(data);
         });
     }
-    $(document).on('click', '.class-edit', function (e) {
-        $('#client-show').modal('show');
-        client_id = $(this).val();
-        $.get("{{route('editClient')}}", {client_id: client_id}, function (data) {
-
-            $('#client_name_edit').val(data.client_name);
-            $('#client_office_desc_edit').val(data.client_office_desc);
-            $('#client_head_office_edit').val(data.client_head_office);
-            $('#client_number_edit').val(data.client_number);
-            $('#client_id_edit').val(data.client_id);
-
+    $(document).on('click', '.vo-edit', function (e) {
+        $('#vessel_op-show').modal('show');
+        var vessel_operator_id = $(this).val();
+        $.get("{{route('edit_vessel_operator')}}", {vessel_operator_id: vessel_operator_id}, function (data) {
+            console.log(data);
+            $('#operator_name_edit').val(data.operator_name);
+            $('#vessel_operator_id_edit').val(data.vessel_operator_id);
 
         });
     });
+
     $('.btn-update-client').on('click', function (e) {
         e.preventDefault();
         var data = $('#frm-update-client').serialize();

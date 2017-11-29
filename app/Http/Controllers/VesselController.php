@@ -20,7 +20,8 @@ class VesselController extends Controller {
     }
 
     public function addVesselOperator() {
-        return view('data.vessel_operators.add_vessel_operator');
+        $vesseloperators = VesselOperator::all();
+        return view('data.vessel_operators.add_vessel_operator',compact('vesseloperators'));
     }
 
     public function createVesselOperator(Request $request) {
@@ -79,7 +80,7 @@ class VesselController extends Controller {
 
     public function editVesselOperator(Request $request) {
         if ($request->ajax()) {
-            return response(VesselOperator::find($request->client_id));
+            return response(VesselOperator::find($request->vessel_operator_id));
         }
     }
 
