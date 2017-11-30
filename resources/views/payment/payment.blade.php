@@ -91,6 +91,7 @@
                                         <input type="text" name="bill_item" value="{{$invoice->bill_item}}" id="bill_item" readonly="true">
                                     </td>
                                     <td>
+                                        <input type="hidden" name="payment_id" id="payment_id">
                                         <input type="text" name="actual_cost" value="{{$invoice->actual_cost}}" id="Fee" class="cost" readonly="true">
                                         <input type="hidden" name="client_id" id="client_id" value="{{$invoice->client_id}}">
                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="userID">
@@ -170,6 +171,11 @@
 
 @section('additional_script')
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.get("{{route('ready')}}", function () {
+            });
+        });
         // Run Select2 plugin on elements
 
         // Run Select2 plugin on elements

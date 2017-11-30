@@ -40,9 +40,17 @@ class paymentController extends Controller
 
     public function savePayment(Request $request)
     {
-        Payment::create($request->all());
+        Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
         return back()->with(['success'=>'Payment saved successfully']);
 
+    }
+
+    public function savePaymentFromInvoice(Request $request)
+    {
+        if ($request->ajax())
+        {
+          return response(Payment::create($request->all()));
+        }
     }
 
     public function getCashPayments()

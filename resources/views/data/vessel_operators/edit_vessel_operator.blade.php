@@ -36,7 +36,7 @@
                                 <div id="updatemessages_content">
                                 </div>
                             </div>
-                            <form class="form-vertical" role="form" id="frm-update-client" action="">
+                            <form class="form-vertical" role="form" id="frm-update-vo" action="">
                             <div class="form-group">
                                 <input type="hidden" id="vessel_operator_id_edit" name="vessel_operator_id">
                                 <label class="col-sm-2 control-label">Vessel Operator Name</label>

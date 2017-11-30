@@ -106,8 +106,6 @@
 
 @section('additional_script')
 <script type="text/javascript">
-    showClientInfo();
-
 
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
@@ -116,7 +114,10 @@
         TestTable3();
         LoadSelect2Script(MakeSelect2);
     }
-
+    $(document).ready(function () {
+        $.get("{{route('ready')}}", function () {
+        });
+    });
 
     $('#frm-create-vessel-operator').on('submit', function (e) {
         e.preventDefault();
@@ -130,13 +131,7 @@
         $('#clientmessages_content').html('<h4>Vessel operator created Successfully</h4>');
         $('#modal').modal('show');
     });
-    function showClientInfo()
-    {
-        var data = $('#frm-create-client').serialize();
-        $.get("{{route('showClientInfo')}}", data, function (data) {
-            $('#add-client-info').empty().append(data);
-        });
-    }
+
     $(document).on('click', '.vo-edit', function (e) {
         $('#vessel_op-show').modal('show');
         var vessel_operator_id = $(this).val();
@@ -148,16 +143,17 @@
         });
     });
 
-    $('.btn-update-client').on('click', function (e) {
+    $('.btn-update-vo').on('click', function (e) {
         e.preventDefault();
-        var data = $('#frm-update-client').serialize();
-        $.post("{{route('updateClient')}}", data, function (data) {
-            showClientInfo(data.client_name);
+        var data = $('#frm-update-vo').serialize();
+        $.post("{{route('updateVesselOperator')}}", data, function (data) {
         });
         $('#clientupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
         $('#clientupdatemessages_content').html('<h4>Vessel operator updated successfully</h4>');
         $('#modal').modal('show');
         $('#frm-update-class').trigger('reset');
+
+       // location.reload();
     });
 
 

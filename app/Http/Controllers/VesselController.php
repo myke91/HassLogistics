@@ -8,6 +8,8 @@ use App\Client;
 use App\VesselOperator;
 use App\Audit;
 use View;
+use Auth;
+
 
 class VesselController extends Controller {
 
@@ -45,7 +47,7 @@ class VesselController extends Controller {
                 $vessel = new Vessel();
 
                 if ($vessel->validate($data)) {
-                    Audit::create(['user' => 'myke.dugah', 'activity' => 'Created Vessel ' . $request->vessel_name, 'act_date' => date('Y-m-d'), 'act_time' => date('H:i:s')]);
+                    Audit::create(['user' => Auth::user()->username, 'activity' => 'Created Vessel ' . $request->vessel_name, 'act_date' => date('Y-m-d'), 'act_time' => date('H:i:s')]);
                     return response(Vessel::create($data));
                 } else {
                     $errors = $vessel->errors();

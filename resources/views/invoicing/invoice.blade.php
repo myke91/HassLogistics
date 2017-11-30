@@ -132,6 +132,7 @@
                                 Unit Price: <span class="inputValue">{{$tr->unit_price}}</span>
                                 / Quantity:  <span class="inputValue">{{$tr->quantity}}</span>
                                 / Total Price:  <span class="inputValue">{{$tr->actual_cost}}</span>
+                                <span class="inputValue" style='visibility:hidden'>{{Auth::user()->id}}</span>
                             </td>
                             <td style="display:none;" class="inputValue">{{$tr->invoice_status}}</td>
                             <td class="inputValue">{{$tr->invoice_date}}</td>
@@ -242,7 +243,8 @@
                     '<td class="inputValue">' + data.vat + '</td>' +
                     '<td> Unit Price: <span class="inputValue">' + data.unit_price + '</span>' +
                     ' / Quantity:  <span class="inputValue">' + data.quantity + '</span>' +
-                    ' / Total Price: <span class="inputValue">' + data.actual_cost + '</span> </td>' +
+                    ' / Total Price: <span class="inputValue">' + data.actual_cost + '</span>' +
+                '<span class="inputValue">' + data.id + '</span> </td>' +
                     '<td style="display:none;" class="inputValue">' + data.invoice_status + '</td>' +
                     '<td class="inputValue">' + data.invoice_date + '</td>' +
                     '<td style="display:none;" class="inputValue">' + data.invoice_id + '</td>' +
@@ -319,7 +321,28 @@
     });
     $(document).on('click', '.invoice-edit', function (e) {
         $('#invoice-modal').modal('show');
+        var invoice_id = $(this).val();
+        $.get("{{route('editTempInvoice')}}", {invoice_id: invoice_id}, function (data) {
+
+            $('#vessel_id').val(data.vessel_id);
+            $('#client_id').val(data.client_id);
+            $('#bill_item_edit').val(data.bill_item);
+            $('#billable_edit').val(data.billable);
+            $('#unit_price').val(data.unit_price);
+            $('#quantity_edit').val(data.quantity);
+            $('#vat_edit').val(data.vat);
+            $('#actual_cost_edit').val(data.actual_cost);
+            $('#invoice_id').val(data.invoice_id);
+        });
     });
+$('.update-temp_invoice').on('click', function (e) {
+    e.preventDefault();
+    var data = $('#frm-update-invoice').serialize();
+    $.post("{{route('updateTempInvoice')}}", data, function (data) {
+
+    });
+
+});
 </script>
 
 <script  type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script>

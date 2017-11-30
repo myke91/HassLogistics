@@ -47,6 +47,7 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
+    Route::get('/editTempInvoice',['as'=>'editTempInvoice','uses'=>'InvoiceController@editTempInvoice']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::post('/post-user', ['as' => 'postUser', 'uses' => 'IndexController@postUser']);
     Route::post('/confirm-invoice', ['as' => 'confirmInvoice', 'uses' => 'InvoiceController@confirmAndSaveInvoice']);
     Route::post('/confirm-all-invoice',['as'=>'saveAllAndGenerateInvoice','uses'=>'InvoiceController@saveAllAndGenerateInvoice']);
+    Route::post('/save-payment-from-Invoice',['as'=>'paymentFromInvoice','uses'=>'PaymentController@savePaymentFromInvoice']);
     Route::post('/delete-invoice', ['as' => 'deleteInvoce', 'uses' => 'InvoiceController@deleteTempInvoice']);
 
 // api urls
@@ -75,12 +77,10 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
     Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
     Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
+    Route::post('/updateTempInvoice',['as'=>'updateTempInvoice','uses'=>'InvoiceController@updateTempInvoice']);
 });
 
 
-Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function () {
-
-});
 Route::group(['middleware' => ['authen','roles'],'roles'=>['clerk']], function () {
 
 });
