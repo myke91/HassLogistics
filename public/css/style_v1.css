@@ -1666,7 +1666,7 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   line-height: 1em;
 }
 .m-price {
-  text-align: right;
+  text-align: left;
 }
 .m-change .fa-angle-up {
   color:#54ae86;

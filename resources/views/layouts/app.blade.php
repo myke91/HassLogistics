@@ -110,9 +110,9 @@
                                         <li>
                                             <i class="fa fa-power-off"></i>
                                             <span><a href="{{ route('logout') }}"
-                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                Logout
-                                            </a>
+                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    Logout
+                                                </a>
                                             </span>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -141,14 +141,25 @@
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">
-                            <i class="fa fa-bar-chart-o"></i>
+                            <i class="fa fa-picture-o"></i>
                             <span class="hidden-xs">Data Entry</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{route('add_vessel')}}"><i class="fa fa-book">&nbsp;</i>Vessels</a></li>
-                            <li><a href="{{route('add_client')}}"><i class="fa fa-book">&nbsp;</i>Clients</a></li>
-                            <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Vessel Operators </a></li>
-                            <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Load Port Charges</a></li>
+                            <li><a href="{{route('add_vessel')}}"><i class="fa fa-shield">&nbsp;</i>Vessels</a></li>
+                            <li><a href="{{route('add_client')}}"><i class="fa fa-users">&nbsp;</i>Clients</a></li>
+                            <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-gears">&nbsp;</i>Vessel Operators </a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <span class="hidden-xs"> Port Charges</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif </a></li>
+                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Type</a></li>
+                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Parameters</a></li>
+                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Charges</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -217,18 +228,18 @@
     @yield('additional_script')
 </body>
 <script>
-                                               $(document).ready(function () {
-                                                   $.ajaxSetup({
-                                                       headers: {
-                                                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                       }
-                                                   });
+                                                         $(document).ready(function () {
+                                                             $.ajaxSetup({
+                                                                 headers: {
+                                                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                                 }
+                                                             });
 
-                                               }).ajaxStart(function () {
-                                                   $("#ajaxSpinnerContainer").show();
-                                               })
-                                                       .ajaxStop(function () {
-                                                           $("#ajaxSpinnerContainer").hide();
-                                                       });
+                                                         }).ajaxStart(function () {
+                                                             $("#ajaxSpinnerContainer").show();
+                                                         })
+                                                                 .ajaxStop(function () {
+                                                                     $("#ajaxSpinnerContainer").hide();
+                                                                 });
 </script>
 </html>
