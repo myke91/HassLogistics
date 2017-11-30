@@ -11,13 +11,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="#">Dashboard</a></li>
         </ol>
-        <div id="social" class="pull-right">
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-youtube"></i></a>
-        </div>
+       
     </div>
 </div>
 <!--End Breadcrumb-->
@@ -79,12 +73,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($audits as $key=>$value)
                         <tr>
-                            <td class="m-ticker"><b>BRDM</b><span>Broadem Inc.</span></td>
-                            <td class="m-price">33.27</td>
-
+                            <td class="m-ticker"><b>{{$value->user}}</b><span>{{$value->name}}</span></td>
+                            <td class="m-price">{{$value->activity}}</td>
                         </tr>
-
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -100,17 +94,17 @@
                         <div id="morris_donut_3" style="width:120px;height:120px;"></div>
                     </div>
                 </div>
-                
+
                 <div id="ow-summary" class="row">
                     <div class="col-xs-12">
                         <h4 class="page-header">&Sigma; SUMMARY</h4>
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="row">
-                                    <div class="col-xs-6">Total clients<b>1245634</b></div>
-                                    <div class="col-xs-6">Total vessels<b>1245634</b></div>
+                                    <div class="col-xs-6">Total clients<b>{{$totalClients}}</b></div>
+                                    <div class="col-xs-6">Total vessels<b>{{$totalVessels}}</b></div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -124,25 +118,25 @@
                 <div class="col-xs-1"><i class="fa fa-users"></i></div>
                 <div class="col-xs-2"><b>Name</b></div>
                 <div class="col-xs-2">Head Office</div>
-                <div class="col-xs-2">Email</div>
+                <div class="col-xs-3">Email</div>
                 <div class="col-xs-2">Contact Number</div>
                 <div class="col-xs-2">Digital Address</div>
-                <div class="col-xs-1">Date</div>
             </div>
             <div class="row one-list-message">
+                @foreach($clients as $key => $value)
                 <div class="col-xs-1"><i class="fa fa-user"></i></div>
-                <div class="col-xs-2"><b>USA</b></div>
-                <div class="col-xs-2">109455</div>
-                <div class="col-xs-2">54322344</div>
-                <div class="col-xs-2"> 354563</div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-1 message-date">12/31/13</div>
+                <div class="col-xs-2"><b>{{$value->client_name}}</b></div>
+                <div class="col-xs-2">{{$value->client_head_office}}</div>
+                <div class="col-xs-3">{{$value->client_email}}</div>
+                <div class="col-xs-2"> {{$value->client_number}}</div>
+                <div class="col-xs-2">{{$value->client_digital_address}}</div>
+                @endforeach
             </div>
-          
+
         </div>
         <!--End Dashboard Tab 2-->
         <!--Start Dashboard Tab 3-->
-     
+
         <div id="dashboard-vessels" class="row" style="visibility: hidden; position: absolute;">
             <div class="row one-list-message">
                 <div class="col-xs-1"><i class="fa fa-users"></i></div>
@@ -153,14 +147,16 @@
                 <div class="col-xs-1">Departure</div>
             </div>
             <div class="row one-list-message">
+                @foreach($vessels as $key => $value)
                 <div class="col-xs-1"><i class="fa fa-user"></i></div>
-                <div class="col-xs-2"><b>USA</b></div>
-                <div class="col-xs-2">109455</div>
-                <div class="col-xs-2">54322344</div>
-                <div class="col-xs-1 message-date">12/31/13</div>
-                <div class="col-xs-1 message-date">12/31/13</div>
+                <div class="col-xs-2"><b>{{$value->vessel_name}}</b></div>
+                <div class="col-xs-2">{{$value->vessel_flag}}</div>
+                <div class="col-xs-2">{{$value->operator_name}}</div>
+                <div class="col-xs-1 message-date">{{$value->arrival_date}}</div>
+                <div class="col-xs-1 message-date">{{$value->departure_date}}</div>
+                @endforeach
             </div>
-          
+
         </div>
         <!--End Dashboard Tab 3-->
         <!--Start Dashboard Tab 4-->
