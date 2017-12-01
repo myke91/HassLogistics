@@ -160,20 +160,20 @@
             </div>
 
         </div>
-        <div class="col-sm-4" style="float: right">
-
-            <form action="{{route('downloadInvoiceFile')}}">
-                <input type="hidden" id="pdf-file-name" name="file" value="1512145290_SG_OKE_invoice.pdf" />
-                <button type="submit" class="btn btn-link btn-label-left" id="download-invoice">
-                    <span><i class="fa fa-download"></i></span>
-                    Download
-                </button>
-            </form>
+        <div class="col-sm-2" style="float: right">     
 
             <button class="btn btn-info btn-label-left" id="generate-invoice">
                 <span><i class="fa fa-money"></i></span>
                 Confirm and Generate Invoice
             </button>
+
+            <form action="{{route('downloadInvoiceFile')}}">
+                <input type="hidden" id="pdf-file-name" name="file" value="1512145290_SG_OKE_invoice.pdf" />
+                <button type="submit" class="btn btn-link btn-label-left" id="download-invoice" style="float:right">
+                    <span><i class="fa fa-download"></i></span>
+                    Download
+                </button>
+            </form>
 
         </div>
     </div>
@@ -204,6 +204,8 @@
         $('.add-tarrif').attr("disabled", "disabled");
         $('.submit').attr("disabled", "disabled");
         $('.clear').attr("disabled", "disabled");
+        $('#download-invoice').attr("disabled", "disabled");
+        $('#generate-invoice').attr("disabled", "disabled");
 
 
         // Add tooltip to form-controls
@@ -271,9 +273,9 @@
         }).fail(function (data) {
             console.log(data);
         });
-        $(this).trigger('reset');
+        $('#tarrif-charge-modal').trigger('reset');
         $('#tarrif-charge-modal').modal('hide');
-
+        $('#generate-invoice').removeAttr("disabled");
 
     }).on('click', '#generate-invoice', function (e) {
         e.preventDefault();
@@ -290,6 +292,7 @@
         console.log(entries);
         $.post("{{route('saveAllAndGenerateInvoice')}}", {data: entries}, function (data) {
             console.log(data);
+            $('#download-invoice').removeAttr("disabled");
             $('#pdf-file-name').val(data.invoice);
 
         }).fail(function (data) {

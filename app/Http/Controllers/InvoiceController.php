@@ -176,7 +176,7 @@ class InvoiceController extends Controller {
         $input['vessel'] = $vessel;
         $input['filename'] = $invoiceFileName;
         Mail::send('emails.invoice', $input, function($message) use ($input) {
-            $message->to($input['client_email'], $input['client']);
+            $message->to('fred.ahanogbe@gmail.com', $input['client']);
             $message->subject('Invoice to ' . $input['client'] . ' on vessel ' . $input['vessel']);
             $message->from('info@hasslogistics.com', 'Hass Logistics');
             $message->attachData($this->_pdf->stream(), $input['filename']);
