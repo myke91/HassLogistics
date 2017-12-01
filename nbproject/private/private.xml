@@ -4,14 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/HassLogistics/storage/logs/laravel.log</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/dashboard.blade.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/Procfile</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/VesselController.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/HomeController.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/.env</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/invoicing/invoiceTable.blade.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/IndexController.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/PaymentController.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/layouts/app.blade.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/resources/views/dashboard.blade.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/Vessel.php</file>
-            <file>file:/C:/xampp/htdocs/HassLogistics/app/Http/Controllers/VesselController.php</file>
+            <file>file:/C:/xampp/htdocs/HassLogistics/config/app.php</file>
             <file>file:/C:/xampp/htdocs/HassLogistics/app/User.php</file>
         </group>
     </open-files>

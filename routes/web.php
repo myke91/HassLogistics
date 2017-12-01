@@ -39,7 +39,7 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::get('/invoice-history', ['as' => 'invoiceInfoPage', 'uses' => 'InvoiceController@getInvoiceInfo']);
     Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
     Route::get('/invoice-modification', ['as' => 'invoiceModification', 'uses' => 'InvoiceController@getInvoiceModification']);
-    Route::get('/invoice/pdf', ['as' => 'generateInvoicePdfStream', 'uses' => 'InvoiceController@generateInvoicePdfStream']);
+    Route::get('/download-pdf', ['as' => 'downloadInvoiceFile', 'uses' => 'InvoiceController@downloadInvoiceFile']);
     Route::get('show-payment', ['as' => 'getPayment', 'uses' => 'PaymentController@getPayment']);
     Route::get('/invoice-payment', ['as' => 'showPayment', 'uses' => 'PaymentController@showPayment']);
     Route::get('/add_new_user', ['as' => 'add_new_user', 'uses' => 'IndexController@getAddUser']);
