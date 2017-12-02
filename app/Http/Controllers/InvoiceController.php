@@ -125,6 +125,18 @@ class InvoiceController extends Controller {
 
         return response()->json(['invoice' => $invoiceFileName]);
     }
+    
+    public function clearTempInvoiceTable(Request $request) {
+        $entries = $request->data;
+        
+        foreach ($entries as $value) {
+
+            TempInvoice::destroy($value[11]);
+        }
+
+
+        return response()->json(['message' => 'Clear successful']);
+    }
 
     public function deleteTempInvoice(Request $request) {
 

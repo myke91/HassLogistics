@@ -168,9 +168,9 @@
                             <span class="hidden-xs">Invoicing</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{route('invoice')}}"><i class="fa fa-book">&nbsp;</i>Prepare Invoice</a></li>
-                            <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
-                            <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
+                            <li><a href="{{route('invoice')}}"><i class="fa fa-shopping-cart">&nbsp;</i>Prepare Invoice</a></li>
+                            <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-history">&nbsp;</i>Invoice History</a></li>
+                            <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-credit-card">&nbsp;</i>Track Payments</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

@@ -243,7 +243,6 @@
 
         });
     }).on('click', '.save-tarrif', function (e) {
-
         e.preventDefault();
         console.log('received click event for additional invoice creation');
         var data = $("#frm-create-invoice").serialize();
@@ -308,15 +307,19 @@
                 ret.push(d);
             });
             entries.push(ret);
-            return ret;
+
         });
         console.log(entries);
-        $.post("{{route('saveAllAndGenerateInvoice')}}", {data: entries}, function (data) {
-            console.log(data);
+        if (entries.length === 0) {
+            location.reload();
+        } else {
+            $.post("{{route('clearTempInvoiceTable')}}", {data: entries}, function (data) {
+                location.reload();
 
-        }).fail(function (data) {
-            console.log(data);
-        });
+            }).fail(function (data) {
+                console.log(data);
+            });
+        }
     });
 
 
