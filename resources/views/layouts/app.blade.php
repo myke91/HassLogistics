@@ -157,7 +157,7 @@
                                     <li><a href="{{route('getTarrifForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif </a></li>
                                     <li><a href="{{route('getTarrifTypeForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Type</a></li>
                                     <li><a href="{{route('getTarrifParamForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Parameters</a></li>
-                                    <li><a href="{{route('getTarrifChargesForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Charges</a></li>
+                                    <li><a href="{{route('getTarrifChargeForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Charges</a></li>
                                 </ul>
                             </li>
                         </ul>
