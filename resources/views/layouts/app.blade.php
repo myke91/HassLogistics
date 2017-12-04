@@ -154,10 +154,10 @@
                                     <span class="hidden-xs"> Port Charges</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif </a></li>
-                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Type</a></li>
-                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Parameters</a></li>
-                                    <li><a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Charges</a></li>
+                                    <li><a href="{{route('getTarrifForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif </a></li>
+                                    <li><a href="{{route('getTarrifTypeForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Type</a></li>
+                                    <li><a href="{{route('getTarrifParamForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Parameters</a></li>
+                                    <li><a href="{{route('getTarrifChargesForm')}}">&nbsp;&nbsp;&nbsp;<i class="fa fa-database">&nbsp;</i>Tarrif Charges</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -168,9 +168,9 @@
                             <span class="hidden-xs">Invoicing</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{route('invoice')}}"><i class="fa fa-book">&nbsp;</i>Prepare Invoice</a></li>
-                            <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-book">&nbsp;</i>Invoice History</a></li>
-                            <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-book">&nbsp;</i>Track Payments</a></li>
+                            <li><a href="{{route('invoice')}}"><i class="fa fa-shopping-cart">&nbsp;</i>Prepare Invoice</a></li>
+                            <li><a href="{{route('invoiceInfoPage')}}"><i class="fa fa-history">&nbsp;</i>Invoice History</a></li>
+                            <li><a href="{{route('getTrackPayments')}}"><i class="fa fa-credit-card">&nbsp;</i>Track Payments</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -179,10 +179,10 @@
                             <span class="hidden-xs">Payment</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{route('getPayment')}}">Make Payment</a></li>
-                            <li><a href="{{route('cashPayments')}}">Cash Payments</a></li>
-                            <li><a  href="{{route('chequePayments')}}">Cheque Payments</a></li>
-                            <li><a  href="{{route('paymentOnAccount')}}">Payment On Account</a></li>
+                            <li><a href="{{route('getPayment')}}"><i class="fa fa-money">&nbsp;</i>Make Payment</a></li>
+                            <li><a href="{{route('cashPayments')}}"><i class="fa fa-certificate">&nbsp;</i>Cash Payments</a></li>
+                            <li><a  href="{{route('chequePayments')}}"><i class="fa fa-vk">&nbsp;</i>Cheque Payments</a></li>
+                            <li><a  href="{{route('paymentOnAccount')}}"><i class="fa fa-anchor">&nbsp;</i>Payment On Account</a></li>
                         </ul>
                     </li>
                     <!--                        <li class="dropdown">

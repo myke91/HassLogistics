@@ -16,9 +16,10 @@ class CreateInvoiceTable extends Migration {
             $table->increments('invoice_id');
             $table->integer('vessel_id')->unsigned();
             $table->integer('client_id')->unsigned();
+            $table->string('invoice_no');
             $table->string('bill_item');
-             $table->string('billable');
-            $table->decimal('unit_price',20,2);
+            $table->string('billable');
+            $table->decimal('unit_price', 20, 2);
             $table->integer('quantity')->default('1');
             $table->decimal('actual_cost', 20, 2)->nullable();
             $table->decimal('vat', 20, 2)->nullable();
@@ -27,7 +28,6 @@ class CreateInvoiceTable extends Migration {
             $table->timestamps();
             $table->foreign('vessel_id')->references('vessel_id')->on('vessels');
             $table->foreign('client_id')->references('client_id')->on('clients');
-            
         });
     }
 

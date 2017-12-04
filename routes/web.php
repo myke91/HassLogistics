@@ -20,12 +20,15 @@ Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotP
 Route::get('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
 Route::post('password/reset', ['as' => '', 'uses' => 'Auth\ResetPasswordController@reset']);
 Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+Route::get('/receipt', function() {
 
-Route::get('/noPermission',function (){
+    return View::make('pdf.receipt');
+});
+Route::get('/noPermission', function () {
     return view('permission.noPermission');
 });
 
-Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function () {
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], function () {
     Route::get('/add_vessel', ['as' => 'add_vessel', 'uses' => 'VesselController@addVessel']);
     Route::get('/show/vesselinfo', ['as' => 'showVesselInfo', 'uses' => 'VesselController@showVesselInformation']);
     Route::get('/edit/vesselinfo', ['as' => 'editVessel', 'uses' => 'VesselController@editVessel']);
@@ -39,7 +42,7 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::get('/invoice-history', ['as' => 'invoiceInfoPage', 'uses' => 'InvoiceController@getInvoiceInfo']);
     Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
     Route::get('/invoice-modification', ['as' => 'invoiceModification', 'uses' => 'InvoiceController@getInvoiceModification']);
-    Route::get('/invoice/pdf', ['as' => 'generateInvoicePdfStream', 'uses' => 'InvoiceController@generateInvoicePdfStream']);
+    Route::get('/download-pdf', ['as' => 'downloadInvoiceFile', 'uses' => 'InvoiceController@downloadInvoiceFile']);
     Route::get('show-payment', ['as' => 'getPayment', 'uses' => 'PaymentController@getPayment']);
     Route::get('/invoice-payment', ['as' => 'showPayment', 'uses' => 'PaymentController@showPayment']);
     Route::get('/add_new_user', ['as' => 'add_new_user', 'uses' => 'IndexController@getAddUser']);
@@ -48,6 +51,14 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
     Route::get('/editTempInvoice',['as'=>'editTempInvoice','uses'=>'InvoiceController@editTempInvoice']);
+    Route::get('/track-payments', ['as' => 'getTrackPayments', 'uses' => 'InvoiceController@getTrackPayments']);
+    Route::get('/tarrif-form', ['as' => 'getTarrifForm', 'uses' => 'TarrifController@getTarrifForm']);
+    Route::get('/tarrif-param-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
+    Route::get('/tarrif-params-form', ['as' => 'getTarrifParamForm', 'uses' => 'TarrifController@getTarrifParamForm']);
+    Route::get('/tarrif-charges-form', ['as' => 'getTarrifChargesForm', 'uses' => 'TarrifController@getTarrifChargesForm']);
+
+
+
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -67,6 +78,8 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
     Route::post('/confirm-invoice', ['as' => 'confirmInvoice', 'uses' => 'InvoiceController@confirmAndSaveInvoice']);
     Route::post('/confirm-all-invoice',['as'=>'saveAllAndGenerateInvoice','uses'=>'InvoiceController@saveAllAndGenerateInvoice']);
     Route::post('/save-payment-from-Invoice',['as'=>'paymentFromInvoice','uses'=>'PaymentController@savePaymentFromInvoice']);
+    Route::post('/confirm-all-invoice', ['as' => 'saveAllAndGenerateInvoice', 'uses' => 'InvoiceController@saveAllAndGenerateInvoice']);
+    Route::post('/clear-temp-table', ['as' => 'clearTempInvoiceTable', 'uses' => 'InvoiceController@clearTempInvoiceTable']);
     Route::post('/delete-invoice', ['as' => 'deleteInvoce', 'uses' => 'InvoiceController@deleteTempInvoice']);
 
 // api urls
@@ -81,16 +94,23 @@ Route::group(['middleware' => ['authen','roles'],'roles'=>['admin']], function (
 });
 
 
+
 Route::group(['middleware' => ['authen','roles'],'roles'=>['clerk']], function () {
 
 });
-Route::group(['middleware' => ['authen','roles'],'roles'=>['manager']], function () {
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], function () {
+    
+});
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['clerk']], function () {
 
 });
-
-Route::group(['middleware' => ['authen','roles'],'roles'=>['cashier']], function () {
-
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['manager']], function () {
+    
 });
-Route::group(['middleware' => ['authen','roles'],'roles'=>['front desk']], function () {
 
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['cashier']], function () {
+    
+});
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['front desk']], function () {
+    
 });

@@ -20,4 +20,9 @@ class Invoice extends Model
         'invoice_status'];
     protected $primaryKey = 'invoice_id';
     public $timestamps = false;
+    
+    public function setInvoiceNoAttribute($value)
+    {
+        $this->attributes['invoice_no'] = time();
+    }
 }

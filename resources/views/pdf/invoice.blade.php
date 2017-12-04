@@ -15,8 +15,8 @@
 
             <td>
                 <p>Invoice No: HLG/TEM/0000106 </p>
-                <p>Date: 30/10/17</p>
-                <p>Customer ID:</p>
+                <p>Date: {{date('d-M-Y')}}</p>
+                <p>Customer:{{$data[0]->client_name}}</p>
             </td>
         </tr>
     </table>
@@ -24,9 +24,9 @@
     <br />
     <table border="1" width="100%">
         <tr>
-            <td>Vessel: ESL AUSTRALIA</td>
-            <td>ETA: 29 Oct 2017</td>
-            <td>Port of Loading: Buchanan</td>
+            <td>Vessel: {{$data[0]->vessel_name}}</td>
+            <td>ETA: {{$data[0]->arrival_date}}</td>
+            <td>Port of Loading: {{$data[0]->homeport}}</td>
         </tr>
 
         <tr>
@@ -43,6 +43,11 @@
             <tr>
                 <td>Item No.</td> <td>Description</td> <td>Billable</td> <td>Quantity</td> <td>Unit Price</td> <td>Amount GHC</td>
             </tr>
+            @foreach($data as $key => $value)
+            <tr>
+                <td>Item No.</td> <td>{{$value->bill_item}}</td> <td>{{$value->billable}}</td> <td>{{$value->quantity}}</td> <td>{{$value->unit_price}}</td> <td>{{$value->actual_cost}}</td>
+            </tr>
+            @endforeach
          
 
         </tbody>
