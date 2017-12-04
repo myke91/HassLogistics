@@ -50,6 +50,11 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
+    Route::get('/track-payments', ['as' => 'getTrackPayments', 'uses' => 'InvoiceController@getTrackPayments']);
+    Route::get('/tarrif-form', ['as' => 'getTarrifForm', 'uses' => 'TarrifController@getTarrifForm']);
+    Route::get('/tarrif-param-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
+    Route::get('/tarrif-params-form', ['as' => 'getTarrifParamForm', 'uses' => 'TarrifController@getTarrifParamForm']);
+    Route::get('/tarrif-charges-form', ['as' => 'getTarrifChargesForm', 'uses' => 'TarrifController@getTarrifChargesForm']);
 
 
 

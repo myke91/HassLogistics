@@ -125,10 +125,10 @@ class InvoiceController extends Controller {
 
         return response()->json(['invoice' => $invoiceFileName]);
     }
-    
+
     public function clearTempInvoiceTable(Request $request) {
         $entries = $request->data;
-        
+
         foreach ($entries as $value) {
 
             TempInvoice::destroy($value[11]);
@@ -144,19 +144,30 @@ class InvoiceController extends Controller {
             TempInvoice::destroy($request->invoice_id);
         }
     }
-
+ public function getTrackPayments() {
+        return view('invoicing.trackPayments');
+    }
+    
     public function getInvoiceInfo() {
-        return view('invoicing.invoiceInfo');
+         $invoices = $this->invoiceInformationSummary()->get();
+        return view('invoicing.invoiceInfo', compact('invoices'));
     }
 
     public function showInvoiceInfo() {
-        $invoices = $this->InvoiceInformation()->get();
+        $invoices = $this->invoiceInformationSummary()->get();
         return view('invoicing.invoiceTable', compact('invoices'));
     }
 
     public function InvoiceInformation() {
         return Invoice::join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id');
+    }
+
+    public function invoiceInformationSummary() {
+        return Invoice::join('clients', 'clients.client_id', '=', 'invoice.client_id')
+                        ->join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id')
+                        ->select('client_name', 'vessel_name', 'vessels.vessel_id')
+                        ->groupBy('client_name', 'vessel_name', 'vessels.vessel_id');
     }
 
     public function getInvoiceModification() {
