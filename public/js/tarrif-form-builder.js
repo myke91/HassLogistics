@@ -139,3 +139,21 @@ $(document).on('change keyup', '#vat', function () {
     var tcost = (fee * qty) + tVat;
     $('#actual_cost').val(parseFloat(tcost));
 });
+
+$(document).on('change keyup', '#quantity_edit', function () {
+
+    var fee = $('#unit_price').val();
+    var qty = $('#quantity_edit').val();
+    //var vt = $('#vat').val();
+    $('#actual_cost_edit').val(parseFloat(fee) * parseFloat(qty));
+});
+
+$(document).on('change keyup', '#vat_edit', function () {
+
+    var fee = $('#unit_price').val();
+    var qty = $('#quantity_edit').val();
+    var vatP = $('#vat_edit').val() / 100;
+    var tVat = fee * qty * vatP;
+    var tcost = (fee * qty) + tVat;
+    $('#actual_cost_edit').val(parseFloat(tcost));
+});

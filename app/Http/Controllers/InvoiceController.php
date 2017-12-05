@@ -23,10 +23,12 @@ class InvoiceController extends Controller {
     public function prepareInvoice() {
         $clients = Client::all();
         $vessels = Vessel::all();
+        $tps = TarrifParams::all();
+        $tcs = TarrifCharge::all();
         $temp = TempInvoice::join('clients', 'clients.client_id', '=', 'temp_invoice.client_id')
                 ->join('vessels', 'vessels.vessel_id', '=', 'temp_invoice.vessel_id')
                 ->get();
-        return view('invoicing.invoice', compact('clients', 'vessels', 'temp'));
+        return view('invoicing.invoice', compact('clients', 'vessels', 'temp','tps','tcs'));
     }
 
     public function getTarrifs() {

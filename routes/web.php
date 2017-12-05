@@ -50,6 +50,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
+    Route::get('/editTempInvoice',['as'=>'editTempInvoice','uses'=>'InvoiceController@editTempInvoice']);
     Route::get('/track-payments', ['as' => 'getTrackPayments', 'uses' => 'InvoiceController@getTrackPayments']);
     Route::get('/tarrif-form', ['as' => 'getTarrifForm', 'uses' => 'TarrifController@getTarrifForm']);
     Route::get('/tarrif-param-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
@@ -75,6 +76,8 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/save-payment', ['as' => 'savePayment', 'uses' => 'PaymentController@savePayment']);
     Route::post('/post-user', ['as' => 'postUser', 'uses' => 'IndexController@postUser']);
     Route::post('/confirm-invoice', ['as' => 'confirmInvoice', 'uses' => 'InvoiceController@confirmAndSaveInvoice']);
+    Route::post('/confirm-all-invoice',['as'=>'saveAllAndGenerateInvoice','uses'=>'InvoiceController@saveAllAndGenerateInvoice']);
+    Route::post('/save-payment-from-Invoice',['as'=>'paymentFromInvoice','uses'=>'PaymentController@savePaymentFromInvoice']);
     Route::post('/confirm-all-invoice', ['as' => 'saveAllAndGenerateInvoice', 'uses' => 'InvoiceController@saveAllAndGenerateInvoice']);
     Route::post('/clear-temp-table', ['as' => 'clearTempInvoiceTable', 'uses' => 'InvoiceController@clearTempInvoiceTable']);
     Route::post('/delete-invoice', ['as' => 'deleteInvoce', 'uses' => 'InvoiceController@deleteTempInvoice']);
@@ -91,14 +94,19 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
     Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
     Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
+    Route::post('/updateTempInvoice',['as'=>'updateTempInvoice','uses'=>'InvoiceController@updateTempInvoice']);
 });
 
 
+
+Route::group(['middleware' => ['authen','roles'],'roles'=>['clerk']], function () {
+
+});
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], function () {
     
 });
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['clerk']], function () {
-    
+
 });
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['manager']], function () {
     

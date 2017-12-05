@@ -1,4 +1,4 @@
-<div class="modal fade" id="client-show" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="vessel_op-show" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,7 @@
                         <div class="box-header">
                             <div class="box-name">
                                 <i class="fa fa-search"></i>
-                                <span>CLIENT DATA EDIT</span>
+                                <span>VESSEL OPERATOR EDIT</span>
                             </div>
                             <div class="box-icons">
                                 <a class="collapse-link">
@@ -36,32 +36,19 @@
                                 <div id="updatemessages_content">
                                 </div>
                             </div>
-                            <form class="form-horizontal" role="form" id="frm-update-client" action="">
+                            <form class="form-vertical" role="form" id="frm-update-vo" action="">
                             <div class="form-group">
-                                <input type="hidden" id="client_id_edit" name="client_id">
-                                <label class="col-sm-2 control-label">Client Name</label>
+                                <input type="hidden" id="vessel_operator_id_edit" name="vessel_operator_id">
+                                <label class="col-sm-2 control-label">Vessel Operator Name</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="client_name_edit" name="client_name"required>
+                                    <input type="text" class="form-control" id="operator_name_edit" name="operator_name"required>
                                 </div>
-                                <label class="col-sm-2 control-label">Office Desc</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="client_office_desc_edit" name="client_office_desc" data-toggle="tooltip" required>
-                                </div>
-                            </div>
-                            <div class="form-group has-success has-feedback">
-                                <label class="col-sm-2 control-label">Head office</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="client_head_office_edit" name="client_head_office" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
-                                </div>
-                                <label class="col-sm-2 control-label">Client Number</label>
-                                <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="client_number_edit" name="client_number" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
-                                </div>
+
                             </div>
                                 <div class="clearfix"></div>
                                 <div class="modal-footer">
                                     <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                                    <button type="button" class="btn btn-success btn-sm  btn-update-client">Update Client</button>
+                                    <button type="button" class="btn btn-success btn-sm  btn-update-vo">Update Client</button>
                                 </div>
                             </form>
                         </div>

@@ -19,6 +19,9 @@ class Payment extends Model
         'description',
         'remark',
         'payment_date',
+        'account_name',
+        'account_number',
+        'cheque_date',
         'user_id'];
     protected $primaryKey = 'payment_id';
     public $timestamps = false;
