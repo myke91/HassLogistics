@@ -56,6 +56,10 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/tarrif-param-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
     Route::get('/tarrif-params-form', ['as' => 'getTarrifParamForm', 'uses' => 'TarrifController@getTarrifParamForm']);
     Route::get('/tarrif-charge-form', ['as' => 'getTarrifChargeForm', 'uses' => 'TarrifController@getTarrifChargeForm']);
+    Route::get('/edit-tarrif', ['as' => 'editTarrif', 'uses' => 'TarrifController@editTarrif']);
+    Route::get('/edit-tarrifType', ['as' => 'editTarrifType', 'uses' => 'TarrifController@editTarrifType']);
+    Route::get('/edit-tarrifParam', ['as' => 'editTarrifParam', 'uses' => 'TarrifController@editTarrifParam']);
+    Route::get('/edit-tarrifCharge', ['as' => 'editTarrifCharge', 'uses' => 'TarrifController@editTarrifCharge']);
 
 
 
@@ -85,6 +89,11 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/save-tarrif-type', ['as' => 'saveTarrifType', 'uses' => 'TarrifController@saveTarrifType']);
     Route::post('/save-tarrif-param', ['as' => 'saveTarrifParam', 'uses' => 'TarrifController@saveTarrifParam']);
     Route::post('/save-tarrif-charge', ['as' => 'saveTarrifCharge', 'uses' => 'TarrifController@saveTarrifCharge']);
+
+    Route::post('/update-tarrif', ['as' => 'updateTarrif', 'uses' => 'TarrifController@updateTarrif']);
+    Route::post('/update-tarrifType', ['as' => 'updateTarrifType', 'uses' => 'TarrifController@updateTarrifType']);
+    Route::post('/update-tarrifParam', ['as' => 'updateTarrifParam', 'uses' => 'TarrifController@updateTarrifParam']);
+    Route::post('/update-tarrifCharge', ['as' => 'updateTarrifCharge', 'uses' => 'TarrifController@updateTarrifCharge']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);

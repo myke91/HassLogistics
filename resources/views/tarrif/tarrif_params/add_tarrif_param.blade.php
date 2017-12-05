@@ -118,7 +118,10 @@
     function MakeSelect2() {
         $('.s2').select2();
     }
-
+    $(document).ready(function () {
+        $.get("{{route('ready')}}", function () {
+        });
+    });
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
         TestTable1();

@@ -26,14 +26,9 @@
                         </div>
                         <div class="box-content">
                             <h4 class="page-header"></h4>
-                            <div id="clientupdatemessages" class="hide" role="alert">
+                            <div id="tarrifupdatemessages" class="hide" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div id="clientupdatemessages_content">
-                                </div>
-                            </div>
-                            <div id="updatemessages" class="hide" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <div id="updatemessages_content">
+                                <div id="tarrifupdatemessages_content">
                                 </div>
                             </div>
                             <form class="form-horizontal" role="form" id="frm-update-tarrif" action="">

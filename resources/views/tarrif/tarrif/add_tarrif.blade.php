@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('data.vessel_operators.edit_vessel_operator')
+@include('tarrif.tarrif.edit_tarrif')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -41,7 +41,7 @@
                     <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Tarrif</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="tarrif" name="tarrif" required>
+                            <input type="text" class="form-control" id="tarrif_name" name="tarrif_name" required>
                         </div>
                     </div>
 
@@ -74,7 +74,27 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content no-padding" id="add-tarrif-info">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="tarrif-table">
+                    <thead>
+                    <tr>
+                        <th>Tarrif Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($tarrifs as $key => $value)
+                        <tr>
+                            <td>{{$value->tarrif_name}}</td>
+                            <td class="del">
+                                <Button value="{{$value->tarrif_id}}" class="edit"><i class="fa fa-pencil-square-o"></i></Button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
 
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -84,8 +104,6 @@
 
 @section('additional_script')
 <script type="text/javascript">
-    showTarrifInfo();
-
 
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
@@ -96,52 +114,52 @@
     }
 
 
-    $('#frm-create-vessel-operator').on('submit', function (e) {
+    $('#frm-create-tarrif').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            showClientInfo(data.client_name);
+            var validate = confirm("Tarrif Save successfully");
+            if (validate === true) {
+                location.reload();
+            }
+            else {
+                return false;
+            }
         });
-        $(this).trigger('reset');
-        $('#clientmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientmessages_content').html('<h4>Vessel operator created Successfully</h4>');
-        $('#modal').modal('show');
+
     });
-    function showTarrifInfo()
-    {
-        var data = $('#frm-create-tarrif').serialize();
-        $.get("{{route('showClientInfo')}}", data, function (data) {
-            $('#add-client-info').empty().append(data);
-        });
-    }
-    $(document).on('click', '.class-edit', function (e) {
-        $('#client-show').modal('show');
-        client_id = $(this).val();
-        $.get("{{route('editClient')}}", {client_id: client_id}, function (data) {
 
-            $('#client_name_edit').val(data.client_name);
-            $('#client_office_desc_edit').val(data.client_office_desc);
-            $('#client_head_office_edit').val(data.client_head_office);
-            $('#client_number_edit').val(data.client_number);
-            $('#client_id_edit').val(data.client_id);
-
+    $(document).on('click', '.edit', function (e) {
+        console.log('dataclicked');
+        $('#tarrif-show').modal('show');
+       var tarrif_id = $(this).val();
+        $.get("{{route('editTarrif')}}", {tarrif_id: tarrif_id}, function (data) {
+            $('#tarrif-name').val(data.tarrif_name);
+            $('#tarrif-id').val(data.tarrif_id);
 
         });
     });
-    $('.btn-update-client').on('click', function (e) {
+    $('.btn-update-tarrif').on('click', function (e) {
         e.preventDefault();
-        var data = $('#frm-update-client').serialize();
-        $.post("{{route('updateClient')}}", data, function (data) {
-            showTarrifInfo(data.client_name);
+        var data = $('#frm-update-tarrif').serialize();
+        var updateTarrif =$.post("{{route('updateTarrif')}}", data, function (data) {
         });
-        $('#clientupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientupdatemessages_content').html('<h4>Vessel operator updated successfully</h4>');
-        $('#modal').modal('show');
-        $('#frm-update-class').trigger('reset');
+        if (updateTarrif==true) {
+            $('#tarrifupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+            $('#tarrifupdatemessages_content').html('<h4>Tarrif updated successfully</h4>');
+            $('#modal').modal('show');
+            $('#tarrif-show').modal('hide');
+            location.reload();
+        }else{
+            return false;
+        }
     });
 
-
+    $(document).ready(function () {
+        $.get("{{route('ready')}}", function () {
+        });
+    });
 
 </script>
 @endsection
