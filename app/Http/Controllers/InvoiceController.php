@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use \Illuminate\Http\Request;
-use \Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Tarrif;
 use App\TarrifType;
@@ -108,15 +108,14 @@ class InvoiceController extends Controller {
             $row['invoice_no'] = $value[3];
             $row['bill_item'] = $value[4];
             $row['billable'] = $value[5];
-            $row['vat'] = $value[6];
-            $row['unit_price'] = $value[7];
-            $row['quantity'] = $value[8];
-            $row['actual_cost'] = $value[9];
-            $row['invoice_status'] = $value[11];
-            $row['invoice_date'] = $value[12];
+            $row['unit_price'] = $value[6];
+            $row['quantity'] = $value[7];
+            $row['actual_cost'] = $value[8];
+            $row['invoice_status'] = $value[10];
+            $row['invoice_date'] = $value[11];
             Log::debug($row);
             Invoice::create($row);
-            TempInvoice::destroy($value[13]);
+            TempInvoice::destroy($value[12]);
         }
         $invoiceItems = Invoice::where(['client_id' => $client_id, 'vessel_id' => $vessel_id])->get();
         $clientDB = Client::where('client_id', '=', $client_id)->first();
@@ -133,7 +132,7 @@ class InvoiceController extends Controller {
         $entries = $request->data;
 
         foreach ($entries as $value) {
-            TempInvoice::destroy($value[13]);
+            TempInvoice::destroy($value[12]);
         }
         return response()->json(['message' => 'Clear successful']);
     }

@@ -109,7 +109,7 @@
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
                     <thead>
                     <tr>
-                        <th>Tarrif Type Name</th>
+                        <!--<th>Tarrif Type Name</th>-->
                         <th>Tarrif Param Name</th>
                         <th>Tarrif Param Code</th>
                         <th>TPCT</th>
@@ -120,7 +120,7 @@
                     <tbody>
                     @foreach($tarrifParams as $key => $t)
                         <tr>
-                            <td>{{$t->tarrif_type_name}}</td>
+                            <!--<td>{{$t->tarrif_type_name}}</td>-->
                             <td>{{$t->tarrif_param_name}}</td>
                             <td>{{$t->tarrif_param_code}}</td>
                             <td>{{$t->tarrif_param_charge_type}}</td>

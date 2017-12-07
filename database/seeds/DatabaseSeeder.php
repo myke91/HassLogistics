@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->call(TarrifChargeSeeder::class);
         $this->call(ClientSeeder::class);
         $this->call(VesselOperatorSeeder::class);
+        $this->call(VatTableSeeder::class);
     }
 
 }

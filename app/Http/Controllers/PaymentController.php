@@ -7,92 +7,114 @@ use App\Invoice;
 use App\Client;
 use App\Vessel;
 use App\Payment;
+use Illuminate\Support\Facades\Log;
+use \Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Mail;
 
-class paymentController extends Controller
-{
-    public function getPayment()
-    {
+class paymentController extends Controller {
 
+    public function getPayment() {
         return view('payment.searchPayment');
     }
 
-    public function show_invoice_status($invoiceId)
-    {
-        return Invoice::join('Clients','Clients.client_id','=','Invoice.client_id')
-                        ->join('Vessels','Vessels.vessel_id','=','Invoice.vessel_id')
-                        ->where('Invoice.Invoice_id',$invoiceId);
+    public function show_invoice_status($invoiceId) {
+        return Invoice::join('Clients', 'Clients.client_id', '=', 'Invoice.client_id')
+                        ->join('Vessels', 'Vessels.vessel_id', '=', 'Invoice.vessel_id')
+                        ->where('Invoice.Invoice_id', $invoiceId);
     }
-    public function payment($viewName,$invoice_id)
-    {
+
+    public function payment($viewName, $invoice_id) {
         $invoice = $this->show_invoice_status($invoice_id)->first();
-        $vessel = Vessel::where('vessel_id',$invoice->vessel_id)->get();
-        return view($viewName,compact('invoice','client','vessel'))->with('invoice_id',$invoice_id);
+        $vessel = Vessel::where('vessel_id', $invoice->vessel_id)->get();
+        return view($viewName, compact('invoice', 'client', 'vessel'))->with('invoice_id', $invoice_id);
     }
-    public function showPayment(Request $request)
-    {
+
+    public function showPayment(Request $request) {
         $invoice_id = $request->invoice_id;
-        if(count($invoice_id)>0)
+        if (count($invoice_id) > 0) {
             return $this->payment('payment.payment', $invoice_id);
-
-         else  return redirect()->back()->with(['error' =>'Invoice Id does not exit']);
-
-    }
-
-    public function savePayment(Request $request)
-    {
-        Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
-        return back()->with(['success'=>'Payment saved successfully']);
-
-    }
-
-    public function savePaymentFromInvoice(Request $request)
-    {
-        if ($request->ajax())
-        {
-          return response(Payment::create($request->all()));
+        } else {
+            return redirect()->back()->with(['error' => 'Invoice Id does not exit']);
         }
     }
 
-    public function getCashPayments()
-    {
-        $cash = Payment::where("payment_mode","Cash")
-            ->join('vessels','vessels.vessel_id','=','payments.vessel_id')
-            ->join('clients','clients.client_id','=','payments.client_id')
-            ->join('users','users.id','=','payments.user_id')
-            ->paginate(10);
-        return view('payment.cashPayment',compact('cash'));
+    public function savePayment(Request $request) {
+        Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
+        $receiptFileName = $this->generateReceiptPdfStream($request->client_id, $request->vessel_id);
+        $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
+        return back()->with(['success' => 'Payment saved successfully']);
     }
 
-
-    public function getChequePayments()
-    {
-        $cheques = Payment::where("payment_mode","Cheque")
-            ->join('vessels','vessels.vessel_id','=','payments.vessel_id')
-            ->join('clients','clients.client_id','=','payments.client_id')
-            ->join('users','users.id','=','payments.user_id')
-            ->paginate(10);
-        return view('payment.chequePayment',compact('cheques'));
+    public function savePaymentFromInvoice(Request $request) {
+        if ($request->ajax()) {
+            return response(Payment::create($request->all()));
+        }
     }
 
-    public function getPaymentOnAccount()
-    {
+    public function getCashPayments() {
+        $cash = Payment::where("payment_mode", "Cash")
+                ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+                ->join('clients', 'clients.client_id', '=', 'payments.client_id')
+                ->join('users', 'users.id', '=', 'payments.user_id')
+                ->paginate(10);
+        return view('payment.cashPayment', compact('cash'));
+    }
+
+    public function getChequePayments() {
+        $cheques = Payment::where("payment_mode", "Cheque")
+                ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+                ->join('clients', 'clients.client_id', '=', 'payments.client_id')
+                ->join('users', 'users.id', '=', 'payments.user_id')
+                ->paginate(10);
+        return view('payment.chequePayment', compact('cheques'));
+    }
+
+    public function getPaymentOnAccount() {
         return view('payment.paymentOnAccount');
     }
-    
-      public function emailReceipt($client, $client_email, $vessel, $invoiceFileName) {
-        $input['client'] = $client;
-        $input['client_email'] = $client_email;
-        $input['vessel'] = $vessel;
+
+    public function emailReceipt($client_id, $vessel_id, $invoiceFileName) {
+        $vessel = Vessel::find($vessel_id);
+        $client = Client::find($client_id);
+        $input['client'] = $client->client_name;
+        $input['client_email'] = $client->client_email;
+        $input['vessel'] = $vessel->vessel_name;
         $input['filename'] = $invoiceFileName;
-        Mail::send('emails.invoice', $input, function($message) use ($input) {
-            $message->to('gabbeyquaye@gmail.com', $input['client']);
-            $message->subject('Invoice to ' . $input['client'] . ' on vessel ' . $input['vessel']);
+        Mail::send('emails.receipt', $input, function($message) use ($input) {
+            $message->to('mike_dugah@yahoo.com', $input['client']);
+            $message->subject('Payment receipt on vessel ' . $input['vessel']);
             $message->from('info@hasslogistics.com', 'Hass Logistics');
             $message->attachData($this->_pdf->stream(), $input['filename']);
         });
     }
-    
-      public function downloadReceiptFile(Request $request) {
+
+    public function generateReceiptPdfStream($client_id, $vessel_id) {
+        $data = Payment::join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+                        ->join('clients', 'clients.client_id', '=', 'payments.client_id')
+                        ->where(['payments.client_id' => $client_id, 'payments.vessel_id' => $vessel_id])->get();
+        $vessel = Vessel::find($vessel_id);
+        $client = Client::find($client_id);
+
+        Log::debug($data);
+        $this->_pdf = PDF::loadView('pdf.receipt', compact('data'));
+        Log::debug('returning pdf document');
+        $receiptFileName = time() . '_' . $client->client_name . '_' . $vessel->vessel_name . '_receipt.pdf';
+        Storage::disk('local')->put('receipts/' . $receiptFileName, $this->_pdf->output());
+        $files = Storage::files('app/receipts');
+        Log::debug($files);
+        $numberOfFiles = sizeof($files);
+        Log::debug('number of files' . $numberOfFiles);
+        if ($numberOfFiles > 10) {
+            Log::debug('cleaning up directory');
+            $lastFile = end($files);
+            Storage::delete($lastFile);
+        }
+        return $receiptFileName;
+    }
+
+    public function downloadReceiptFile(Request $request) {
         return response()->download(storage_path('app/reciepts/' . $request->file));
     }
+
 }

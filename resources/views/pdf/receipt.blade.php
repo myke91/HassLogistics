@@ -1,16 +1,5 @@
 <!Doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Receipt</title>
-
-        <meta name="author" content="AharaSolutions">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet">
-        <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-    </head>
     <header>
         <h1 class="col-sm-12">RECEIPT</h1>
         <div class="pull-right" >

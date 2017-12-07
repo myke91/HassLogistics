@@ -44,7 +44,7 @@
                             <select id="tarrif-id" name="tarrif_id" class="s2 populate placeholder" required>
                                 <option></option>
                                 @foreach($tarrifs as $key =>$t)
-                                    <option value="{{$t->tarrif_id}}">{{$t->tarrif_name}}</option>
+                                <option value="{{$t->tarrif_id}}">{{$t->tarrif_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -94,19 +94,19 @@
             <div class="box-content no-padding" id="add-tarrif-type-info">
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
                     <thead>
-                    <tr>
-                        <th>Tarrif Name</th>
-                        <th>Tarrif Type Code</th>
-                        <th>Tarrif Type Name</th>
-                        <th>Actions</th>
-                    </tr>
+                        <tr>
+                            <th>Tarrif Type Name</th>
+                            <th>Tarrif Type Code</th>
+                            <th>Tarrif Name</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach($tarrifTypes as $key => $value)
+                        @foreach($tarrifTypes as $key => $value)
                         <tr>
-                            <td>{{$value->tarrif_name}}</td>
-                            <td>{{$value->tarrif_type_code}}</td>
                             <td>{{$value->tarrif_type_name}}</td>
+                            <td>{{$value->tarrif_type_code}}</td>
+                            <td>{{$value->tarrif_name}}</td>
 
                             <td class="del">
                                 <Button value="{{$value->tarrif_type_id}}" class="tarriftype-edit"><i class="fa fa-pencil-square-o"></i></Button>
@@ -115,7 +115,7 @@
 
                     </tbody>
                     <tfoot>
-                    @endforeach
+                        @endforeach
                     </tfoot>
                 </table>
 
@@ -153,8 +153,7 @@
             var validate = confirm("Tarrif Type Save successfully");
             if (validate === true) {
                 location.reload();
-            }
-            else {
+            } else {
                 return false;
             }
         });
@@ -176,7 +175,7 @@
     $('.btn-update-tarrif-type').on('click', function (e) {
         e.preventDefault();
         var data = $('#frm-update-tarrif-type').serialize();
-        var updateTarrif =$.post("{{route('updateTarrifType')}}", data, function (data) {
+        var updateTarrif = $.post("{{route('updateTarrifType')}}", data, function (data) {
         });
         // if (updateTarrif==true) {
         $('#tarrifupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();

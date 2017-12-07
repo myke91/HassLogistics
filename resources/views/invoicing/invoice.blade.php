@@ -112,7 +112,6 @@
                             <th>Client Name</th>
                             <th>Bill Item</th>
                             <th>Billable</th>
-                            <th>Vat</th>
                             <th>Invoice Details</th>
                             <th>Invoice Date</th>
                             <th colspan="3">Actions</th>
@@ -128,7 +127,6 @@
                             <td>{{$tr->client_name}}</td>
                             <td class="inputValue">{{$tr->bill_item}}</td>
                             <td class="inputValue">{{$tr->billable}}</td>
-                            <td class="inputValue">{{$tr->vat}}</td>
                             <td>
                                 Unit Price: <span class="inputValue">{{$tr->unit_price}}</span>
                                 / Quantity:  <span class="inputValue">{{$tr->quantity}}</span>
@@ -169,13 +167,13 @@
                 Confirm and Generate Invoice
             </button>
 
-            <form action="{{route('downloadInvoiceFile')}}">
-                <input type="hidden" id="pdf-file-name" name="file" value="1512145290_SG_OKE_invoice.pdf" />
-                <button type="submit" class="btn btn-link btn-label-left" id="download-invoice" style="float:right">
+            <!--<form action="{{route('downloadRecieptFile')}}">-->
+                <input type="hidden" id="pdf-file-name" name="file" />
+                <button type="button" class="btn btn-link btn-label-left" id="download-invoice" style="float:right">
                     <span><i class="fa fa-download"></i></span>
-                    Download
+                    Download Invoice
                 </button>
-            </form>
+            <!--</form>-->
 
         </div>
     </div>
@@ -201,7 +199,7 @@
     }
     
     function invoiceNo(){
-        return 'INV'+Date.now();
+        return 'HSLINV'+Date.now();
     }
 
     $(document).ready(function () {
@@ -262,7 +260,6 @@
                     '<td>' + data.client_name + '</td>' +
                     '<td class="inputValue">' + data.bill_item + '</td>' +
                     '<td class="inputValue">' + data.billable + '</td>' +
-                    '<td class="inputValue">' + data.vat + '</td>' +
                     '<td> Unit Price: <span class="inputValue">' + data.unit_price + '</span>' +
                     ' / Quantity:  <span class="inputValue">' + data.quantity + '</span>' +
                     ' / Total Price: <span class="inputValue">' + data.actual_cost + '</span>' +
@@ -377,7 +374,6 @@
             $('#billable_edit').val(data.billable);
             $('#unit_price').val(data.unit_price);
             $('#quantity_edit').val(data.quantity);
-            $('#vat_edit').val(data.vat);
             $('#actual_cost_edit').val(data.actual_cost);
             $('#invoice_id').val(data.invoice_id);
         });

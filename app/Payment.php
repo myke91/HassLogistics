@@ -24,5 +24,5 @@ class Payment extends Model
         'cheque_date',
         'user_id'];
     protected $primaryKey = 'payment_id';
-    public $timestamps = false;
+    public $timestamps = true;
 }
