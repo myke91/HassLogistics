@@ -1,4 +1,5 @@
 <form action="" name="frm-create-invoice" id="frm-create-invoice">
+<<<<<<< HEAD
     <div class="modal fade" id="tarrif-modal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false"  aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -16,6 +17,24 @@
                         <label class="col-sm-2 control-label">Tarrif</label>
                         <div class="col-sm-4">
                             <select id="tarrif-name" name="tarrif_name" class="s2 trigger-tarrif-type">
+=======
+<div class="modal fade" id="tarrif-modal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false"  aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Select Tarrif</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" name="invoice_status" id="invoice_status" value="1">
+                    <input type="hidden" name="vessel_id" id="vessel">
+                    <input type="hidden" name ="client_id" id="client">
+                    <input type="hidden" name = "invoice_date" value="{{date('Y-m-d H:i:s')}}">
+                    <label class="col-sm-2 control-label">Tarrif</label>
+                    <div class="col-sm-4">
+                        <select id="tarrif-name" name="tarrif_name" class="s2 trigger-tarrif-type">
+>>>>>>> 06dd4aca2b76a5433489c64ebf42fa2b1e4b41b3
 
                             </select>
                         </div>

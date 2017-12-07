@@ -60,6 +60,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/edit-tarrifType', ['as' => 'editTarrifType', 'uses' => 'TarrifController@editTarrifType']);
     Route::get('/edit-tarrifParam', ['as' => 'editTarrifParam', 'uses' => 'TarrifController@editTarrifParam']);
     Route::get('/edit-tarrifCharge', ['as' => 'editTarrifCharge', 'uses' => 'TarrifController@editTarrifCharge']);
+    Route::get('/edit-user',['as'=>'editUser','uses'=>'IndexController@editUser']);
 
 
 
@@ -85,6 +86,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/confirm-all-invoice', ['as' => 'saveAllAndGenerateInvoice', 'uses' => 'InvoiceController@saveAllAndGenerateInvoice']);
     Route::post('/clear-temp-table', ['as' => 'clearTempInvoiceTable', 'uses' => 'InvoiceController@clearTempInvoiceTable']);
     Route::post('/delete-invoice', ['as' => 'deleteInvoce', 'uses' => 'InvoiceController@deleteTempInvoice']);
+    Route::post('/updateTempInvoice',['as'=>'updateTempInvoice','uses'=>'InvoiceController@updateTempInvoice']);
     Route::post('/save-tarrif', ['as' => 'saveTarrif', 'uses' => 'TarrifController@saveTarrif']);
     Route::post('/save-tarrif-type', ['as' => 'saveTarrifType', 'uses' => 'TarrifController@saveTarrifType']);
     Route::post('/save-tarrif-param', ['as' => 'saveTarrifParam', 'uses' => 'TarrifController@saveTarrifParam']);
@@ -95,6 +97,8 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/update-tarrifParam', ['as' => 'updateTarrifParam', 'uses' => 'TarrifController@updateTarrifParam']);
     Route::post('/update-tarrifCharge', ['as' => 'updateTarrifCharge', 'uses' => 'TarrifController@updateTarrifCharge']);
 
+    Route::post('/update-user',['as'=>'updateUser','uses'=>'IndexController@updateUser']);
+
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);
     Route::get('/api/tarrif-types', ['as' => 'getTarrifTypes', 'uses' => 'InvoiceController@getTarrifTypes']);
@@ -103,20 +107,14 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
     Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
     Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
-    Route::post('/updateTempInvoice',['as'=>'updateTempInvoice','uses'=>'InvoiceController@updateTempInvoice']);
-});
 
+});
 
 
 Route::group(['middleware' => ['authen','roles'],'roles'=>['clerk']], function () {
 
 });
-Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], function () {
-    
-});
-Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['clerk']], function () {
 
-});
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['manager']], function () {
     
 });

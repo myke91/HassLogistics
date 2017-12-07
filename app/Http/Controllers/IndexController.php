@@ -16,15 +16,29 @@ class IndexController extends Controller
     public function getAddUser()
     {
         $roles = Role::all();
-        return view('auth.add_new_user',compact('roles'));
+        $users = User::join('roles','roles.r_id','=','users.role_id')->get();
+        return view('auth.add_new_user',compact('roles','users'));
     }
     public function postUser(Request $request)
     {
         User::create($request->all());
-        return back()->with(['success'=>'User '. $request->username .'created successfully']);
+        return back()->with(['success'=>'User '. $request->username .' created successfully']);
     }
     
     public function ready(Request $request){
         return response()->json(['message'=>'Service running ...'.date('d-M-Y H:i:s')]);
+    }
+    public function editUser(Request $request)
+    {
+        if($request->ajax())
+        {
+            return response(User::find($request->id));
+        }
+    }
+    public function updateUser(Request $request)
+    {
+        if ($request->ajax()) {
+            return response(User::updateOrCreate(['id' => $request->id], $request->all()));
+        }
     }
 }
