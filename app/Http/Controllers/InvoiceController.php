@@ -28,7 +28,7 @@ class InvoiceController extends Controller {
         $temp = TempInvoice::join('clients', 'clients.client_id', '=', 'temp_invoice.client_id')
                 ->join('vessels', 'vessels.vessel_id', '=', 'temp_invoice.vessel_id')
                 ->get();
-        return view('invoicing.invoice', compact('clients', 'vessels', 'temp','tps','tcs'));
+        return view('invoicing.invoice', compact('clients', 'vessels', 'temp', 'tps', 'tcs'));
     }
 
     public function getTarrifs() {
@@ -105,17 +105,18 @@ class InvoiceController extends Controller {
             $vessel = $value[1];
             $row['client_id'] = $value[2];
             $client_id = $value[2];
-            $row['bill_item'] = $value[3];
-            $row['billable'] = $value[4];
-            $row['vat'] = $value[5];
-            $row['unit_price'] = $value[6];
-            $row['quantity'] = $value[7];
-            $row['actual_cost'] = $value[8];
-            $row['invoice_status'] = $value[9];
-            $row['invoice_date'] = $value[10];
+            $row['invoice_no'] = $value[3];
+            $row['bill_item'] = $value[4];
+            $row['billable'] = $value[5];
+            $row['vat'] = $value[6];
+            $row['unit_price'] = $value[7];
+            $row['quantity'] = $value[8];
+            $row['actual_cost'] = $value[9];
+            $row['invoice_status'] = $value[11];
+            $row['invoice_date'] = $value[12];
             Log::debug($row);
             Invoice::create($row);
-            TempInvoice::destroy($value[11]);
+            TempInvoice::destroy($value[13]);
         }
         $invoiceItems = Invoice::where(['client_id' => $client_id, 'vessel_id' => $vessel_id])->get();
         $clientDB = Client::where('client_id', '=', $client_id)->first();
@@ -132,11 +133,8 @@ class InvoiceController extends Controller {
         $entries = $request->data;
 
         foreach ($entries as $value) {
-
-            TempInvoice::destroy($value[11]);
+            TempInvoice::destroy($value[13]);
         }
-
-
         return response()->json(['message' => 'Clear successful']);
     }
 
@@ -146,12 +144,13 @@ class InvoiceController extends Controller {
             TempInvoice::destroy($request->invoice_id);
         }
     }
- public function getTrackPayments() {
+
+    public function getTrackPayments() {
         return view('invoicing.trackPayments');
     }
-    
+
     public function getInvoiceInfo() {
-         $invoices = $this->invoiceInformationSummary()->get();
+        $invoices = $this->invoiceInformationSummary()->get();
         return view('invoicing.invoiceInfo', compact('invoices'));
     }
 
@@ -176,17 +175,19 @@ class InvoiceController extends Controller {
         return view('invoicing.invoiceModification');
     }
 
-    public function generateInvoicePdfStream($client_id, $vessel_id, $client_name, $vessel_name) { //
+    public function generateInvoicePdfStream($client_id, $vessel_id, $client_name, $vessel_name) {
         $data = Invoice::join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id')
                         ->join('clients', 'clients.client_id', '=', 'invoice.client_id')
-                        ->where(['invoice.client_id' => $client_id, 'invoice.vessel_id' => $vessel_id])->get(); //all(); //
+                        ->where(['invoice.client_id' => $client_id, 'invoice.vessel_id' => $vessel_id])->get();
         Log::debug($data);
         $this->_pdf = PDF::loadView('pdf.invoice', compact('data'));
         Log::debug('returning pdf document');
         $invoiceFileName = time() . '_' . $client_name . '_' . $vessel_name . '_invoice.pdf';
         Storage::disk('local')->put('invoices/' . $invoiceFileName, $this->_pdf->output());
         $files = Storage::files('app/invoices');
+        Log::debug($files);
         $numberOfFiles = sizeof($files);
+        Log::debug('number of files' . $numberOfFiles);
         if ($numberOfFiles > 10) {
             Log::debug('cleaning up directory');
             $lastFile = end($files);
@@ -201,7 +202,7 @@ class InvoiceController extends Controller {
         $input['vessel'] = $vessel;
         $input['filename'] = $invoiceFileName;
         Mail::send('emails.invoice', $input, function($message) use ($input) {
-            $message->to('fred.ahanogbe@gmail.com', $input['client']);
+            $message->to('mike_dugah@yahoo.com', $input['client']);
             $message->subject('Invoice to ' . $input['client'] . ' on vessel ' . $input['vessel']);
             $message->from('info@hasslogistics.com', 'Hass Logistics');
             $message->attachData($this->_pdf->stream(), $input['filename']);

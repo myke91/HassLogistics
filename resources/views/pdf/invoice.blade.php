@@ -1,5 +1,16 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Receipt</title>
+
+        <meta name="author" content="AharaSolutions">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+    </head>
     <table border="1" width="100%">
         <tr>
             <td>														
@@ -10,11 +21,11 @@
                 <p>info@hasslogistics.com</p>	
             </td>							
             <td>
-                <img src="{{ public_path() . "app\hass-bg.jpg" }}" height="100px" width="100px"/>
+                <img src="{{ public_path() . "img\hass-bg.jpg" }}" height="100px" width="100px"/>
             </td>
 
             <td>
-                <p>Invoice No: HLG/TEM/0000106 </p>
+                <p>Invoice No: {{$data[0]->invoice_no}} </p>
                 <p>Date: {{date('d-M-Y')}}</p>
                 <p>Customer:{{$data[0]->client_name}}</p>
             </td>
@@ -37,7 +48,7 @@
     </table>
 
     <p border="1">BL NO: BUCGHA001</p>
-
+    {!! $total = 0 !!}
     <table border="1" width="100%">
         <tbody>
             <tr>
@@ -47,20 +58,21 @@
             <tr>
                 <td>Item No.</td> <td>{{$value->bill_item}}</td> <td>{{$value->billable}}</td> <td>{{$value->quantity}}</td> <td>{{$value->unit_price}}</td> <td>{{$value->actual_cost}}</td>
             </tr>
+            {!! $total+=$value->actual_cost !!}
             @endforeach
-         
+
 
         </tbody>
         <!-- invoice footer -->
         <tfoot>
             <tr>
-                <td colspan="5" style="text-align:right">SUBTOTAL</td> <td>2300</td>
+                <td colspan="5" style="text-align:right">SUBTOTAL</td> <td>0</td>
             </tr>
             <tr>
-                <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td>2300</td>
+                <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td>0</td>
             </tr>
             <tr>
-                <td colspan="5" style="text-align:right">TOTAL</td> <td>2300</td>
+                <td colspan="5" style="text-align:right">TOTAL</td> <td>{{$total}}</td>
             </tr>
         </tfoot>
     </table>

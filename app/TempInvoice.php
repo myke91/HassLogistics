@@ -10,6 +10,7 @@ class TempInvoice extends Model {
     protected $fillable = [
         'vessel_id',
         'client_id',
+        'invoice_no',
         'bill_item',
         'billable',
         'unit_price',

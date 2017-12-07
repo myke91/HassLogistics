@@ -17,6 +17,7 @@ class CreateTempInvoiceTable extends Migration {
             $table->integer('vessel_id')->unsigned();
             $table->integer('client_id')->unsigned();
             $table->string('bill_item');
+            $table->string('invoice_no');
             $table->string('billable');
             $table->decimal('unit_price', 20, 2);
             $table->integer('quantity')->default('1');

@@ -61,16 +61,16 @@ $('#frm-create-vessel').on('submit', function (e) {
     $.post(url, data,
             function (data) {
                 console.log(data);
-                 console.log('entered success');
+                console.log('entered success');
                 $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
                 $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
                 $('#modal').modal('show');
-//        $(this).trigger('reset');
+                $(this).trigger('reset');
                 showVesselInfo(data.vessel_name);
             })
             .fail(function (data) {
-                 console.log('entered failure');
-         console.log(data);
+                console.log('entered failure');
+                console.log(data);
                 $('#createvesselmessages').removeClass('hide').addClass('alert alert-danger alert-dismissible').slideDown().show();
                 $('#createvesselmessages_content').html('<h4>An error occurred</h4>');
                 $('#modal').modal('show');

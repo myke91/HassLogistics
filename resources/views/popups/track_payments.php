@@ -9,56 +9,56 @@
                 <div class="row" style="margin:20px">
                     <div class="row">
                         <div class="form-group has-success">
-                            <label class="col-sm-2 control-label">Invoice No.</label>
-                            <label class="col-sm-2 control-label">Amount Due</label>
-                            <label class="col-sm-2 control-label">Amount Paid</label>
-                            <label class="col-sm-2 control-label">Balance</label>
+                            <label class="col-sm-3 control-label">Invoice No.</label>
+                            <label class="col-sm-3 control-label">Amount Due</label>
+                            <label class="col-sm-3 control-label">Amount Paid</label>
+                            <label class="col-sm-3 control-label">Balance</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
-                            <div class="col-sm-2 has-success">
+                            <div class="col-sm-3 has-success">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
-                            <div class="col-sm-2 has-error">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-2 has-success">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-2 has-error">
+                            <div class="col-sm-3 has-error">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
-                            <div class="col-sm-2 has-success">
+                            <div class="col-sm-3 has-success">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
-                            <div class="col-sm-2 has-error">
+                            <div class="col-sm-3 has-error">
+                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
+                            </div>
+                            <div class="col-sm-3 has-success">
+                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
+                            </div>
+                            <div class="col-sm-3 has-error">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button  class="btn btn-default" type="button">Close</button>
+                <button data-dismiss="modal"  class="btn btn-default" type="button">Close</button>
             </div>
         </div>
     </div>

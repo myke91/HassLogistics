@@ -78,4 +78,21 @@ class paymentController extends Controller
     {
         return view('payment.paymentOnAccount');
     }
+    
+      public function emailReceipt($client, $client_email, $vessel, $invoiceFileName) {
+        $input['client'] = $client;
+        $input['client_email'] = $client_email;
+        $input['vessel'] = $vessel;
+        $input['filename'] = $invoiceFileName;
+        Mail::send('emails.invoice', $input, function($message) use ($input) {
+            $message->to('gabbeyquaye@gmail.com', $input['client']);
+            $message->subject('Invoice to ' . $input['client'] . ' on vessel ' . $input['vessel']);
+            $message->from('info@hasslogistics.com', 'Hass Logistics');
+            $message->attachData($this->_pdf->stream(), $input['filename']);
+        });
+    }
+    
+      public function downloadReceiptFile(Request $request) {
+        return response()->download(storage_path('app/reciepts/' . $request->file));
+    }
 }

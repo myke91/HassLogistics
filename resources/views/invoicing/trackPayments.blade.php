@@ -1,7 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@include('popups.add_tarrif')
-@include('popups.edit_invoice')
 @include('popups.track_payments')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">

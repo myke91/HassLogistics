@@ -124,6 +124,7 @@
                             <td style="display:none;" class="inputValue">{{$tr->vessel_id}}</td>
                             <td class="inputValue">{{$tr->vessel_name}}</td>
                             <td style="display:none;" class="inputValue">{{$tr->client_id}}</td>
+                             <td style="display:none;" class="inputValue">{{$tr->invoice_no}}</td>
                             <td>{{$tr->client_name}}</td>
                             <td class="inputValue">{{$tr->bill_item}}</td>
                             <td class="inputValue">{{$tr->billable}}</td>
@@ -198,6 +199,10 @@
             $(this).find('label input[type=text]').attr('placeholder', 'Search');
         });
     }
+    
+    function invoiceNo(){
+        return 'INV'+Date.now();
+    }
 
     $(document).ready(function () {
         //disable vessel dropdown and add tarrif button
@@ -207,6 +212,7 @@
         $('.clear').attr("disabled", "disabled");
         $('#download-invoice').attr("disabled", "disabled");
         $('#generate-invoice').attr("disabled", "disabled");
+        $('#invoice_no').val('HSLINV'+Date.now());
 
 
         // Add tooltip to form-controls
@@ -252,6 +258,7 @@
             $('#invoice-table > tbody').append('<tr class="data"><td style="display:none;" class="inputValue">' + data.vessel_id + '</td>' +
                     '<td class="inputValue">' + data.vessel_name + '</td>' +
                     '<td style="display:none;" class="inputValue">' + data.client_id + '</td>' +
+                    '<td style="display:none;" class="inputValue">' + data.invoice_no + '</td>' +
                     '<td>' + data.client_name + '</td>' +
                     '<td class="inputValue">' + data.bill_item + '</td>' +
                     '<td class="inputValue">' + data.billable + '</td>' +
