@@ -95,7 +95,9 @@
                                     <a href="#" class="dropdown-toggle account" data-toggle="dropdown">
                                         <i class="fa fa-angle-down pull-right"></i>
                                         <div class="user-mini pull-right">
-                                            <span class="welcome">Welcome,</span>
+                                            <span class="welcome">Welcome,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <span>{{ Auth::user()->fullname }}</span>
                                         </div>
                                     </a>
@@ -104,7 +106,7 @@
                                         <li>
                                             <i class="fa fa-user"></i>
                                             <span>
-                                                <a href="{{route('add_new_user')}}">New User</a>
+                                                <a href="{{route('add_new_user')}}">User Management</a>
                                             </span>
                                         </li>
                                         <li>

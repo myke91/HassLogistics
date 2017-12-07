@@ -11,7 +11,7 @@
                     <input type="hidden" name="invoice_status" id="invoice_status" value="1">
                     <input type="hidden" name="vessel_id" id="vessel">
                     <input type="hidden" name ="client_id" id="client">
-                    <input type="hidden" name = "invoice_date" value="{{date('Y-m-d')}}">
+                    <input type="hidden" name = "invoice_date" value="{{date('Y-m-d H:i:s')}}">
                     <label class="col-sm-2 control-label">Tarrif</label>
                     <div class="col-sm-4">
                         <select id="tarrif-name" name="tarrif_name" class="s2 trigger-tarrif-type">
