@@ -1,9 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Read Information</title>
-</head>
-<body>
-<h1>Hi, {{Auth::user()->name}},you do not have permission to access that file</h1>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+    <div>
+        <br>
+        <br>
+    <h1>Hi,<font color="red">{{Auth::user()->fullname}}</font>,you do not have permission <br>to access the requested file</h1>
+    </div>
+@endsection
+
+
+@section('additional_script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.get("{{route('ready')}}", function () {
+            });
+        });
+
+    </script>
+@endsection
+
