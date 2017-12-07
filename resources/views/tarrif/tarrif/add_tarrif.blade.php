@@ -145,15 +145,15 @@
         var data = $('#frm-update-tarrif').serialize();
         var updateTarrif =$.post("{{route('updateTarrif')}}", data, function (data) {
         });
-        if (updateTarrif==true) {
+       // if (updateTarrif==true) {
             $('#tarrifupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
             $('#tarrifupdatemessages_content').html('<h4>Tarrif updated successfully</h4>');
             $('#modal').modal('show');
             $('#tarrif-show').modal('hide');
             location.reload();
-        }else{
-            return false;
-        }
+       // }else{
+          //  return false;
+       // }
     });
 
     $(document).ready(function () {

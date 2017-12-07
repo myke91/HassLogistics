@@ -53,7 +53,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/editTempInvoice',['as'=>'editTempInvoice','uses'=>'InvoiceController@editTempInvoice']);
     Route::get('/track-payments', ['as' => 'getTrackPayments', 'uses' => 'InvoiceController@getTrackPayments']);
     Route::get('/tarrif-form', ['as' => 'getTarrifForm', 'uses' => 'TarrifController@getTarrifForm']);
-    Route::get('/tarrif-param-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
+    Route::get('/tarrif-type-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
     Route::get('/tarrif-params-form', ['as' => 'getTarrifParamForm', 'uses' => 'TarrifController@getTarrifParamForm']);
     Route::get('/tarrif-charge-form', ['as' => 'getTarrifChargeForm', 'uses' => 'TarrifController@getTarrifChargeForm']);
     Route::get('/edit-tarrif', ['as' => 'editTarrif', 'uses' => 'TarrifController@editTarrif']);

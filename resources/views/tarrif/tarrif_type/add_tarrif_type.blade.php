@@ -40,10 +40,12 @@
                 <form class="form-horizontal" role="form" id="frm-create-tarrif-type" action="{{route('saveTarrifType')}}">
                     <div class="form-group has-success has-feedback">
                         <label class="col-sm-2 control-label">Tarrif</label>
-                        <div class="col-sm-2">
-                            <select id="tarrif-id" name="tarrif_id" class="populate placeholder" required>
-                                <option>--------</option>
-
+                        <div class="col-sm-4">
+                            <select id="tarrif-id" name="tarrif_id" class="s2 populate placeholder" required>
+                                <option></option>
+                                @foreach($tarrifs as $key =>$t)
+                                    <option value="{{$t->tarrif_id}}">{{$t->tarrif_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -69,6 +71,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -89,8 +92,35 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content no-padding" id="add-tarrif-type-info">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+                    <thead>
+                    <tr>
+                        <th>Tarrif Name</th>
+                        <th>Tarrif Type Code</th>
+                        <th>Tarrif Type Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($tarrifTypes as $key => $value)
+                        <tr>
+                            <td>{{$value->tarrif_name}}</td>
+                            <td>{{$value->tarrif_type_code}}</td>
+                            <td>{{$value->tarrif_type_name}}</td>
+
+                            <td class="del">
+                                <Button value="{{$value->tarrif_type_id}}" class="tarriftype-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                    @endforeach
+                    </tfoot>
+                </table>
 
             </div>
+
         </div>
     </div>
 </div>
@@ -99,9 +129,10 @@
 
 @section('additional_script')
 <script type="text/javascript">
-    showClientInfo();
 
-
+    function DemoSelect2() {
+        $('.s2').select2({placeholder: "Select"});
+    }
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
         TestTable1();
@@ -109,53 +140,54 @@
         TestTable3();
         LoadSelect2Script(MakeSelect2);
     }
+    $(document).ready(function () {
 
-
-    $('#frm-create-vessel-operator').on('submit', function (e) {
+        $('.form-control').tooltip();
+        LoadSelect2Script(DemoSelect2);
+    })
+    $('#frm-create-tarrif-type').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            showClientInfo(data.client_name);
+            var validate = confirm("Tarrif Type Save successfully");
+            if (validate === true) {
+                location.reload();
+            }
+            else {
+                return false;
+            }
         });
-        $(this).trigger('reset');
-        $('#clientmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientmessages_content').html('<h4>Vessel operator created Successfully</h4>');
-        $('#modal').modal('show');
+
     });
-    function showClientInfo()
-    {
-        var data = $('#frm-create-client').serialize();
-        $.get("{{route('showClientInfo')}}", data, function (data) {
-            $('#add-client-info').empty().append(data);
-        });
-    }
-    $(document).on('click', '.class-edit', function (e) {
-        $('#client-show').modal('show');
-        client_id = $(this).val();
-        $.get("{{route('editClient')}}", {client_id: client_id}, function (data) {
 
-            $('#client_name_edit').val(data.client_name);
-            $('#client_office_desc_edit').val(data.client_office_desc);
-            $('#client_head_office_edit').val(data.client_head_office);
-            $('#client_number_edit').val(data.client_number);
-            $('#client_id_edit').val(data.client_id);
-
+    $(document).on('click', '.tarriftype-edit', function (e) {
+        console.log('dataclicked');
+        $('#tarrif-type-show').modal('show');
+        var tarrif_type_id = $(this).val();
+        $.get("{{route('editTarrifType')}}", {tarrif_type_id: tarrif_type_id}, function (data) {
+            $('#tarrif-id').val(data.tarrif_id);
+            $('#tarrif-type-code-edit').val(data.tarrif_type_code);
+            $('#tarrif-type-name-edit').val(data.tarrif_type_name);
+            $('#edit-tarrif-type-id').val(data.tarrif_type_id);
 
         });
     });
-    $('.btn-update-client').on('click', function (e) {
+    $('.btn-update-tarrif-type').on('click', function (e) {
         e.preventDefault();
-        var data = $('#frm-update-client').serialize();
-        $.post("{{route('updateClient')}}", data, function (data) {
-            showClientInfo(data.client_name);
+        var data = $('#frm-update-tarrif-type').serialize();
+        var updateTarrif =$.post("{{route('updateTarrifType')}}", data, function (data) {
         });
-        $('#clientupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientupdatemessages_content').html('<h4>Vessel operator updated successfully</h4>');
+        // if (updateTarrif==true) {
+        $('#tarrifupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+        $('#tarrifupdatemessages_content').html('<h4>Tarrif Type updated successfully</h4>');
         $('#modal').modal('show');
-        $('#frm-update-class').trigger('reset');
+        $('#tarrif-type-show').modal('hide');
+        location.reload();
+        // }else{
+        //  return false;
+        // }
     });
-
 
 
 </script>

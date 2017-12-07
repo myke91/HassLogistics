@@ -38,26 +38,29 @@
                             </div>
                             <form class="form-horizontal" role="form" id="frm-update-tarrif-type" action="">
                                 <div class="form-group">
-                                    <input type="hidden" id="edit-tarrif-type-id" name="tarrif_type_id">
+                                    <input type="text" id="edit-tarrif-type-id" name="tarrif_type_id">
                                     <div class="form-group has-success has-feedback">
-                                        <label class="col-sm-2 control-label">Tarrif Name</label>
-                                        <div class="col-sm-2">
-                                            <select id="tarrif-id" name="tarrif_id" class="populate placeholder" disabled required>
-                                                <option>--------</option>
-
+                                        <label class="col-sm-4 control-label">Tarrif Name</label>
+                                        <div class="col-sm-6">
+                                            <select id="tarrif-id" name="tarrif_id" class="form-control" disabled required>
+                                                <option></option>
+                                                <option></option>
+                                                @foreach($tarrifs as $key =>$t)
+                                                    <option value="{{$t->tarrif_id}}">{{$t->tarrif_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Tarrif Type Code</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="tarrif-type-code-edit" name="tarrif_type_code" data-toggle="tooltip" required>
+                                    <label class="col-sm-4 control-label">Tarrif Type Code</label>
+                                    <div class="col-sm-6">
+                                        <input type="hidden" class="form-control" id="tarrif-type-code-edit" name="tarrif_type_code" data-toggle="tooltip" required>
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
-                                    <label class="col-sm-2 control-label">Tarrif Type Name</label>
-                                    <div class="col-sm-4">
+                                    <label class="col-sm-4 control-label">Tarrif Type Name</label>
+                                    <div class="col-sm-6">
                                         <input type="text" class="form-control" id="tarrif-type-name-edit" name="tarrif_type_name" data-toggle="tooltip" required>
                                     </div>
                                 </div>

@@ -20,15 +20,23 @@ class TarrifController extends Controller {
     }
 
     public function getTarrifTypeForm() {
-        return View::make('tarrif.tarrif_type.add_tarrif_type');
+        $tarrifs = Tarrif::all();
+        $tarrifTypes = TarrifType::join('tarrif','tarrif.tarrif_id','=','tarrif_type.tarrif_id')->get();
+        return view('tarrif.tarrif_type.add_tarrif_type',compact('tarrifs','tarrifTypes'));
     }
 
     public function getTarrifParamForm() {
-        return View::make('tarrif.tarrif_params.add_tarrif_param');
+        $tarrifTypes = TarrifType::all();
+        $tarrifParams = TarrifParams::join('tarrif_type','tarrif_type.tarrif_type_id','=','tarrif_params.tarrif_type_id')
+                                       ->get();
+        return View::make('tarrif.tarrif_params.add_tarrif_param',compact('tarrifTypes','tarrifParams'));
     }
 
     public function getTarrifChargeForm(Request $request) {
-        return View::make('tarrif.tarrif_charges.add_tarrif_charge');
+        $tarriParams = TarrifParams::all();
+        $tarrifCharges = TarrifCharge::join('tarrif_params','tarrif_params.tarrif_param_id','=','tarrif_charge.tarrif_param_id')
+                                            ->get();
+        return View::make('tarrif.tarrif_charges.add_tarrif_charge',compact('tarrifCharges','tarriParams'));
     }
 
     public function saveTarrif(Request $request)

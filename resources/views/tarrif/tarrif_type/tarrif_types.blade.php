@@ -12,7 +12,6 @@
             <th>Tarrif Name</th>
             <th>Tarrif Type Code</th>
             <th>Tarrif Type Name</th>
-            <th>Client Number</th>
             <th>Actions</th>
         </tr>
     </thead>

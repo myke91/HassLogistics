@@ -10,7 +10,7 @@ class TarrifParams extends Model {
     protected $fillable = ['tarrif_param_name',
         'tarrif_param_code',
         'tarrif_param_charge_type',
-        'tarrif_param_remarks'];
+        'tarrif_param_remarks','tarrif_type_id'];
     protected $primaryKey = 'tarrif_param_id';
     public $timestamps = false;
 

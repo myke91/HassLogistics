@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('data.vessel_operators.edit_vessel_operator')
+@include('tarrif.tarrif_params.edit_tarrif_param')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -37,13 +37,15 @@
                     <div id="clientmessages_content">
                     </div>
                 </div>
-                <form class="form-horizontal" role="form" id="frm-create-vessel-operator" action="{{route('saveTarrifParam')}}">
+                <form class="form-horizontal" role="form" id="frm-create-tarrif-param" action="{{route('saveTarrifParam')}}">
                     <div class="form-group has-success">
                         <label class="col-sm-4 control-label">Tarrif Type</label>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <select id="tarrif-type-id" name="tarrif_type_id" class="s2 populate placeholder" required>
-                                <option>--------</option>
-
+                                <option></option>
+                                @foreach($tarrifTypes as $key =>$t)
+                                    <option value="{{$t->tarrif_param_id}}">{{$t->tarrif_type_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -104,7 +106,35 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content no-padding" id="add-tarrif-param-info">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+                    <thead>
+                    <tr>
+                        <th>Tarrif Type Name</th>
+                        <th>Tarrif Param Name</th>
+                        <th>Tarrif Param Code</th>
+                        <th>TPCT</th>
+                        <th width="20%">Remarks</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($tarrifParams as $key => $t)
+                        <tr>
+                            <td>{{$t->tarrif_type_name}}</td>
+                            <td>{{$t->tarrif_param_name}}</td>
+                            <td>{{$t->tarrif_param_code}}</td>
+                            <td>{{$t->tarrif_param_charge_type}}</td>
+                            <td>{{$t->tarrif_param_remarks}}</td>
+                            <td class="del">
+                                <Button value="{{$t->tarrif_param_id}}" class="params-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
 
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -114,14 +144,10 @@
 
 @section('additional_script')
 <script type="text/javascript">
-    showClientInfo();
-    function MakeSelect2() {
-        $('.s2').select2();
+
+    function DemoSelect2() {
+        $('.s2').select2({placeholder: "Select"});
     }
-    $(document).ready(function () {
-        $.get("{{route('ready')}}", function () {
-        });
-    });
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
         TestTable1();
@@ -129,54 +155,64 @@
         TestTable3();
         LoadSelect2Script(MakeSelect2);
     }
+    $(document).ready(function () {
+
+        $('.form-control').tooltip();
+        LoadSelect2Script(DemoSelect2);
+    })
+
+    $(document).ready(function () {
+        $.get("{{route('ready')}}", function () {
+        });
+    });
 
 
-    $('#frm-create-vessel-operator').on('submit', function (e) {
+
+    $('#frm-create-tarrif-param').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            showClientInfo(data.client_name);
+            var validate = confirm("Tarrif Params Save successfully");
+            if (validate === true) {
+                location.reload();
+            }
+            else {
+                return false;
+            }
         });
-        $(this).trigger('reset');
-        $('#clientmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientmessages_content').html('<h4>Vessel operator created Successfully</h4>');
-        $('#modal').modal('show');
+
     });
-    function showClientInfo()
-    {
-        var data = $('#frm-create-client').serialize();
-        $.get("{{route('showClientInfo')}}", data, function (data) {
-            $('#add-client-info').empty().append(data);
-        });
-    }
-    $(document).on('click', '.class-edit', function (e) {
-        $('#client-show').modal('show');
-        client_id = $(this).val();
-        $.get("{{route('editClient')}}", {client_id: client_id}, function (data) {
 
-            $('#client_name_edit').val(data.client_name);
-            $('#client_office_desc_edit').val(data.client_office_desc);
-            $('#client_head_office_edit').val(data.client_head_office);
-            $('#client_number_edit').val(data.client_number);
-            $('#client_id_edit').val(data.client_id);
-
+    $(document).on('click', '.params-edit', function (e) {
+        console.log('dataclicked');
+        $('#tarrif-param-show').modal('show');
+        var tarrif_param_id = $(this).val();
+        $.get("{{route('editTarrifParam')}}", {tarrif_param_id: tarrif_param_id}, function (data) {
+            $('#tarrif-type-id-edit').val(data.tarrif_type_id);
+            $('#tarrif-param-code-edit').val(data.tarrif_param_name);
+            $('#tarrif_param_name-edit').val(data.tarrif_param_code);
+            $('#tarrif-param-charge-type-edit').val(data.tarrif_param_charge_type);
+            $('#tarrif-param-remarks-edit').val(data.tarrif_param_remarks);
+            $('#tarrif-param-id-edit').val(data.tarrif_param_id);
 
         });
     });
-    $('.btn-update-client').on('click', function (e) {
+    $('.btn-update-tarrif-param').on('click', function (e) {
         e.preventDefault();
-        var data = $('#frm-update-client').serialize();
-        $.post("{{route('updateClient')}}", data, function (data) {
-            showClientInfo(data.client_name);
+        var data = $('#frm-update-tarrif-param').serialize();
+        var updateTarrif =$.post("{{route('updateTarrifParam')}}", data, function (data) {
         });
-        $('#clientupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientupdatemessages_content').html('<h4>Vessel operator updated successfully</h4>');
+        // if (updateTarrif==true) {
+        $('#tarrifupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+        $('#tarrifupdatemessages_content').html('<h4>Tarrif Param updated successfully</h4>');
         $('#modal').modal('show');
-        $('#frm-update-class').trigger('reset');
+        $('#tarrif-param-show').modal('hide');
+        location.reload();
+        // }else{
+        //  return false;
+        // }
     });
-
-
 
 </script>
 @endsection

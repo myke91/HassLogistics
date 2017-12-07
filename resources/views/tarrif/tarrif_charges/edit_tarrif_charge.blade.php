@@ -37,13 +37,16 @@
                                 </div>
                             </div>
                             <form class="form-horizontal" role="form" id="frm-update-tarrif-charge" action="">
-                                <div class="form-group">
+
                                     <input type="hidden" id="tarrif-charge-id-edit" name="tarrif_charge_id">
                                     <div class="form-group has-success">
                                         <label class="col-sm-2 control-label">Tarrif Param</label>
                                         <div class="col-sm-4">
                                             <select class="form-control" id="tarrif-param-id-edit" name="tarrif_param_id">
-                                                <option>--------------</option>
+                                                <option></option>
+                                                @foreach($tarriParams as $key =>$t)
+                                                    <option value="{{$t->tarrif_type_id}}">{{$t->tarrif_param_name}}</option>
+                                                @endforeach
 
                                             </select>
                                         </div>

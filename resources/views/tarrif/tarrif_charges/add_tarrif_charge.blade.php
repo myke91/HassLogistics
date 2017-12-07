@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('data.vessel_operators.edit_vessel_operator')
+    @include('tarrif.tarrif_charges.edit_tarrif_charge')
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
         <a href="#" class="show-sidebar">
@@ -37,13 +37,15 @@
                     <div id="clientmessages_content">
                     </div>
                 </div>
-                <form class="form-horizontal" role="form" id="frm-create-vessel-operator" action="{{route('saveTarrifCharge')}}">
+                <form class="form-horizontal" role="form" id="frm-create-tarrif-charge" action="{{route('saveTarrifCharge')}}">
                     <div class="form-group has-success">
                         <label class="col-sm-2 control-label">Tarrif Param</label>
                         <div class="col-sm-4">
-                            <select class="form-control" id="tarrif-param-id" name="tarrif_param_id">
-                                <option>--------------</option>
-                                
+                            <select class="s2" id="tarrif-param-id" name="tarrif_param_id">
+                                <option></option>
+                                @foreach($tarriParams as $key =>$t)
+                                    <option value="{{$t->tarrif_type_id}}">{{$t->tarrif_param_name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -89,6 +91,32 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content no-padding" id="add-tarrif-charge-info">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+                    <thead>
+                    <tr>
+                        <th>Tarrif Param Name</th>
+                        <th>Billable</th>
+                        <th>Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($tarrifCharges as $key => $t)
+                        <tr>
+                            <td>{{$t->tarrif_param_name}}</td>
+                            <td>{{$t->billable}}</td>
+                            <td>{{$t->cost}}</td>
+                            <td class="del">
+                                <Button value="{{$t->tarrif_charge_id}}" class="charge-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+
 
             </div>
         </div>
@@ -99,9 +127,10 @@
 
 @section('additional_script')
 <script type="text/javascript">
-    showClientInfo();
-
-
+    // Run Datables plugin and create 3 variants of settings
+    function DemoSelect2() {
+        $('.s2').select2({placeholder: "Select"});
+    }
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
         TestTable1();
@@ -109,51 +138,54 @@
         TestTable3();
         LoadSelect2Script(MakeSelect2);
     }
+    $(document).ready(function () {
 
+        $('.form-control').tooltip();
+        LoadSelect2Script(DemoSelect2);
+    })
 
-    $('#frm-create-vessel-operator').on('submit', function (e) {
+    $('#frm-create-tarrif-charge').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            showClientInfo(data.client_name);
+            var validate = confirm("Tarrif Params Save successfully");
+            if (validate === true) {
+                location.reload();
+            }
+            else {
+                return false;
+            }
         });
-        $(this).trigger('reset');
-        $('#clientmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientmessages_content').html('<h4>Vessel operator created Successfully</h4>');
-        $('#modal').modal('show');
+
     });
-    function showClientInfo()
-    {
-        var data = $('#frm-create-client').serialize();
-        $.get("{{route('showClientInfo')}}", data, function (data) {
-            $('#add-client-info').empty().append(data);
-        });
-    }
-    $(document).on('click', '.class-edit', function (e) {
-        $('#client-show').modal('show');
-        client_id = $(this).val();
-        $.get("{{route('editClient')}}", {client_id: client_id}, function (data) {
 
-            $('#client_name_edit').val(data.client_name);
-            $('#client_office_desc_edit').val(data.client_office_desc);
-            $('#client_head_office_edit').val(data.client_head_office);
-            $('#client_number_edit').val(data.client_number);
-            $('#client_id_edit').val(data.client_id);
-
+    $(document).on('click', '.charge-edit', function (e) {
+        console.log('dataclicked');
+        $('#tarrif-charge-show').modal('show');
+        var tarrif_charge_id = $(this).val();
+        $.get("{{route('editTarrifCharge')}}", {tarrif_charge_id: tarrif_charge_id}, function (data) {
+            $('#tarrif-param-id-edit').val(data.tarrif_param_id);
+            $('#billable-edit').val(data.billable);
+            $('#cost-edit').val(data.cost);
+            $('#tarrif-charge-id-edit').val(data.tarrif_charge_id);
 
         });
     });
-    $('.btn-update-client').on('click', function (e) {
+    $('.btn-update-tarrif-charge').on('click', function (e) {
         e.preventDefault();
-        var data = $('#frm-update-client').serialize();
-        $.post("{{route('updateClient')}}", data, function (data) {
-            showClientInfo(data.client_name);
+        var data = $('#frm-update-tarrif-charge').serialize();
+        var updateTarrif =$.post("{{route('updateTarrifCharge')}}", data, function (data) {
         });
-        $('#clientupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientupdatemessages_content').html('<h4>Vessel operator updated successfully</h4>');
+        // if (updateTarrif==true) {
+        $('#tarrifupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+        $('#tarrifupdatemessages_content').html('<h4>Tarrif Param updated successfully</h4>');
         $('#modal').modal('show');
-        $('#frm-update-class').trigger('reset');
+        $('#tarrif-charge-show').modal('hide');
+        location.reload();
+        // }else{
+        //  return false;
+        // }
     });
 
 

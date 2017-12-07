@@ -40,28 +40,30 @@
                                 <input type="hidden" id="tarrif-param-id-edit" name="tarrif_param_id"/>
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Tarrif Type</label>
-                                    <div class="col-sm-2">
-                                        <select id="tarrif-type-id-edit" name="tarrif_type_id" class="s2 populate placeholder" required>
-                                            <option>--------</option>
-
+                                    <div class="col-sm-8">
+                                        <select id="tarrif-type-id-edit" name="tarrif_type_id" class="form-control" required>
+                                            <option></option>
+                                            @foreach($tarrifTypes as $key =>$t)
+                                                <option value="{{$t->tarrif_type_id}}">{{$t->tarrif_type_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Tarrif Param Code</label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-8">
                                         <input type="text" class="form-control" id="tarrif-param-code-edit" name="tarrif_param_code" required>
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Tarrif Param Name</label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-8">
                                         <input type="text" class="form-control" id="tarrif_param_name-edit" name="tarrif_param_name" required>
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Tarrif Param Charge Type</label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-8">
                                         <select id="tarrif-param-charge-type-edit" name="tarrif_param_charge_type" class="s2 populate placeholder" required>
                                             <option>QUANTITY</option>
                                             <option>SPECIFICS</option>
@@ -71,7 +73,7 @@
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Tarrif Param Remarks</label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-8">
                                         <input type="text" class="form-control" id="tarrif-param-remarks-edit" name="tarrif_param_remarks" required>
                                     </div>
                                 </div>

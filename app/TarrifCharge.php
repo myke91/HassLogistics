@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TarrifCharge extends Model {
 
     protected $table = 'tarrif_charge';
-    protected $fillable = ['billable','cost'];
+    protected $fillable = ['billable','cost','tarrif_param_id'];
     protected $primaryKey = 'tarrif_charge_id';
     public $timestamps = false;
 
