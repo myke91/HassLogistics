@@ -107,7 +107,7 @@
             <div class="box-header">
                 <div class="box-name">
                     <i class="fa fa-linux"></i>
-                    <span>TARRIF TYPE LIST</span>
+                    <span>USERS LIST</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
