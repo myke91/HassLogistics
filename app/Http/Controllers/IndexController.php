@@ -11,6 +11,10 @@ class IndexController extends Controller
 {
     public function getLogin()
     {
+        if(!session()->has('url.intended'))
+        {
+            session(['url.intended' => url()->previous()]);
+        }
         return view('auth.login');
     }
     public function getAddUser()
