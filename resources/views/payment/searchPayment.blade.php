@@ -32,7 +32,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="col-md-3">
-                        <form action="{{route('showPayment')}}" class="search-payment" method="GET">
+                        <form id="payment-search-form" action="{{route('showPayment')}}" class="search-payment" method="GET">
                             <select id="invoice_no" name="invoice_no" class="s2 invoices">
                                 <option value="">--------------------</option>
                                 @foreach($invoices as $key => $i)
@@ -159,25 +159,8 @@
 
         $('.form-control').tooltip();
         LoadSelect2Script(DemoSelect2);
-    })
-    function MakePDFInvoice() {
-        var doc = new jsPDF();
-        var elementHandler = {
-            '#ignorePDF': function (element, renderer) {
-                return true;
-            }
-        };
-//        var source = $('#invoice')[0];
-//        doc.fromHTML(
-//                source,
-//                15,
-//                15,
-//                {
-//                    'width': 180, 'elementHandlers': elementHandler
-//                });
-//
-//        doc.output("dataurlnewwindow");
-    }
+    });
+   
     $(document).ready(function () {
         //disable vessel dropdown and add tarrif button
         // Initialize datepicker
@@ -208,6 +191,12 @@
         }).fail(function(data){
             console.log(data);
         });
+        $( "#payment-search-form" ).submit();
+//        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
+//
+//        }).fail(function(data){
+//            console.log(data);
+//        });
 
     });
 

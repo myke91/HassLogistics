@@ -16,20 +16,21 @@ class paymentController extends Controller {
 
     public function getPayment() {
         $invoices = Invoice::all();
-        return view('payment.searchPayment',compact('invoices'));
+        return view('payment.searchPayment', compact('invoices'));
     }
 
     public function show_invoice_status($invoiceNo) {
-        return Invoice::join('Clients', 'Clients.client_id', '=', 'Invoice.client_id')
-                        ->join('Vessels', 'Vessels.vessel_id', '=', 'Invoice.vessel_id')
-                        ->where('Invoice.invoice_no', $invoiceNo);
+        Log::debug($invoiceNo);
+        return Invoice::join('clients', 'clients.client_id', '=', 'invoice.client_id')
+                        ->join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id')
+                        ->where('invoice.invoice_no', $invoiceNo);
     }
 
     public function payment($viewName, $invoice_no) {
-
+        $invoices = Invoice::all();
         $invoice = $this->show_invoice_status($invoice_no)->first();
         $vessel = Vessel::where('vessel_id', $invoice->vessel_id)->get();
-        return view($viewName, compact('invoice', 'client', 'vessel'))->with('invoice_no', $invoice_no);
+        return view($viewName, compact('invoice', 'client', 'vessel', 'invoices'))->with('invoice_no', $invoice_no);
     }
 
     public function showPayment(Request $request) {
@@ -40,7 +41,7 @@ class paymentController extends Controller {
             $invoice_no = $request->invoice_no;
             return $this->payment('payment.payment', $invoice_no);
 //        }
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return $ex;
         }
     }
@@ -136,7 +137,8 @@ class paymentController extends Controller {
         return response()->download(storage_path('app/reciepts/' . $request->file));
     }
 
-    public function processPaymentTrack(Request $request){
+    public function processPaymentTrack(Request $request) {
         
     }
+
 }
