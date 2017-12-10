@@ -186,6 +186,11 @@
         e.preventDefault();
         var invoice_no = $('#invoice_no option:selected').val();
         console.log(invoice_no);
+        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
+         console.log(data)
+        }).fail(function(data){
+            console.log(data);
+        });
         $( "#payment-search-form" ).submit();
 //        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
 //
