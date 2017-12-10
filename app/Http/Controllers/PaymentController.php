@@ -15,27 +15,33 @@ use Illuminate\Support\Facades\Mail;
 class paymentController extends Controller {
 
     public function getPayment() {
-        return view('payment.searchPayment');
+        $invoices = Invoice::all();
+        return view('payment.searchPayment',compact('invoices'));
     }
 
-    public function show_invoice_status($invoiceId) {
+    public function show_invoice_status($invoiceNo) {
         return Invoice::join('Clients', 'Clients.client_id', '=', 'Invoice.client_id')
                         ->join('Vessels', 'Vessels.vessel_id', '=', 'Invoice.vessel_id')
-                        ->where('Invoice.Invoice_id', $invoiceId);
+                        ->where('Invoice.invoice_no', $invoiceNo);
     }
 
-    public function payment($viewName, $invoice_id) {
-        $invoice = $this->show_invoice_status($invoice_id)->first();
+    public function payment($viewName, $invoice_no) {
+
+        $invoice = $this->show_invoice_status($invoice_no)->first();
         $vessel = Vessel::where('vessel_id', $invoice->vessel_id)->get();
-        return view($viewName, compact('invoice', 'client', 'vessel'))->with('invoice_id', $invoice_id);
+        return view($viewName, compact('invoice', 'client', 'vessel'))->with('invoice_no', $invoice_no);
     }
 
     public function showPayment(Request $request) {
-        $invoice_id = $request->invoice_id;
-        if (count($invoice_id) > 0) {
-            return $this->payment('payment.payment', $invoice_id);
-        } else {
-            return redirect()->back()->with(['error' => 'Invoice Id does not exit']);
+        try {
+            Log::debug($request);
+
+//        if ($request->ajax()) {
+            $invoice_no = $request->invoice_no;
+            return $this->payment('payment.payment', $invoice_no);
+//        }
+        }catch (\Exception $ex){
+            return $ex;
         }
     }
 

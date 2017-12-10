@@ -41,7 +41,14 @@
                     <div class="col-md-3">
 
                         <form action="{{route('showPayment')}}" class="search-payment" method="GET">
-                            <input class="form-control" name="student_id" value="{{$invoice->invoice_id}}" placeholder="Invoice Number" type="text">
+                            <select id="invoice_no" name="invoice_no" class="s2 invoices">
+                                <option value="">--------------------</option>
+                                @foreach($invoice as $key => $i)
+                                    <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
+                                @endforeach
+                            </select>
+                            {{--<input class="form-control" name="invoice_no" value="{{$invoice->invoice_no}}"--}}
+                                   {{--placeholder="Invoice Number" type="text">--}}
                         </form>
                     </div>
                     <div class="col-md-3">
@@ -216,7 +223,10 @@
 
     });
 
+
+
 </script>
 <script  type="text/javascript" src="{{ URL::asset('js/calculatepayment.js') }}"></script>
+
 
 @endsection

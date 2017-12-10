@@ -33,7 +33,13 @@
                 <div class="panel-heading">
                     <div class="col-md-3">
                         <form action="{{route('showPayment')}}" class="search-payment" method="GET">
-                            <input class="form-control" name="invoice_id"  id="invoice_id"  placeholder="Enter Invoice Np."   type="text" >
+                            <select id="invoice_no" name="invoice_no" class="s2 invoices">
+                                <option value="">--------------------</option>
+                                @foreach($invoices as $key => $i)
+                                    <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
+                                @endforeach
+                            </select>
+                            {{--<input class="form-control" name="invoice_no" placeholder="Invoice Number" type="text">--}}
                         </form>
                     </div>
                     <div class="col-md-3">
@@ -131,24 +137,29 @@
 
 @section('additional_script')
 <script type="text/javascript">
+    $(document).ready(function () {
+        $.get("{{route('ready')}}", function () {
+        });
+    });
+
     // Run Select2 plugin on elements
 
     // Run Select2 plugin on elements
     function DemoSelect2() {
         $('.s2').select2({placeholder: "Select"});
-        $('.s2').select2({placeholder: "Select"});
     }
-    // Run timepicker
-    function DemoTimePicker() {
-        $('#input_time').timepicker({setDate: new Date()});
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        TestTable2();
+        TestTable3();
+        LoadSelect2Script(MakeSelect2);
     }
+    $(document).ready(function () {
 
-    function MakeSelect2() {
-        $('select').select2();
-        $('.dataTables_filter').each(function () {
-            $(this).find('label input[type=text]').attr('placeholder', 'Search');
-        });
-    }
+        $('.form-control').tooltip();
+        LoadSelect2Script(DemoSelect2);
+    })
     function MakePDFInvoice() {
         var doc = new jsPDF();
         var elementHandler = {
@@ -156,29 +167,27 @@
                 return true;
             }
         };
-        var source = $('#invoice')[0];
-        doc.fromHTML(
-                source,
-                15,
-                15,
-                {
-                    'width': 180, 'elementHandlers': elementHandler
-                });
-
-        doc.output("dataurlnewwindow");
+//        var source = $('#invoice')[0];
+//        doc.fromHTML(
+//                source,
+//                15,
+//                15,
+//                {
+//                    'width': 180, 'elementHandlers': elementHandler
+//                });
+//
+//        doc.output("dataurlnewwindow");
     }
     $(document).ready(function () {
         //disable vessel dropdown and add tarrif button
-        $('.vessels').attr("disabled", "disabled");
-        $('.add-tarrif').attr("disabled", "disabled");
-        $('.submit').attr("disabled", "disabled");
         // Initialize datepicker
         $('#input_date').datepicker({setDate: new Date()});
         // Load Timepicker plugin
-        LoadTimePickerScript(DemoTimePicker);
+       // LoadTimePickerScript(DemoTimePicker);
+
         // Add tooltip to form-controls
         $('.form-control').tooltip();
-        LoadSelect2Script(DemoSelect2);
+
         $('.submit').click(function (e) {
             e.preventDefault();
 //            var data = $('.form-invoice').serialize();
@@ -186,6 +195,18 @@
 //            $.post(url, data, function (data) {
             MakePDFInvoice();
 //            })
+        });
+
+    });
+
+    $(document).on('change', '.invoices', function (e) {
+        e.preventDefault();
+        var invoice_no = $('#invoice_no option:selected').val();
+        console.log(invoice_no);
+        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
+
+        }).fail(function(data){
+            console.log(data);
         });
 
     });
