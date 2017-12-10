@@ -7,6 +7,7 @@ use App\Invoice;
 use App\Client;
 use App\Vessel;
 use App\Payment;
+use App\PaymentEntries;
 use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -15,15 +16,15 @@ use Illuminate\Support\Facades\Mail;
 class paymentController extends Controller {
 
     public function getPayment() {
-        $invoices = Invoice::all();
+        $invoices = Payment::all();
         return view('payment.searchPayment', compact('invoices'));
     }
 
     public function show_invoice_status($invoiceNo) {
         Log::debug($invoiceNo);
-        return Invoice::join('clients', 'clients.client_id', '=', 'invoice.client_id')
-                        ->join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id')
-                        ->where('invoice.invoice_no', $invoiceNo);
+        return Payment::join('clients', 'clients.client_id', '=', 'payments.client_id')
+                        ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+                        ->where('payments.invoice_no', $invoiceNo);
     }
 
     public function payment($viewName, $invoice_no) {
@@ -48,6 +49,7 @@ class paymentController extends Controller {
 
     public function savePayment(Request $request) {
         Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
+        Payment::create($request->all());
         $receiptFileName = $this->generateReceiptPdfStream($request->client_id, $request->vessel_id);
         $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
         return back()->with(['success' => 'Payment saved successfully']);

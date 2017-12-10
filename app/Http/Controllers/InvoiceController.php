@@ -133,7 +133,7 @@ class InvoiceController extends Controller {
         Log::debug('invoice items');
         Log::debug($invoiceItems);
         $invoiceFileName = $this->generateInvoicePdfStream($client_id, $vessel_id, $clientDB->client_name, $vessel);
-        $this->emailInvoice($clientDB->client_name, $clientDB->client_email, $vessel, $invoiceFileName);
+        //$this->emailInvoice($clientDB->client_name, $clientDB->client_email, $vessel, $invoiceFileName);
 
         $vat = Vat::find(1)->value;
         $added = $actual_cost / ($vat * 100);
