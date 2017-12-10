@@ -38,7 +38,7 @@
                             </div>
                             <form class="form-horizontal" role="form" id="frm-update-tarrif-type" action="">
                                 <div class="form-group">
-                                    <input type="text" id="edit-tarrif-type-id" name="tarrif_type_id">
+                                    <input type="hidden" id="edit-tarrif-type-id" name="tarrif_type_id">
                                     <div class="form-group has-success has-feedback">
                                         <label class="col-sm-4 control-label">Tarrif Name</label>
                                         <div class="col-sm-6">
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">Tarrif Type Code</label>
                                     <div class="col-sm-6">
-                                        <input type="hidden" class="form-control" id="tarrif-type-code-edit" name="tarrif_type_code" data-toggle="tooltip" required>
+                                        <input type="text" class="form-control" id="tarrif-type-code-edit" name="tarrif_type_code" data-toggle="tooltip" required>
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
