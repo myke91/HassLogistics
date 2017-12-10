@@ -7,6 +7,7 @@ use App\Invoice;
 use App\Client;
 use App\Vessel;
 use App\Payment;
+use App\Audit;
 use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
