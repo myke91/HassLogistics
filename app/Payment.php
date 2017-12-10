@@ -12,6 +12,7 @@ class Payment extends Model
         'client_id',
         'user',
         'username',
+        'invoice_no',
         'payment_mode',
         'actual_cost',
         'invoice_no',

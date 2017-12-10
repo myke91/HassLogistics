@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->increments('payment_id');
             $table->integer('client_id')->unsigned();
             $table->integer('vessel_id')->unsigned();
+            $table->string('invoice_no');
             $table->string('username')->nullable();
             $table->string('user')->nullable();
             $table->string('payment_mode')->nullable();

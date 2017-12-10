@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Role;
+use Auth;
 
 class IndexController extends Controller
 {
@@ -26,6 +27,7 @@ class IndexController extends Controller
     public function postUser(Request $request)
     {
         User::create($request->all());
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Created user with username' . $request->username, 'act_date' => date(), 'act_time' => time()]);
         return back()->with(['success'=>'User '. $request->username .' created successfully']);
     }
     
@@ -42,6 +44,7 @@ class IndexController extends Controller
     public function updateUser(Request $request)
     {
         if ($request->ajax()) {
+             Audit::create(['user' => Auth::user()->username, 'activity' => 'Updated user with username' . $request->username, 'act_date' => date(), 'act_time' => time()]);
             return response(User::updateOrCreate(['id' => $request->id], $request->all()));
         }
     }

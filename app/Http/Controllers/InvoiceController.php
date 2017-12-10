@@ -91,6 +91,7 @@ class InvoiceController extends Controller {
     public function confirmAndSaveInvoice(Request $request) {
 
         if ($request->ajax()) {
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Created invoice with invoice number' . $request->invoice_no, 'act_date' => date(), 'act_time' => time()]);
             return response(Invoice::create($request->all()));
         }
     }
@@ -99,10 +100,11 @@ class InvoiceController extends Controller {
         $entries = $request->data;
         $client_id = '';
         $vessel_id = '';
+        $invoice_no = '';
         $actual_cost = 0;
         Log::debug(Auth::user());
-        Log::debug('user full name '.Auth::user()->fullname);
-        Log::debug('user username '.Auth::user()->username);
+        Log::debug('user full name ' . Auth::user()->fullname);
+        Log::debug('user username ' . Auth::user()->username);
         Log::debug('entries in request');
         Log::debug($entries);
         foreach ($entries as $value) {
@@ -113,6 +115,7 @@ class InvoiceController extends Controller {
             $row['client_id'] = $value[2];
             $client_id = $value[2];
             $row['invoice_no'] = $value[3];
+            $invoice_no = $value[3];
             $row['bill_item'] = $value[4];
             $row['billable'] = $value[5];
             $row['unit_price'] = $value[6];
@@ -139,13 +142,14 @@ class InvoiceController extends Controller {
         $added = $actual_cost / ($vat * 100);
         $totalCost = $added + $actual_cost;
 
-        $paymentEntry = array();
-        $paymentEntry['client_id'] = $client_id;
-        $paymentEntry['vessel_id'] = $vessel_id;
-        $paymentEntry['actual_cost'] = $actual_cost;
-        $paymentEntry['total_cost'] = $totalCost;
-        Payment::create($paymentEntry);
-
+        $payment = array();
+        $payment['client_id'] = $client_id;
+        $payment['vessel_id'] = $vessel_id;
+        $payment['invoice_no'] = $invoice_no;
+        $payment['actual_cost'] = $actual_cost;
+        $payment['total_cost'] = $totalCost;
+        Payment::create($payment);
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client' . $clientDB->client_name . 'on vessel' . $vessel, 'act_date' => date(), 'act_time' => time()]);
         return response()->json(['invoice' => $invoiceFileName]);
     }
 
