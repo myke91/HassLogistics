@@ -43,7 +43,7 @@
                         <form action="{{route('showPayment')}}" class="search-payment" method="GET">
                             <select id="invoice_no" name="invoice_no" class="s2 invoices">
                                 <option value="">--------------------</option>
-                                @foreach($invoice as $key => $i)
+                                @foreach($invoices as $key => $i)
                                     <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
                                 @endforeach
                             </select>
@@ -185,38 +185,21 @@
 @section('additional_script')
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $.get("{{route('ready')}}", function () {
-        });
-    });
-    // Run Select2 plugin on elements
-
-    // Run Select2 plugin on elements
     function DemoSelect2() {
         $('.s2').select2({placeholder: "Select"});
-        $('.s2').select2({placeholder: "Select"});
     }
-    // Run timepicker
-    function DemoTimePicker() {
-        $('#input_time').timepicker({setDate: new Date()});
-    }
-
-    function MakeSelect2() {
-        $('select').select2();
-        $('.dataTables_filter').each(function () {
-            $(this).find('label input[type=text]').attr('placeholder', 'Search');
-        });
-    }
-
+     
     $(document).ready(function () {
+      $.get("{{route('ready')}}", function () {
+        });
         $('#cheque_date').datepicker({
             dateFormat: 'yy-mm-dd'
         });
+         $('.form-control').tooltip();
+        LoadSelect2Script(DemoSelect2);
         $('#download-receipt').attr("disabled", "disabled");
-        LoadTimePickerScript(DemoTimePicker);
         // Add tooltip to form-controls
         $('.form-control').tooltip();
-        LoadSelect2Script(DemoSelect2);
         $('.submit').click(function (e) {
             e.preventDefault();
         });
