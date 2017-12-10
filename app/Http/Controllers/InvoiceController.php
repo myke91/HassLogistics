@@ -14,6 +14,7 @@ use App\TarrifParams;
 use App\Invoice;
 use App\TempInvoice;
 use App\Vat;
+use App\Audit;
 use App\Payment;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;

@@ -9,6 +9,7 @@ use App\Tarrif;
 use App\TarrifCharge;
 use App\TarrifParams;
 use App\TarrifType;
+use App\Audit;
 
 
 class TarrifController extends Controller {
