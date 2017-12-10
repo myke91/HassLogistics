@@ -167,13 +167,16 @@
                 Confirm and Generate Invoice
             </button>
 
-            <!--<form action="{{route('downloadRecieptFile')}}">-->
-                <input type="hidden" id="pdf-file-name" name="file" />
-                <button type="button" class="btn btn-link btn-label-left" id="download-invoice" style="float:right">
+            
+
+            <form action="{{route('downloadInvoiceFile')}}">
+                <input type="hidden" id="pdf-file-name" name="file"/>
+                <button type="submit" class="btn btn-link btn-label-left" id="download-invoice">
                     <span><i class="fa fa-download"></i></span>
                     Download Invoice
                 </button>
-            <!--</form>-->
+
+           </form>
 
         </div>
     </div>

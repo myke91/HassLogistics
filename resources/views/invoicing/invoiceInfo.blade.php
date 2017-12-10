@@ -73,6 +73,8 @@
                     <tbody>
                         @foreach($invoices as $key => $value)
                         <tr>
+                            <td class="client-id" style="display:none">{{$value->client_id}}</td>
+                            <td class="vessel-id" style="display:none">{{$value->vessel_id}}</td>
                             <td>{{$value->client_name}}</td>
                             <td>{{$value->vessel_name}}</td>
                             <td> 
@@ -121,9 +123,16 @@
     $(document).ready(function () {
         // Initialize datepicker\
         $('.show-invoice-details').click(function (e) {
-            console.log('received click event');
             e.preventDefault();
-            $('#invoice-details-modal').modal('show');
+            var clientId = $('.client-id').text();
+            var vesselId = $('.vessel-id').text();
+            $.get("{{route('getInvoiceDetails')}}", {clientId: clientId, vesselId: vesselId}, function (data) {
+                console.log(data);
+                $('#invoice-details-modal').modal('show');
+            }).fail(function (data) {
+
+            });
+
         });
         // Load Timepicker plugin
         LoadTimePickerScript(DemoTimePicker);
