@@ -123,7 +123,7 @@
                             <td style="display:none;" class="inputValue">{{$tr->vessel_id}}</td>
                             <td class="inputValue">{{$tr->vessel_name}}</td>
                             <td style="display:none;" class="inputValue">{{$tr->client_id}}</td>
-                             <td style="display:none;" class="inputValue">{{$tr->invoice_no}}</td>
+                            <td style="display:none;" class="inputValue">{{$tr->invoice_no}}</td>
                             <td>{{$tr->client_name}}</td>
                             <td class="inputValue">{{$tr->bill_item}}</td>
                             <td class="inputValue">{{$tr->billable}}</td>
@@ -131,8 +131,9 @@
                                 Unit Price: <span class="inputValue">{{$tr->unit_price}}</span>
                                 / Quantity:  <span class="inputValue">{{$tr->quantity}}</span>
                                 / Total Price:  <span class="inputValue">{{$tr->actual_cost}}</span>
-                                <span class="inputValue" style='visibility:hidden'>{{Auth::user()->id}}</span>
+
                             </td>
+                            <td class="inputValue" style="display:none;">{{Auth::user()->id}}</td>
                             <td style="display:none;" class="inputValue">{{$tr->invoice_status}}</td>
                             <td class="inputValue">{{$tr->invoice_date}}</td>
                             <td style="display:none;" class="inputValue">{{$tr->invoice_id}}</td>
@@ -167,7 +168,7 @@
                 Confirm and Generate Invoice
             </button>
 
-            
+
 
             <form action="{{route('downloadInvoiceFile')}}">
                 <input type="hidden" id="pdf-file-name" name="file"/>
@@ -176,7 +177,7 @@
                     Download Invoice
                 </button>
 
-           </form>
+            </form>
 
         </div>
     </div>
@@ -200,9 +201,9 @@
             $(this).find('label input[type=text]').attr('placeholder', 'Search');
         });
     }
-    
-    function invoiceNo(){
-        return 'HSLINV'+Date.now();
+
+    function invoiceNo() {
+        return 'HSLINV' + Date.now();
     }
 
     $(document).ready(function () {
@@ -213,7 +214,7 @@
         $('.clear').attr("disabled", "disabled");
         $('#download-invoice').attr("disabled", "disabled");
         $('#generate-invoice').attr("disabled", "disabled");
-        $('#invoice_no').val('HSLINV'+Date.now());
+        $('#invoice_no').val('HSLINV' + Date.now());
 
 
         // Add tooltip to form-controls
@@ -266,7 +267,7 @@
                     '<td> Unit Price: <span class="inputValue">' + data.unit_price + '</span>' +
                     ' / Quantity:  <span class="inputValue">' + data.quantity + '</span>' +
                     ' / Total Price: <span class="inputValue">' + data.actual_cost + '</span>' +
-                '<span class="inputValue">' + data.id + '</span> </td>' +
+                    '<span class="inputValue">' + data.id + '</span> </td>' +
                     '<td style="display:none;" class="inputValue">' + data.invoice_status + '</td>' +
                     '<td class="inputValue">' + data.invoice_date + '</td>' +
                     '<td style="display:none;" class="inputValue">' + data.invoice_id + '</td>' +
@@ -302,7 +303,7 @@
             console.log(data);
             $('#download-invoice').removeAttr("disabled");
             $('#pdf-file-name').val(data.invoice);
-
+            $('#invoice-table').empty();
         }).fail(function (data) {
             console.log(data);
         });
@@ -381,14 +382,14 @@
             $('#invoice_id').val(data.invoice_id);
         });
     });
-$('.update-temp_invoice').on('click', function (e) {
-    e.preventDefault();
-    var data = $('#frm-update-invoice').serialize();
-    $.post("{{route('updateTempInvoice')}}", data, function (data) {
+    $('.update-temp_invoice').on('click', function (e) {
+        e.preventDefault();
+        var data = $('#frm-update-invoice').serialize();
+        $.post("{{route('updateTempInvoice')}}", data, function (data) {
+
+        });
 
     });
-
-});
 </script>
 
 <script  type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script>

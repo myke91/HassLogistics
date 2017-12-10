@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class PaymentEntries extends Model
 {
-    protected $table = 'payments';
+     protected $table = 'payment_entries';
     protected $fillable = [
         'vessel_id',
         'client_id',
@@ -25,6 +25,6 @@ class Payment extends Model
         'cheque_date',
         'total_cost',
         'user_id'];
-    protected $primaryKey = 'payment_id';
+    protected $primaryKey = 'payment_entries_id';
     public $timestamps = true;
 }

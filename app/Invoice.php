@@ -18,6 +18,8 @@ class Invoice extends Model {
         'actual_cost',
         'invoice_date',
         'vat',
+        'username',
+        'user',
         'invoice_status'];
     protected $primaryKey = 'invoice_id';
     public $timestamps = false;

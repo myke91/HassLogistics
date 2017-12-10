@@ -4,17 +4,16 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaymentsTable extends Migration
-{
+class PaymentEntries extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->increments('payment_id');
+    public function up() {
+        Schema::create('payment_entries', function (Blueprint $table) {
+            $table->increments('payment_entries_id');
             $table->integer('client_id')->unsigned();
             $table->integer('vessel_id')->unsigned();
             $table->string('username')->nullable();
@@ -42,8 +41,8 @@ class CreatePaymentsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('payments');
+    public function down() {
+        Schema::dropIfExists('payment_entries');
     }
+
 }
