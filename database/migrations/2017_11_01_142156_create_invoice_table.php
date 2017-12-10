@@ -18,6 +18,8 @@ class CreateInvoiceTable extends Migration {
             $table->integer('client_id')->unsigned();
             $table->string('invoice_no');
             $table->string('bill_item');
+             $table->string('username');
+            $table->string('user');
             $table->string('billable');
             $table->decimal('unit_price', 20, 2);
             $table->integer('quantity')->default('1');

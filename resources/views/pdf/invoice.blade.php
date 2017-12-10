@@ -85,11 +85,11 @@
             <table border="1" width="100%">
                 <tbody>
                     <tr>
-                        <td>Item No.</td> <td>Description</td> <td>Billable</td> <td>Quantity</td> <td>Unit Price</td> <td>Amount GH¢</td>
+                        <td>Item No.</td> <td>Description</td> <td>Billable</td> <td style="text-align:right">Quantity</td> <td style="text-align:right">Unit Price</td> <td style="text-align:right">Amount GH¢</td>
                     </tr>
                     @foreach($data as $key => $value)
                     <tr>
-                        <td>{{++$i}}.</td> <td>{{$value->bill_item}}</td> <td>{{$value->billable}}</td> <td>{{$value->quantity}}</td> <td>{{$value->unit_price}}</td> <td>{{$value->actual_cost}}</td>
+                        <td>{{++$i}}.</td> <td>{{$value->bill_item}}</td> <td>{{$value->billable}}</td> <td style="text-align:right">{{$value->quantity}}</td> <td style="text-align:right">{{$value->unit_price}}</td> <td style="text-align:right">{{$value->actual_cost}}</td>
                     </tr>
                     <?php $total += $value->actual_cost ?>
                     @endforeach
@@ -98,17 +98,17 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="5" style="text-align:right">SUBTOTAL</td> <td>GH¢ {{ number_format($total,2)}}</td>
+                        <td colspan="5" style="text-align:right">SUBTOTAL</td> <td style="text-align:right">GH¢ {{ number_format($total,2)}}</td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td>{{$vat->value}} %</td>
+                        <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td style="text-align:right">{{$vat->value}} %</td>
                     </tr>
                     <tr>
                         <?php
                         $added = $total / ($vat->value * 100);
                         $grandTotal = $added + $total;
                         ?>
-                        <td colspan="5" style="text-align:right">TOTAL</td> <td>GH¢ {{number_format($grandTotal,2)}}</td>
+                        <td colspan="5" style="text-align:right">TOTAL</td> <td style="text-align:right">GH¢ {{number_format($grandTotal,2)}}</td>
                     </tr>
                 </tfoot>
             </table>

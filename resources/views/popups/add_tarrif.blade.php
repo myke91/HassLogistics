@@ -122,7 +122,6 @@
                                 <input id="actual_cost" name="actual_cost" class="form-control" readonly="true">
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">

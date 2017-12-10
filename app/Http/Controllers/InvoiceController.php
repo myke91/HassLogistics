@@ -13,8 +13,11 @@ use App\Vessel;
 use App\TarrifParams;
 use App\Invoice;
 use App\TempInvoice;
+use App\Vat;
+use App\Payment;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
+use Auth;
 
 class InvoiceController extends Controller {
 
@@ -96,6 +99,10 @@ class InvoiceController extends Controller {
         $entries = $request->data;
         $client_id = '';
         $vessel_id = '';
+        $actual_cost = 0;
+        Log::debug(Auth::user());
+        Log::debug('user full name '.Auth::user()->fullname);
+        Log::debug('user username '.Auth::user()->username);
         Log::debug('entries in request');
         Log::debug($entries);
         foreach ($entries as $value) {
@@ -113,6 +120,9 @@ class InvoiceController extends Controller {
             $row['actual_cost'] = $value[8];
             $row['invoice_status'] = $value[10];
             $row['invoice_date'] = $value[11];
+            $row['user'] = Auth::user()->fullname;
+            $row['username'] = Auth::user()->username;
+            $actual_cost += $row['actual_cost'] = $value[8];
             Log::debug($row);
             Invoice::create($row);
             TempInvoice::destroy($value[12]);
@@ -124,6 +134,17 @@ class InvoiceController extends Controller {
         Log::debug($invoiceItems);
         $invoiceFileName = $this->generateInvoicePdfStream($client_id, $vessel_id, $clientDB->client_name, $vessel);
         $this->emailInvoice($clientDB->client_name, $clientDB->client_email, $vessel, $invoiceFileName);
+
+        $vat = Vat::find(1)->value;
+        $added = $actual_cost / ($vat * 100);
+        $totalCost = $added + $actual_cost;
+
+        $paymentEntry = array();
+        $paymentEntry['client_id'] = $client_id;
+        $paymentEntry['vessel_id'] = $vessel_id;
+        $paymentEntry['actual_cost'] = $actual_cost;
+        $paymentEntry['total_cost'] = $totalCost;
+        Payment::create($paymentEntry);
 
         return response()->json(['invoice' => $invoiceFileName]);
     }
@@ -153,8 +174,8 @@ class InvoiceController extends Controller {
         $invoices = $this->invoiceInformationSummary()->get();
         return view('invoicing.invoiceInfo', compact('invoices'));
     }
-    
-    public function getInvoiceDetails(){
+
+    public function getInvoiceDetails() {
         
     }
 
@@ -200,8 +221,8 @@ class InvoiceController extends Controller {
         }
         return $invoiceFileName;
     }
-    
-     public function generateInvoiceFile() {
+
+    public function generateInvoiceFile() {
         $data = Invoice::join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id')
                         ->join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->where(['invoice.client_id' => 1, 'invoice.vessel_id' => 1])->get();
@@ -210,7 +231,6 @@ class InvoiceController extends Controller {
         $this->_pdf = PDF::loadView('pdf.invoice', compact('data'), compact('vat'));
         Log::debug('returning pdf document');
         return $this->_pdf->stream();
-        
     }
 
     public function emailInvoice($client, $client_email, $vessel, $invoiceFileName) {

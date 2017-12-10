@@ -7,9 +7,9 @@ use App\Vessel;
 use App\Client;
 use App\VesselOperator;
 use App\Audit;
+use App\Invoice;
 use View;
 use Auth;
-
 
 class VesselController extends Controller {
 
@@ -23,7 +23,7 @@ class VesselController extends Controller {
 
     public function addVesselOperator() {
         $vesseloperators = VesselOperator::all();
-        return view('data.vessel_operators.add_vessel_operator',compact('vesseloperators'));
+        return view('data.vessel_operators.add_vessel_operator', compact('vesseloperators'));
     }
 
     public function createVesselOperator(Request $request) {
@@ -117,8 +117,10 @@ class VesselController extends Controller {
 
     public function getVesselsForClient(Request $request) {
         $id = $request->id;
+        $vesselIds = Invoice::pluck('vessel_id')->all();
         return Vessel::join('clients', 'clients.client_id', '=', 'vessels.vessel_owner')
                         ->where('client_id', '=', $id)
+                        ->whereNotIn('vessel_id', $vesselIds)
                         ->get();
     }
 
