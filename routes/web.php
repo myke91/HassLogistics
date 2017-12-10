@@ -42,8 +42,11 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/invoice-history', ['as' => 'invoiceInfoPage', 'uses' => 'InvoiceController@getInvoiceInfo']);
     Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
     Route::get('/invoice-modification', ['as' => 'invoiceModification', 'uses' => 'InvoiceController@getInvoiceModification']);
+    Route::get('invoice-details', ['as' => 'getInvoiceDetails', 'uses' => 'InvoiceController@getInvoiceDetails']);
     Route::get('/download-invoice', ['as' => 'downloadInvoiceFile', 'uses' => 'InvoiceController@downloadInvoiceFile']);
     Route::get('/download-reciept', ['as' => 'downloadRecieptFile', 'uses' => 'PaymentController@downloadReceiptFile']);
+    Route::get('/pdf-invoice', ['as' => 'generateInvoiceFile', 'uses' => 'InvoiceController@generateInvoiceFile']);
+    Route::get('/pdf-receipt', ['as' => 'generateRecieptFile', 'uses' => 'PaymentController@generateReceiptFile']);
     Route::get('show-payment', ['as' => 'getPayment', 'uses' => 'PaymentController@getPayment']);
     Route::get('/invoice-payment', ['as' => 'showPayment', 'uses' => 'PaymentController@showPayment']);
     Route::get('/add_new_user', ['as' => 'add_new_user', 'uses' => 'IndexController@getAddUser']);
@@ -51,7 +54,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
-    Route::get('/editTempInvoice',['as'=>'editTempInvoice','uses'=>'InvoiceController@editTempInvoice']);
+    Route::get('/editTempInvoice', ['as' => 'editTempInvoice', 'uses' => 'InvoiceController@editTempInvoice']);
     Route::get('/track-payments', ['as' => 'getTrackPayments', 'uses' => 'InvoiceController@getTrackPayments']);
     Route::get('/tarrif-form', ['as' => 'getTarrifForm', 'uses' => 'TarrifController@getTarrifForm']);
     Route::get('/tarrif-type-form', ['as' => 'getTarrifTypeForm', 'uses' => 'TarrifController@getTarrifTypeForm']);
@@ -61,8 +64,8 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/edit-tarrifType', ['as' => 'editTarrifType', 'uses' => 'TarrifController@editTarrifType']);
     Route::get('/edit-tarrifParam', ['as' => 'editTarrifParam', 'uses' => 'TarrifController@editTarrifParam']);
     Route::get('/edit-tarrifCharge', ['as' => 'editTarrifCharge', 'uses' => 'TarrifController@editTarrifCharge']);
-    Route::get('/edit-user',['as'=>'editUser','uses'=>'IndexController@editUser']);
-
+    Route::get('/edit-user', ['as' => 'editUser', 'uses' => 'IndexController@editUser']);
+    Route::get('/process-payment-track', ['as' => 'processPaymentTrack', 'uses' => 'PaymentController@processPaymentTrack']);
 
 
 
@@ -82,12 +85,12 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/save-payment', ['as' => 'savePayment', 'uses' => 'PaymentController@savePayment']);
     Route::post('/post-user', ['as' => 'postUser', 'uses' => 'IndexController@postUser']);
     Route::post('/confirm-invoice', ['as' => 'confirmInvoice', 'uses' => 'InvoiceController@confirmAndSaveInvoice']);
-    Route::post('/confirm-all-invoice',['as'=>'saveAllAndGenerateInvoice','uses'=>'InvoiceController@saveAllAndGenerateInvoice']);
-    Route::post('/save-payment-from-Invoice',['as'=>'paymentFromInvoice','uses'=>'PaymentController@savePaymentFromInvoice']);
+    Route::post('/confirm-all-invoice', ['as' => 'saveAllAndGenerateInvoice', 'uses' => 'InvoiceController@saveAllAndGenerateInvoice']);
+    Route::post('/save-payment-from-Invoice', ['as' => 'paymentFromInvoice', 'uses' => 'PaymentController@savePaymentFromInvoice']);
     Route::post('/confirm-all-invoice', ['as' => 'saveAllAndGenerateInvoice', 'uses' => 'InvoiceController@saveAllAndGenerateInvoice']);
     Route::post('/clear-temp-table', ['as' => 'clearTempInvoiceTable', 'uses' => 'InvoiceController@clearTempInvoiceTable']);
     Route::post('/delete-invoice', ['as' => 'deleteInvoce', 'uses' => 'InvoiceController@deleteTempInvoice']);
-    Route::post('/updateTempInvoice',['as'=>'updateTempInvoice','uses'=>'InvoiceController@updateTempInvoice']);
+    Route::post('/updateTempInvoice', ['as' => 'updateTempInvoice', 'uses' => 'InvoiceController@updateTempInvoice']);
     Route::post('/save-tarrif', ['as' => 'saveTarrif', 'uses' => 'TarrifController@saveTarrif']);
     Route::post('/save-tarrif-type', ['as' => 'saveTarrifType', 'uses' => 'TarrifController@saveTarrifType']);
     Route::post('/save-tarrif-param', ['as' => 'saveTarrifParam', 'uses' => 'TarrifController@saveTarrifParam']);
@@ -98,7 +101,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/update-tarrifParam', ['as' => 'updateTarrifParam', 'uses' => 'TarrifController@updateTarrifParam']);
     Route::post('/update-tarrifCharge', ['as' => 'updateTarrifCharge', 'uses' => 'TarrifController@updateTarrifCharge']);
 
-    Route::post('/update-user',['as'=>'updateUser','uses'=>'IndexController@updateUser']);
+    Route::post('/update-user', ['as' => 'updateUser', 'uses' => 'IndexController@updateUser']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);
@@ -108,12 +111,11 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/api/bill-charge', ['as' => 'getBillCharge', 'uses' => 'InvoiceController@getBillCharge']);
     Route::get('/api/vessel-search', ['as' => 'findVesselByName', 'uses' => 'VesselController@findVesselByName']);
     Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
-
 });
 
 
-Route::group(['middleware' => ['authen','roles'],'roles'=>['clerk']], function () {
-
+Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['clerk']], function () {
+    
 });
 
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['manager']], function () {

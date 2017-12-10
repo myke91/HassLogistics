@@ -145,12 +145,17 @@ class InvoiceController extends Controller {
     }
 
     public function getTrackPayments() {
-        return view('invoicing.trackPayments');
+        $clients = Client::all();
+        return view('invoicing.trackPayments', compact('clients'));
     }
 
     public function getInvoiceInfo() {
         $invoices = $this->invoiceInformationSummary()->get();
         return view('invoicing.invoiceInfo', compact('invoices'));
+    }
+    
+    public function getInvoiceDetails(){
+        
     }
 
     public function showInvoiceInfo() {
@@ -179,7 +184,8 @@ class InvoiceController extends Controller {
                         ->join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->where(['invoice.client_id' => $client_id, 'invoice.vessel_id' => $vessel_id])->get();
         Log::debug($data);
-        $this->_pdf = PDF::loadView('pdf.invoice', compact('data'));
+        $vat = \App\Vat::find(1);
+        $this->_pdf = PDF::loadView('pdf.invoice', compact('data'), compact('vat'));
         Log::debug('returning pdf document');
         $invoiceFileName = time() . '_' . $client_name . '_' . $vessel_name . '_invoice.pdf';
         Storage::disk('local')->put('invoices/' . $invoiceFileName, $this->_pdf->output());
@@ -193,6 +199,18 @@ class InvoiceController extends Controller {
             Storage::delete($lastFile);
         }
         return $invoiceFileName;
+    }
+    
+     public function generateInvoiceFile() {
+        $data = Invoice::join('vessels', 'vessels.vessel_id', '=', 'invoice.vessel_id')
+                        ->join('clients', 'clients.client_id', '=', 'invoice.client_id')
+                        ->where(['invoice.client_id' => 1, 'invoice.vessel_id' => 1])->get();
+        Log::debug($data);
+        $vat = \App\Vat::find(1);
+        $this->_pdf = PDF::loadView('pdf.invoice', compact('data'), compact('vat'));
+        Log::debug('returning pdf document');
+        return $this->_pdf->stream();
+        
     }
 
     public function emailInvoice($client, $client_email, $vessel, $invoiceFileName) {
@@ -221,6 +239,7 @@ class InvoiceController extends Controller {
     }
 
     public function downloadInvoiceFile(Request $request) {
+        Log::debug('entered download invoice functoin');
         return response()->download(storage_path('app/invoices/' . $request->file));
     }
 

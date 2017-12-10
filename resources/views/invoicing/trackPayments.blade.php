@@ -38,6 +38,9 @@
                         <div class="col-sm-6">
                             <select class="s2 populate placeholder clients">
                                 <option>---------</option>
+                                @foreach($clients as $key =>$v)
+                                <option value="{{$v->client_id}}">{{$v->client_name}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -71,7 +74,15 @@
 
     }).on('click', '.execute', function (e) {
         e.preventDefault();
-        $('#track-payments-modal').modal('show');
+        $('.client-name').text($('.clients option:selected').text());
+        var clientId = $('.clients option:selected').val();
+        $.get("{{route('processPaymentTrack')}}", {id: clientId}, function (data) {
+            console.log(data);
+            $('#track-payments-modal').modal('show');
+        }).fail(function (data) {
+
+        });
+
     });
 </script>
 @endsection

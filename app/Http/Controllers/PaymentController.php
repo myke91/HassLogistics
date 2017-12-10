@@ -113,8 +113,24 @@ class paymentController extends Controller {
         return $receiptFileName;
     }
 
+    public function generateReceiptFile() {
+        $data = Payment::join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+                        ->join('clients', 'clients.client_id', '=', 'payments.client_id')
+                        ->where(['payments.client_id' => 1, 'payments.vessel_id' => 1])->get();
+//        $vessel = Vessel::find(1);
+//        $client = Client::find(1);
+
+        Log::debug($data);
+        $this->_pdf = PDF::loadView('pdf.receipt', compact('data'));
+        Log::debug('returning pdf document');
+        return $this->_pdf->stream();
+    }
+
     public function downloadReceiptFile(Request $request) {
         return response()->download(storage_path('app/reciepts/' . $request->file));
     }
 
+    public function processPaymentTrack(Request $request){
+        
+    }
 }
