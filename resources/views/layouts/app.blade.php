@@ -96,8 +96,8 @@
                                         <i class="fa fa-angle-down pull-right"></i>
                                         <div class="user-mini pull-right">
                                             <span class="welcome">Welcome,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             <span>{{ Auth::user()->fullname }}</span>
                                         </div>
                                     </a>
@@ -140,14 +140,16 @@
         <div class="row">
             <div id="sidebar-left" class="col-xs-2 col-sm-2">
                 <ul class="nav main-menu">
-
+                    @if(Auth::user()->role_id == 1)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">
                             <i class="fa fa-picture-o"></i>
                             <span class="hidden-xs">Data Entry</span>
                         </a>
                         <ul class="dropdown-menu">
+
                             <li><a href="{{route('add_vessel')}}"><i class="fa fa-shield">&nbsp;</i>Vessels</a></li>
+
                             <li><a href="{{route('add_client')}}"><i class="fa fa-users">&nbsp;</i>Clients</a></li>
                             <li><a href="{{route('add_vessel_operator')}}"><i class="fa fa-gears">&nbsp;</i>Vessel Operators </a></li>
                             <li class="dropdown">
@@ -200,7 +202,7 @@
                                                     <li><a class="ajax-link" href="ajax/ui_icons.html">Icons</a></li>
                                                 </ul>
                                             </li>-->
-
+                    @endif
                 </ul>
             </div>
             <!--Start Content-->
