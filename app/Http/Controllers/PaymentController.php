@@ -50,6 +50,7 @@ class paymentController extends Controller {
         Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
         $receiptFileName = $this->generateReceiptPdfStream($request->client_id, $request->vessel_id);
         $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Received payment of GHS' . $request->amount_paid . ' for invoice number ' . $request->invoice_no, 'act_date' => date(), 'act_time' => time()]);
         return back()->with(['success' => 'Payment saved successfully']);
     }
 

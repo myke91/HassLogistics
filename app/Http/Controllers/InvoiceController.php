@@ -91,6 +91,7 @@ class InvoiceController extends Controller {
     public function confirmAndSaveInvoice(Request $request) {
 
         if ($request->ajax()) {
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Created invoice with invoice number' . $request->invoice_no, 'act_date' => date(), 'act_time' => time()]);
             return response(Invoice::create($request->all()));
         }
     }
@@ -148,7 +149,7 @@ class InvoiceController extends Controller {
         $payment['actual_cost'] = $actual_cost;
         $payment['total_cost'] = $totalCost;
         Payment::create($payment);
-
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client' . $clientDB->client_name . 'on vessel' . $vessel, 'act_date' => date(), 'act_time' => time()]);
         return response()->json(['invoice' => $invoiceFileName]);
     }
 
