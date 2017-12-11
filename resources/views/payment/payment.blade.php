@@ -41,11 +41,9 @@
                     <div class="col-md-3">
 
                         <form action="{{route('showPayment')}}" class="search-payment" method="GET">
-                            <select id="invoice_no" name="invoice_no" class="s2 invoices">
-                                <option value="">--------------------</option>
-                                @foreach($invoices as $key => $i)
-                                    <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
-                                @endforeach
+                            <select id="invoice_no" name="invoice_no" class="form-control invoices">
+                                {{--<option value="">--------------------</option>--}}
+                                    <option value="{{$invoice->invoice_no}}">{{$invoice->invoice_no}}</option>
                             </select>
                             {{--<input class="form-control" name="invoice_no" value="{{$invoice->invoice_no}}"--}}
                                    {{--placeholder="Invoice Number" type="text">--}}
@@ -75,18 +73,17 @@
                             </caption>
                             <thead>
                                 <tr>
-                                    <td>Vessel</td>
-                                    <td>Bill Item</td>
-                                    <td>Actual Cost(GHC)</td>
-                                    <td>Amount(GHC)</td>
-                                    <td>Discount(GHC)</td>
-                                    <td>Paid(GHC)</td>
-                                    <td>Balance(GHC)</td>
+                                    <th colspan="2">Vessel</th>
+                                    <th>Actual Cost(GHC)</th>
+                                    <th>Amount(GHC)</th>
+                                    <th>Discount(GHC)</th>
+                                    <th>Paid(GHC)</th>
+                                    <th>Balance(GHC)</th>
                                 </tr>
                             </thead>
                             <tr>
-                                <td>
-                                    <select id="vessel_id" name="vessel_id">
+                                <td colspan="2">
+                                    <select id="vessel_id" name="vessel_id" class="form-control">
                                         <option value="">--------------------</option>
                                         @foreach($vessel as $key => $p)
                                         <option value="{{$p->vessel_id}}" {{$p->vessel_id==$invoice->vessel_id?
@@ -94,14 +91,14 @@
                                         @endforeach
                                     </select>
                                 </td>
+
                                 <td>
-                                    <input type="text" name="bill_item" value="{{$invoice->bill_item}}" id="bill_item" readonly="true">
-                                </td>
-                                <td>
-                                    <input type="hidden" name="payment_id" id="payment_id">
+                                    <input type="hidden" name="payment_id" id="payment_id" value="{{$invoice->payment_id}}">
                                     <input type="text" name="actual_cost" value="{{$invoice->actual_cost}}" id="Fee" class="cost" readonly="true">
                                     <input type="hidden" name="client_id" id="client_id" value="{{$invoice->client_id}}">
-                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="userID">
+                                    <input type="hidden" name="invoice_no" id="invoice_no" value="{{$invoice->invoice_no}}">
+                                    <input type="hidden" name="user" value="{{Auth::user()->fullname}}" id="userID">
+                                    <input type="hidden" name="username" value="{{Auth::user()->username}}" id="userID">
                                     <input type="hidden" name="payment_date" value="{{date('Y-m-d H:i:s')}}" id="payment_date">
 
                                 </td>

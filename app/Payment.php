@@ -26,7 +26,7 @@ class Payment extends Model
         'account_number',
         'cheque_date',
         'total_cost',
-        'user_id'];
+        ];
     protected $primaryKey = 'payment_id';
     public $timestamps = true;
 }

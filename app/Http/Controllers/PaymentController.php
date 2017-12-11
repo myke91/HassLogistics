@@ -9,6 +9,7 @@ use App\Vessel;
 use App\Payment;
 use App\PaymentEntries;
 use App\Audit;
+use Auth;
 use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -52,8 +53,8 @@ class paymentController extends Controller {
         Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
         PaymentEntries::create($request->all());
         $receiptFileName = $this->generateReceiptPdfStream($request->client_id, $request->vessel_id);
-        $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
-        Audit::create(['user' => Auth::user()->username, 'activity' => 'Received payment of GHS' . $request->amount_paid . ' for invoice number ' . $request->invoice_no, 'act_date' => date(), 'act_time' => time()]);
+       // $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Received payment of GHS' . $request->amount_paid . ' for invoice number ' . $request->invoice_no, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
         return back()->with(['success' => 'Payment saved successfully']);
     }
 

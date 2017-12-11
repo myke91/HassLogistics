@@ -150,7 +150,7 @@ class InvoiceController extends Controller {
         $payment['actual_cost'] = $actual_cost;
         $payment['total_cost'] = $totalCost;
         Payment::create($payment);
-        Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client' . $clientDB->client_name . 'on vessel' . $vessel, 'act_date' => date(), 'act_time' => time()]);
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client' . $clientDB->client_name . 'on vessel' . $vessel, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
         return response()->json(['invoice' => $invoiceFileName]);
     }
 
