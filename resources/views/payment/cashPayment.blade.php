@@ -12,12 +12,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12">
+        <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
                     <div class="box-name">
-                        <i class="fa fa-search"></i>
-                        <span>PAYMENTS MADE BY CASH</span>
+                        <span>TARRIF LIST</span>
                     </div>
                     <div class="box-icons">
                         <a class="collapse-link">
@@ -26,18 +25,18 @@
                         <a class="expand-link">
                             <i class="fa fa-expand"></i>
                         </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
                     </div>
                     <div class="no-move"></div>
                 </div>
-                <div class="box-content">
-                    <h4 class="page-header">CASH PAYMENTS</h4>
-                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
+                <div class="box-content no-padding">
+                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
                         <thead>
-
                         <tr>
                             <th>Vessel Name</th>
                             <th>Client Name</th>
-                            <th>Bill Item</th>
                             <th>Total Cost</th>
                             <th>Amount Paid</th>
                             <th>Balance</th>
@@ -50,91 +49,47 @@
                             <tr>
                                 <td>&nbsp;{{$c->vessel_name}}</td>
                                 <td>{{$c->client_name}}&nbsp;</td>
-                                <td>&nbsp;{{$c->bill_item}}</td>
-                                <td>&nbsp;{{$c->actual_cost}}</td>
+                                <td>&nbsp;{{$c->total_cost}}</td>
                                 <td>{{$c->amount_paid}}&nbsp;</td>
-                                <td>{{$c->balance}}&nbsp;</td>
+                                <td>{{$c->total_cost - $c->amount_paid}}&nbsp;</td>
                                 <td>&nbsp;Discount: {{$c->discount}} / Payment Date: {{$c->payment_date}} /
                                     Received By: {{ucfirst($c->username)}}</td>
 
                             </tr>
-
-                        </tbody>
                         @endforeach
+                        </tbody>
+
                         <tfoot>
 
                         </tfoot>
                     </table>
-
                 </div>
-                {{$cash->links()}}
             </div>
         </div>
-
     </div>
-
-
 
 @endsection
 
 @section('additional_script')
     <script type="text/javascript">
-        // Run Select2 plugin on elements
-
-        // Run Select2 plugin on elements
-        function DemoSelect2() {
-            $('.s2').select2({placeholder: "Select"});
-            $('.s2').select2({placeholder: "Select"});
+        function AllTables(){
+            TestTable1();
+            TestTable2();
+            TestTable3();
+            LoadSelect2Script(MakeSelect2);
         }
-        // Run timepicker
-        function DemoTimePicker() {
-            $('#input_time').timepicker({setDate: new Date()});
-        }
-
-        function MakeSelect2() {
+        function MakeSelect2(){
             $('select').select2();
-            $('.dataTables_filter').each(function () {
+            $('.dataTables_filter').each(function(){
                 $(this).find('label input[type=text]').attr('placeholder', 'Search');
             });
         }
-        function MakePDFInvoice() {
-            var doc = new jsPDF();
-            var elementHandler = {
-                '#ignorePDF': function (element, renderer) {
-                    return true;
-                }
-            };
-            var source = $('#invoice')[0];
-            doc.fromHTML(
-                source,
-                15,
-                15,
-                {
-                    'width': 180, 'elementHandlers': elementHandler
-                });
-
-            doc.output("dataurlnewwindow");
-        }
-        $(document).ready(function () {
-            //disable vessel dropdown and add tarrif button
-            // Initialize datepicker
-            $('#input_date').datepicker({setDate: new Date()});
-            // Load Timepicker plugin
-            LoadTimePickerScript(DemoTimePicker);
-            // Add tooltip to form-controls
-            $('.form-control').tooltip();
-            LoadSelect2Script(DemoSelect2);
-            $('.submit').click(function (e) {
-                e.preventDefault();
-//            var data = $('.form-invoice').serialize();
-//            var url = $('.form-invoice').attr('action');
-//            $.post(url, data, function (data) {
-                MakePDFInvoice();
-//            })
-            });
-
+        $(document).ready(function() {
+            // Load Datatables and run plugin on tables
+            LoadDataTablesScripts(AllTables);
+            // Add Drag-n-Drop feature
+            WinMove();
         });
-
     </script>
 
 @endsection

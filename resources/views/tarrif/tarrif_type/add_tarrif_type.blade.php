@@ -113,10 +113,10 @@
                                 <Button value="{{$value->tarrif_type_id}}" class="tarriftype-edit"><i class="fa fa-pencil-square-o"></i></Button>
                             </td>
                         </tr>
-
+                        @endforeach
                     </tbody>
                     <tfoot>
-                        @endforeach
+
                     </tfoot>
                 </table>
 
