@@ -91,8 +91,7 @@
         <div class="box">
             <div class="box-header">
                 <div class="box-name">
-                    <i class="fa fa-linux"></i>
-                    <span>TARRIF PARAM LIST</span>
+                    <span>TARRIF PARAMS LIST</span>
                 </div>
                 <div class="box-icons">
                     <a class="collapse-link">
@@ -101,30 +100,30 @@
                     <a class="expand-link">
                         <i class="fa fa-expand"></i>
                     </a>
-
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
                 </div>
                 <div class="no-move"></div>
             </div>
-            <div class="box-content no-padding" id="add-tarrif-param-info">
-                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+            <div class="box-content no-padding">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
                     <thead>
                     <tr>
-                        <!--<th>Tarrif Type Name</th>-->
                         <th>Tarrif Param Name</th>
                         <th>Tarrif Param Code</th>
                         <th>TPCT</th>
-                        <th width="20%">Remarks</th>
-                        <th colspan="2">Actions</th>
+                        <th>Action</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($tarrifParams as $key => $t)
                         <tr>
-                            <!--<td>{{$t->tarrif_type_name}}</td>-->
                             <td>{{$t->tarrif_param_name}}</td>
                             <td>{{$t->tarrif_param_code}}</td>
                             <td>{{$t->tarrif_param_charge_type}}</td>
-                            <td>{{$t->tarrif_param_remarks}}</td>
+
                             <td class="del">
                                 <Button value="{{$t->tarrif_param_id}}" class="params-edit"><i class="fa fa-pencil-square-o"></i></Button>
                             </td>
@@ -139,35 +138,29 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('additional_script')
 <script type="text/javascript">
 
-    function DemoSelect2() {
-        $('.s2').select2({placeholder: "Select"});
-    }
-    // Run Datables plugin and create 3 variants of settings
-    function AllTables() {
+    function AllTables(){
         TestTable1();
         TestTable2();
         TestTable3();
         LoadSelect2Script(MakeSelect2);
     }
-    $(document).ready(function () {
-
-        $('.form-control').tooltip();
-        LoadSelect2Script(DemoSelect2);
-    })
-
-    $(document).ready(function () {
-        $.get("{{route('ready')}}", function () {
+    function MakeSelect2(){
+        $('select').select2();
+        $('.dataTables_filter').each(function(){
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
         });
+    }
+    $(document).ready(function() {
+        // Load Datatables and run plugin on tables
+        LoadDataTablesScripts(AllTables);
+        // Add Drag-n-Drop feature
+        WinMove();
     });
-
-
-
     $('#frm-create-tarrif-param').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
@@ -213,6 +206,5 @@
         //  return false;
         // }
     });
-
 </script>
 @endsection

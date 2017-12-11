@@ -42,7 +42,7 @@
                                     <div class="form-group has-success has-feedback">
                                         <label class="col-sm-4 control-label">Tarrif Name</label>
                                         <div class="col-sm-6">
-                                            <select id="tarrif-id" name="tarrif_id" class="form-control" disabled required>
+                                            <select id="tarrif-id" name="tarrif_id" class="s2" disabled required>
                                                 <option></option>
                                                 <option></option>
                                                 @foreach($tarrifs as $key =>$t)

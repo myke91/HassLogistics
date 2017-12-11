@@ -41,7 +41,7 @@
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Tarrif Type</label>
                                     <div class="col-sm-8">
-                                        <select id="tarrif-type-id-edit" name="tarrif_type_id" class="form-control" required>
+                                        <select id="tarrif-type-id-edit" name="tarrif_type_id" class="s2" required>
                                             <option></option>
                                             @foreach($tarrifTypes as $key =>$t)
                                                 <option value="{{$t->tarrif_type_id}}">{{$t->tarrif_type_name}}</option>

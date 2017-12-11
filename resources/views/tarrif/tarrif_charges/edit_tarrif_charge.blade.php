@@ -42,7 +42,7 @@
                                     <div class="form-group has-success">
                                         <label class="col-sm-4 control-label">Tarrif Param</label>
                                         <div class="col-sm-8">
-                                            <select class="form-control" id="tarrif-param-id-edit" name="tarrif_param_id">
+                                            <select class="s2" id="tarrif-param-id-edit" name="tarrif_param_id">
                                                 <option></option>
                                                 @foreach($tarriParams as $key =>$t)
                                                     <option value="{{$t->tarrif_param_id}}">{{$t->tarrif_param_name}}</option>
