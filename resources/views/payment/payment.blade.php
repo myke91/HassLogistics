@@ -149,11 +149,11 @@
                                 </thead>
                                 <tr>
                                     <td colspan="2">
-                                        <select name="payment_mode" id="paymentmode" required>
+                                        <select name="payment_mode" id="paymentmode" class="form-control" onchange="showCheque()" required>
                                             <option></option>
-                                            <option>Cash</option>
-                                            <option>Cheque</option>
-                                            <option>On Account</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="On Account">On Account</option>
                                         </select>
                                     </td>
                                     <td colspan="2"><input type="text" name="account_name" id="account_name"></td>
@@ -192,12 +192,18 @@
     $(document).ready(function () {
       $.get("{{route('ready')}}", function () {
         });
+
+
         $('#cheque_date').datepicker({
             dateFormat: 'yy-mm-dd'
         });
          $('.form-control').tooltip();
         LoadSelect2Script(DemoSelect2);
+        showCheque();
         $('#download-receipt').attr("disabled", "disabled");
+        $('#account_name').attr("disabled","disabled")
+        $('#account_number').attr("disabled","disabled")
+        $('#cheque_date').attr("disabled","disabled")
         // Add tooltip to form-controls
         $('.form-control').tooltip();
         $('.submit').click(function (e) {
@@ -222,7 +228,25 @@
 //        });
 
     });
+    function showCheque(){
+        var val = document.getElementById('paymentmode').value;
+        if (val =='Cash'){
+            $('#account_name').attr("disabled");
+            $('#account_number').attr("disabled");
+            $('#cheque_date').attr("disabled");
+        }
+       else if (val =='On Account'){
+            $('#account_name').attr("disabled");
+            $('#account_number').attr("disabled");
+            $('#cheque_date').attr("disabled");
+        }
+        else {
+            $('#account_name').removeAttr("disabled");
+            $('#account_number').removeAttr("disabled");
+            $('#cheque_date').removeAttr("disabled");
+        }
 
+    }
 
 </script>
 {{--<script  type="text/javascript" src="{{ URL::asset('js/calculatepayment.js') }}"></script>--}}
