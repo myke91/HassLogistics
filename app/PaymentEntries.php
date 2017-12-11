@@ -14,7 +14,7 @@ class PaymentEntries extends Model {
         'username',
         'payment_mode',
         'actual_cost',
-        'amount_paid',
+        'amount',
         'balance',
         'invoice_no',
         'discount',

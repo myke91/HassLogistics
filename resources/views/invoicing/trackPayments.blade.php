@@ -48,7 +48,7 @@
                     <div class="clearfix"></div>
                     <div class="form-group">
                         <div class="col-sm-2 pull-right">
-                            <button class="btn btn-info btn-label-left execute">
+                            <button class="btn btn-info btn-label-left execute" value="{{$v->client_id}}">
                                 <span><i class="fa fa-plus-circle"></i></span>
                                 Execute
                             </button>
@@ -84,5 +84,15 @@
         });
 
     });
+
+//$(document).on('change', '.clients', function (e) {
+//    e.preventDefault();
+//    var clientid = $('.clients').val();
+//    $('.execute').val(clientid);
+//
+//    });
+
+
+
 </script>
 @endsection

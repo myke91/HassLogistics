@@ -15,7 +15,6 @@ class Payment extends Model
         'invoice_no',
         'payment_mode',
         'actual_cost',
-        'invoice_no',
         'amount_paid',
         'balance',
         'discount',

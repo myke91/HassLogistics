@@ -23,7 +23,6 @@
             </div>
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
-                <button type="submit" class="btn btn-success btn-sm create-client">Create Client</button>
             </div>
         </div>
     </div>

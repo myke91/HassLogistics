@@ -16,6 +16,7 @@ use App\TempInvoice;
 use App\Vat;
 use App\Audit;
 use App\Payment;
+use App\PaymentEntries;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
 use Auth;
@@ -149,6 +150,7 @@ class InvoiceController extends Controller {
         $payment['invoice_no'] = $invoice_no;
         $payment['actual_cost'] = $actual_cost;
         $payment['total_cost'] = $totalCost;
+        $payment['balance'] = $totalCost;
         Payment::create($payment);
         Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client' . $clientDB->client_name . 'on vessel' . $vessel, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
         return response()->json(['invoice' => $invoiceFileName]);
@@ -172,7 +174,8 @@ class InvoiceController extends Controller {
 
     public function getTrackPayments() {
         $clients = Client::all();
-        return view('invoicing.trackPayments', compact('clients'));
+        $payEnts = PaymentEntries::join('clients','clients.client_id','=','payment_entries.client_id')->get();
+        return view('invoicing.trackPayments', compact('clients','payEnts'));
     }
 
     public function getInvoiceInfo() {

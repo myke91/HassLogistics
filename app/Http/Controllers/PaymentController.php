@@ -50,7 +50,26 @@ class paymentController extends Controller {
     }
 
     public function savePayment(Request $request) {
-        Payment::updateOrCreate(['payment_id' => $request->payment_id], $request->all());
+        $p =  Payment::findOrFail($request->payment_id);
+        $p->vessel_id=$request->vessel_id;
+        $p->client_id=$request->client_id;
+        $p->user=$request->user;
+        $p->username=$request->username;
+        $p->invoice_no=$request->invoice_no;
+        $p->payment_mode=$request->payment_mode;
+        $p->actual_cost=$request->actual_cost;
+        $p->total_cost=$request->total_cost;
+        $p->amount_paid=$request->amount_paid + $request->amount;
+        $p->balance=$request->total_cost - $request->amount_paid;
+        $p->discount=$request->discount;
+        $p->description=$request->description;
+        $p->remark=$request->remark;
+        $p->payment_date=$request->payment_date;
+        $p->account_name=$request->account_name;
+        $p->account_number=$request->account_number;
+        $p->cheque_date=$request->cheque_date;
+        $p->update();
+
         PaymentEntries::create($request->all());
         $receiptFileName = $this->generateReceiptPdfStream($request->client_id, $request->vessel_id);
        // $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
@@ -143,7 +162,9 @@ class paymentController extends Controller {
     }
 
     public function processPaymentTrack(Request $request) {
-        
+        if ($request->ajax()) {
+            return response(PaymentEntries::find($request->client_id));
+        }
     }
 
 }

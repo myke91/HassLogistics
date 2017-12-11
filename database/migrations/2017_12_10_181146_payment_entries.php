@@ -22,7 +22,7 @@ class PaymentEntries extends Migration {
             $table->string('payment_mode')->nullable();
             $table->decimal('actual_cost')->nullable();
             $table->decimal('total_cost')->nullable();
-            $table->decimal('amount_paid')->nullable();
+            $table->decimal('amount')->nullable();
             $table->decimal('balance')->nullable();
             $table->decimal('discount')->nullable();
             $table->string('description')->nullable();

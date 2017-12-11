@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
+                                <input type="text" class="form-control" id="invoice_no" data-toggle="tooltip" data-placement="bottom" readonly>
                             </div>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>

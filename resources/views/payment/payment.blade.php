@@ -43,7 +43,9 @@
                         <form action="{{route('showPayment')}}" class="search-payment" method="GET">
                             <select id="invoice_no" name="invoice_no" class="form-control invoices">
                                 {{--<option value="">--------------------</option>--}}
-                                    <option value="{{$invoice->invoice_no}}">{{$invoice->invoice_no}}</option>
+                                @foreach($invoices as $key => $i)
+                                <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
+                                    @endforeach
                             </select>
                             {{--<input class="form-control" name="invoice_no" value="{{$invoice->invoice_no}}"--}}
                                    {{--placeholder="Invoice Number" type="text">--}}
@@ -74,7 +76,7 @@
                             <thead>
                                 <tr>
                                     <th colspan="2">Vessel</th>
-                                    <th>Actual Cost(GHC)</th>
+                                    <th>Total Cost(GHC)</th>
                                     <th>Amount(GHC)</th>
                                     <th>Discount(GHC)</th>
                                     <th>Paid(GHC)</th>
@@ -94,8 +96,9 @@
 
                                 <td>
                                     <input type="hidden" name="payment_id" id="payment_id" value="{{$invoice->payment_id}}">
-                                    <input type="text" name="actual_cost" value="{{$invoice->actual_cost}}" id="Fee" class="cost" readonly="true">
+                                    <input type="text" name="total_cost" value="{{$invoice->total_cost}}" id="Fee" class="cost" readonly="true">
                                     <input type="hidden" name="client_id" id="client_id" value="{{$invoice->client_id}}">
+                                    <input type="hidden" name="actual_cost" id="actual_cost" value="{{$invoice->actual_cost}}">
                                     <input type="hidden" name="invoice_no" id="invoice_no" value="{{$invoice->invoice_no}}">
                                     <input type="hidden" name="user" value="{{Auth::user()->fullname}}" id="userID">
                                     <input type="hidden" name="username" value="{{Auth::user()->username}}" id="userID">
@@ -103,16 +106,16 @@
 
                                 </td>
                                 <td>
-                                    <input type="text" name="amount" id="Amount" required>
+                                    <input type="text" name="amount_paid" value="{{$invoice->amount_paid}}" id="Amount" readonly = "true">
                                 </td>
                                 <td>
                                     <input type="text" name="discount" id="Discount">
                                 </td>
                                 <td>
-                                    <input type="text" name="amount_paid" id="Paid">
+                                    <input type="text" name="amount" id="Paid">
                                 </td>
                                 <td>
-                                    <input type="text" name="balance" id="Lack" readonly="true">
+                                    <input type="text" name="balance" value="{{$invoice->total_cost - $invoice->amount_paid}}" id="Lack" readonly="true">
                                 </td>
                             </tr>
 
@@ -202,11 +205,27 @@
         });
 
     });
+    $(document).on('change', '.invoices', function (e) {
+        e.preventDefault();
+        var invoice_no = $('#invoice_no option:selected').val();
+        console.log(invoice_no);
+        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
+            console.log(data)
+        }).fail(function(data){
+            console.log(data);
+        });
+        $( "#payment-search-form" ).submit();
+//        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
+//
+//        }).fail(function(data){
+//            console.log(data);
+//        });
 
+    });
 
 
 </script>
-<script  type="text/javascript" src="{{ URL::asset('js/calculatepayment.js') }}"></script>
+{{--<script  type="text/javascript" src="{{ URL::asset('js/calculatepayment.js') }}"></script>--}}
 
 
 @endsection
