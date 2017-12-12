@@ -121,7 +121,7 @@
                 <div class="no-move"></div>
             </div>
             <div class="box-content no-padding" id="add-tarrif-type-info">
-                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -143,10 +143,10 @@
                                 <Button value="{{$u->id}}" class="user-edit"><i class="fa fa-pencil-square-o"></i></Button>
                             </td>
                         </tr>
-
+                    @endforeach
                     </tbody>
                     <tfoot>
-                    @endforeach
+
                     </tfoot>
                 </table>
 
@@ -163,6 +163,25 @@
     $(document).ready(function () {
         $.get("{{route('ready')}}", function () {
         });
+    });
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables(){
+        TestTable1();
+        TestTable2();
+        TestTable3();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2(){
+        $('select').select2();
+        $('.dataTables_filter').each(function(){
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
+    $(document).ready(function() {
+        // Load Datatables and run plugin on tables
+        LoadDataTablesScripts(AllTables);
+        // Add Drag-n-Drop feature
+        WinMove();
     });
     $(document).on('click', '.user-edit', function (e) {
         console.log('dataclicked');
