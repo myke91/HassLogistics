@@ -54,7 +54,7 @@
                                 <div class="form-group has-success">
                                     <label class="col-sm-4 control-label">Role</label>
                                     <div class="col-sm-8">
-                                        <select id="role-edit" name="role_id" class="form-control" required>
+                                        <select id="role-edit" name="role_id" class="" required>
                                             <option></option>
                                             @foreach($roles as $key =>$v)
                                                 <option value="{{$v->r_id}}">{{$v->name}}</option>
