@@ -100,14 +100,15 @@
                     <tr>
                         <td colspan="5" style="text-align:right">SUBTOTAL</td> <td style="text-align:right">GH¢ {{ number_format($total,2)}}</td>
                     </tr>
+                     <?php
+                        $vatValue = $total / ($vat->value * 100);
+                        $grandTotal = $vatValue + $total;
+                        ?>
                     <tr>
-                        <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td style="text-align:right">{{$vat->value}} %</td>
+                        <td colspan="5" style="text-align:right">VAT/NHIL</td>  <td style="text-align:right">GH¢ {{number_format($vatValue,2)}}</td>
                     </tr>
                     <tr>
-                        <?php
-                        $added = $total / ($vat->value * 100);
-                        $grandTotal = $added + $total;
-                        ?>
+                       
                         <td colspan="5" style="text-align:right">TOTAL</td> <td style="text-align:right">GH¢ {{number_format($grandTotal,2)}}</td>
                     </tr>
                 </tfoot>

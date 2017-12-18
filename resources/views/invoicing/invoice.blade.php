@@ -1,196 +1,205 @@
-@extends('layouts.app')
-@section('content')
-@include('popups.add_tarrif')
-@include('popups.edit_invoice')
+@extends('layouts.app') @section('content') @include('popups.add_tarrif') @include('popups.edit_invoice')
 <div class="row">
-    <div id="breadcrumb" class="col-xs-12">
-        <a href="#" class="show-sidebar">
-            <i class="fa fa-bars"></i>
-        </a>
-        <ol class="breadcrumb pull-left">
-            <li><a href="/">Dashboard</a></li>
-        </ol>
-    </div>
+	<div id="breadcrumb" class="col-xs-12">
+		<a href="#" class="show-sidebar">
+			<i class="fa fa-bars"></i>
+		</a>
+		<ol class="breadcrumb pull-left">
+			<li>
+				<a href="/">Dashboard</a>
+			</li>
+		</ol>
+	</div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-12">
-        <div class="box">
-            <div class="box-header">
-                <div class="box-name">
-                    <i class="fa fa-search"></i>
-                    <span>PREPARE INVOICE</span>
-                </div>
-                <div class="box-icons">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="expand-link">
-                        <i class="fa fa-expand"></i>
-                    </a>
-                </div>
-                <div class="no-move"></div>
-            </div>
-            <div class="box-content">
-                <h4 class="page-header">INVOICE DETAILS</h4>
-                <form class="form-horizontal form-invoice" role="form">
+	<div class="col-xs-12 col-sm-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-search"></i>
+					<span>PREPARE INVOICE</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="expand-link">
+						<i class="fa fa-expand"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<h4 class="page-header">INVOICE DETAILS</h4>
+				<form class="form-horizontal form-invoice" role="form">
 
-                    <div class="form-group has-success has-feedback">
-                        <label class="col-sm-2 control-label">Client</label>
-                        <div class="col-sm-4">
-                            <select class="s2 populate placeholder clients" id="client_choose">
-                                <option>---------</option>
-                                @foreach($clients as $key =>$v)
-                                <option value="{{$v->client_id}}">{{$v->client_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+					<div class="form-group has-success has-feedback">
+						<label class="col-sm-2 control-label">Client</label>
+						<div class="col-sm-4">
+							<select class="s2 populate placeholder clients" id="client_choose">
+								<option>---------</option>
+								@foreach($clients as $key =>$v)
+								<option value="{{$v->client_id}}">{{$v->client_name}}</option>
+								@endforeach
+							</select>
+						</div>
 
-                    </div>
+					</div>
 
-                    <div class="form-group has-success has-feedback">
-                        <label class="col-sm-2 control-label">Vessel</label>
-                        <div class="col-sm-4">
-                            <select class="s2 populate placeholder vessels" id="vessel_choose">
-                                <option>---------</option>
-                                @foreach($vessels as $key =>$v)
-                                <option value="{{$v->vessel_id}}">{{$v->vessel_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+					<div class="form-group has-success has-feedback">
+						<label class="col-sm-2 control-label">Vessel</label>
+						<div class="col-sm-4">
+							<select class="s2 populate placeholder vessels" id="vessel_choose">
+								<option>---------</option>
+								@foreach($vessels as $key =>$v)
+								<option value="{{$v->vessel_id}}">{{$v->vessel_name}}</option>
+								@endforeach
+							</select>
+						</div>
 
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <button class="btn btn-info btn-label-left add-tarrif">
-                                <span><i class="fa fa-plus-circle"></i></span>
-                                Add Tarrif
-                            </button>
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-danger btn-label-left clear">
-                                <span><i class="fa fa-exclamation-triangle"></i></span>
-                                Clear
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="form-group">
+						<div class="col-sm-2">
+							<button class="btn btn-info btn-label-left add-tarrif">
+								<span>
+									<i class="fa fa-plus-circle"></i>
+								</span>
+								Add Tarrif
+							</button>
+						</div>
+						<div class="col-sm-2">
+							<button class="btn btn-danger btn-label-left clear">
+								<span>
+									<i class="fa fa-exclamation-triangle"></i>
+								</span>
+								Clear
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-12">
-        <div class="box">
-            <div class="box-header">
-                <div class="box-name">
-                    <i class="fa fa-search"></i>
-                    <span>LIST OF ITEMS</span>
-                </div>
-                <div class="box-icons">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="expand-link">
-                        <i class="fa fa-expand"></i>
-                    </a>
-                </div>
-                <div class="no-move"></div>
-            </div>
-            <div class="box-content" id="box-content">
-                <h4 class="page-header">BILL</h4>
-                @if(session('success'))
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    {{session('success')}}
-                </div>
-                @endif
-                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
-                    <thead>
-                        <tr>
-                            <th>Vessel Name</th>
-                            <th>Client Name</th>
-                            <th>Bill Item</th>
-                            <th>Billable</th>
-                            <th>Invoice Details</th>
-                            <th>Invoice Date</th>
-                            <th colspan="3">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($temp as $tr)
-                        <tr class="data">
-                            <td style="display:none;" class="inputValue">{{$tr->vessel_id}}</td>
-                            <td class="inputValue">{{$tr->vessel_name}}</td>
-                            <td style="display:none;" class="inputValue">{{$tr->client_id}}</td>
-                            <td style="display:none;" class="inputValue">{{$tr->invoice_no}}</td>
-                            <td>{{$tr->client_name}}</td>
-                            <td class="inputValue">{{$tr->bill_item}}</td>
-                            <td class="inputValue">{{$tr->billable}}</td>
-                            <td>
-                                Unit Price: <span class="inputValue">{{$tr->unit_price}}</span>
-                                / Quantity:  <span class="inputValue">{{$tr->quantity}}</span>
-                                / Total Price:  <span class="inputValue">{{$tr->actual_cost}}</span>
+	<div class="col-xs-12 col-sm-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-search"></i>
+					<span>LIST OF ITEMS</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="expand-link">
+						<i class="fa fa-expand"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content" id="box-content">
+				<h4 class="page-header">BILL</h4>
+				@if(session('success'))
+				<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					{{session('success')}}
+				</div>
+				@endif
+				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
+					<thead>
+						<tr>
+							<th>Vessel Name</th>
+							<th>Client Name</th>
+							<th>Bill Item</th>
+							<th>Billable</th>
+							<th>Invoice Details</th>
+							<th>Invoice Date</th>
+							<th colspan="3">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($temp as $tr)
+						<tr class="data">
+							<td style="display:none;" class="inputValue">{{$tr->vessel_id}}</td>
+							<td class="inputValue">{{$tr->vessel_name}}</td>
+							<td style="display:none;" class="inputValue">{{$tr->client_id}}</td>
+							<td style="display:none;" class="inputValue">{{$tr->invoice_no}}</td>
+							<td>{{$tr->client_name}}</td>
+							<td class="inputValue">{{$tr->bill_item}}</td>
+							<td class="inputValue">{{$tr->billable}}</td>
+							<td>
+								Unit Price:
+								<span class="inputValue">{{$tr->unit_price}}</span>
+								/ Quantity:
+								<span class="inputValue">{{$tr->quantity}}</span>
+								/ Total Price:
+								<span class="inputValue">{{$tr->actual_cost}}</span>
 
-                            </td>
-                            <td class="inputValue" style="display:none;">{{Auth::user()->id}}</td>
-                            <td style="display:none;" class="inputValue">{{$tr->invoice_status}}</td>
-                            <td class="inputValue">{{$tr->invoice_date}}</td>
-                            <td style="display:none;" class="inputValue">{{$tr->invoice_id}}</td>
-                            <td class="del">
-                                <button value="{{$tr->invoice_id}}" class="del-class" 
-                                        onclick="return confirm('Are you sure you want to delete this invoice?');"> <i class="fa fa-trash-o"></i>
-                                </button>
-                            </td>
-                            <td class="del">
-                                <button value = "{{$tr->invoice_id}}" class="invoice-edit">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
+							</td>
+							<td class="inputValue" style="display:none;">{{Auth::user()->id}}</td>
+							<td style="display:none;" class="inputValue">{{$tr->invoice_status}}</td>
+							<td class="inputValue">{{$tr->invoice_date}}</td>
+							<td style="display:none;" class="inputValue">{{$tr->invoice_id}}</td>
+							<td class="del">
+								<button value="{{$tr->invoice_id}}" class="del-class" onclick="return confirm('Are you sure you want to delete this invoice?');">
+									<i class="fa fa-trash-o"></i>
+								</button>
+							</td>
+							<td class="del">
+								<button value="{{$tr->invoice_id}}" class="invoice-edit">
+									<i class="fa fa-pencil-square-o"></i>
+								</button>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+					<tfoot>
 
-                    </tfoot>
-                </table>
+					</tfoot>
+				</table>
 
-                <div class="footer">
+				<div class="footer">
 
-                </div>
-            </div>
+				</div>
+			</div>
 
-        </div>
-        <div class="col-sm-2" style="float: right">     
+		</div>
+		<div class="col-sm-2" style="float: right">
 
-            <button class="btn btn-info btn-label-left" id="generate-invoice">
-                <span><i class="fa fa-money"></i></span>
-                Confirm and Generate Invoice
-            </button>
+			<button class="btn btn-info btn-label-left" id="generate-invoice">
+				<span>
+					<i class="fa fa-money"></i>
+				</span>
+				Confirm and Generate Invoice
+			</button>
 
 
 
-            <form action="{{route('downloadInvoiceFile')}}">
-                <input type="hidden" id="pdf-file-name" name="file"/>
-                <button type="submit" class="btn btn-link btn-label-left" id="download-invoice">
-                    <span><i class="fa fa-download"></i></span>
-                    Download Invoice
-                </button>
+			<form action="{{route('downloadInvoiceFile')}}">
+				<input type="hidden" id="pdf-file-name" name="file" />
+				<button type="submit" class="btn btn-link btn-label-left" id="download-invoice">
+					<span>
+						<i class="fa fa-download"></i>
+					</span>
+					Download Invoice
+				</button>
 
-            </form>
+			</form>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 
 
-@endsection
-
-@section('additional_script')
+@endsection @section('additional_script')
 <script type="text/javascript">
-
-// Run Select2 plugin on elements
+	// Run Select2 plugin on elements
     function DemoSelect2() {
         $('.s2').select2({placeholder: "Select"});
     }
@@ -303,7 +312,7 @@
             console.log(data);
             $('#download-invoice').removeAttr("disabled");
             $('#pdf-file-name').val(data.invoice);
-            $('#invoice-table').empty();
+            $('#invoice-table tbody').empty();
         }).fail(function (data) {
             console.log(data);
         });
@@ -390,8 +399,9 @@
         });
 
     });
+
 </script>
 
-<script  type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/tarrif-form-builder.js') }}"></script>
 
 @endsection

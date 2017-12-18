@@ -11,6 +11,7 @@ class PaymentEntries extends Model {
         'vessel_id',
         'client_id',
         'user',
+        'receipt_no',
         'username',
         'payment_mode',
         'actual_cost',

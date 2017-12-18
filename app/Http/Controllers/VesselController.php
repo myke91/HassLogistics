@@ -10,6 +10,7 @@ use App\Audit;
 use App\Invoice;
 use View;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 class VesselController extends Controller {
 
@@ -54,6 +55,8 @@ class VesselController extends Controller {
                     return response()->json($errors, 400);
                 }
             } catch (\Illuminate\Database\QueryException $ex) {
+
+                Log::debug($ex);
                 return response()->json(['error' => 'An error occured'], 500);
             }
         }

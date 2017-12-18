@@ -138,7 +138,7 @@ class InvoiceController extends Controller {
         Log::debug('invoice items');
         Log::debug($invoiceItems);
         $invoiceFileName = $this->generateInvoicePdfStream($client_id, $vessel_id, $clientDB->client_name, $vessel);
-        //$this->emailInvoice($clientDB->client_name, $clientDB->client_email, $vessel, $invoiceFileName);
+        $this->emailInvoice($clientDB->client_name, $clientDB->client_email, $vessel, $invoiceFileName);
 
         $vat = Vat::find(1)->value;
         $added = $actual_cost / ($vat * 100);
@@ -247,7 +247,7 @@ class InvoiceController extends Controller {
         $input['vessel'] = $vessel;
         $input['filename'] = $invoiceFileName;
         Mail::send('emails.invoice', $input, function($message) use ($input) {
-            $message->to('mike_dugah@yahoo.com', $input['client']);
+            $message->to('henrietta.dadzie@hasslogistics.com', $input['client']);
             $message->subject('Invoice to ' . $input['client'] . ' on vessel ' . $input['vessel']);
             $message->from('info@hasslogistics.com', 'Hass Logistics');
             $message->attachData($this->_pdf->stream(), $input['filename']);

@@ -16,7 +16,9 @@ class PaymentEntries extends Migration {
             $table->increments('payment_entries_id');
             $table->integer('client_id')->unsigned();
             $table->integer('vessel_id')->unsigned();
+            $table->string('receipt_no')->nullable();
             $table->string('invoice_no');
+            $table->string('amount_in_words')->nullable();
             $table->string('username')->nullable();
             $table->string('user')->nullable();
             $table->string('payment_mode')->nullable();
