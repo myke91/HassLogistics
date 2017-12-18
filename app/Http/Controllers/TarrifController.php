@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use View;
 
-use App\Tarrif;
-use App\TarrifCharge;
-use App\TarrifParams;
-use App\TarrifType;
-use App\Audit;
+use HASSLOGISTICS\Tarrif;
+use HASSLOGISTICS\TarrifCharge;
+use HASSLOGISTICS\TarrifParams;
+use HASSLOGISTICS\TarrifType;
+use HASSLOGISTICS\Audit;
 
 
 class TarrifController extends Controller {

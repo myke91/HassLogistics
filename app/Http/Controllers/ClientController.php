@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Client;
+use HASSLOGISTICS\Client;
 use Auth;
-use App\Audit;
+use HASSLOGISTICS\Audit;
 
 class ClientController extends Controller {
 

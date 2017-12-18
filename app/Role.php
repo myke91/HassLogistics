@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace HASSLOGISTICS;
 
 Use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,7 @@ Class Role extends Model {
     public $timestamps = false;
 
     public function users() {
-        return $this->hasMany('App\User', 'role_id', 'r_id');
+        return $this->hasMany('HASSLOGISTICS\User', 'role_id', 'r_id');
     }
 
 

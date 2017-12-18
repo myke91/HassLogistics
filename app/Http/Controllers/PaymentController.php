@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Invoice;
-use App\Client;
-use App\Vessel;
-use App\Payment;
-use App\PaymentEntries;
-use App\Audit;
+use HASSLOGISTICS\Invoice;
+use HASSLOGISTICS\Client;
+use HASSLOGISTICS\Vessel;
+use HASSLOGISTICS\Payment;
+use HASSLOGISTICS\PaymentEntries;
+use HASSLOGISTICS\Audit;
 use Auth;
 use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Facades\Storage;

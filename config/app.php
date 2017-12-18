@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'HASSLOGISTICS'),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,12 +172,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\CustomValidatorServiceProvider::class,
+        HASSLOGISTICS\Providers\AppServiceProvider::class,
+        HASSLOGISTICS\Providers\AuthServiceProvider::class,
+        // HASSLOGISTICS\Providers\BroadcastServiceProvider::class,
+        HASSLOGISTICS\Providers\EventServiceProvider::class,
+        HASSLOGISTICS\Providers\RouteServiceProvider::class,
+        HASSLOGISTICS\Providers\CustomValidatorServiceProvider::class,
     ],
 
     /*

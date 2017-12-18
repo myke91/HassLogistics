@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace HASSLOGISTICS;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne('App\Role', 'r_id', 'role_id');
+        return $this->hasOne('HASSLOGISTICS\Role', 'r_id', 'role_id');
     }
 
     private function checkIfUserHasRole($need_role)

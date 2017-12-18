@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use App\Tarrif;
-use App\TarrifType;
-use App\TarrifCharge;
-use App\Client;
-use App\Vessel;
-use App\TarrifParams;
-use App\Invoice;
-use App\TempInvoice;
-use App\Vat;
-use App\Audit;
-use App\Payment;
-use App\PaymentEntries;
+use HASSLOGISTICS\Tarrif;
+use HASSLOGISTICS\TarrifType;
+use HASSLOGISTICS\TarrifCharge;
+use HASSLOGISTICS\Client;
+use HASSLOGISTICS\Vessel;
+use HASSLOGISTICS\TarrifParams;
+use HASSLOGISTICS\Invoice;
+use HASSLOGISTICS\TempInvoice;
+use HASSLOGISTICS\Vat;
+use HASSLOGISTICS\Audit;
+use HASSLOGISTICS\Payment;
+use HASSLOGISTICS\PaymentEntries;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
 use Auth;
@@ -213,7 +213,7 @@ class InvoiceController extends Controller {
                         ->join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->where(['invoice.client_id' => $client_id, 'invoice.vessel_id' => $vessel_id])->get();
         Log::debug($data);
-        $vat = \App\Vat::find(1);
+        $vat = \HASSLOGISTICS\Vat::find(1);
         $this->_pdf = PDF::loadView('pdf.invoice', compact('data'), compact('vat'));
         Log::debug('returning pdf document');
         $invoiceFileName = time() . '_' . $client_name . '_' . $vessel_name . '_invoice.pdf';
@@ -235,7 +235,7 @@ class InvoiceController extends Controller {
                         ->join('clients', 'clients.client_id', '=', 'invoice.client_id')
                         ->where(['invoice.client_id' => 1, 'invoice.vessel_id' => 1])->get();
         Log::debug($data);
-        $vat = \App\Vat::find(1);
+        $vat = \HASSLOGISTICS\Vat::find(1);
         $this->_pdf = PDF::loadView('pdf.invoice', compact('data'), compact('vat'));
         Log::debug('returning pdf document');
         return $this->_pdf->stream();

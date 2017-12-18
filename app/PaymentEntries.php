@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace HASSLOGISTICS;
 
 use Illuminate\Database\Eloquent\Model;
 

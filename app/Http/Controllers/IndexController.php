@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
-use App\Role;
+use HASSLOGISTICS\User;
+use HASSLOGISTICS\Role;
 use Auth;
-use App\Audit;
+use HASSLOGISTICS\Audit;
 
 class IndexController extends Controller
 {

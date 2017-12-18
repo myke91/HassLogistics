@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use View;
 
@@ -21,11 +21,11 @@ class HomeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $clients = \App\Client::all();
-        $vessels = \App\Vessel::join('Vessel_Operators', 'Vessel_Operators.vessel_operator_id', '=', 'Vessels.vessel_operator_id')->get();
-        $audits = \App\Audit::join('Users', 'Users.username', '=', 'Audit.user')->get();
-        $totalClients = \App\Client::count();
-        $totalVessels = \App\Vessel::count();
+        $clients = \HASSLOGISTICS\Client::all();
+        $vessels = \HASSLOGISTICS\Vessel::join('Vessel_Operators', 'Vessel_Operators.vessel_operator_id', '=', 'Vessels.vessel_operator_id')->get();
+        $audits = \HASSLOGISTICS\Audit::join('Users', 'Users.username', '=', 'Audit.user')->get();
+        $totalClients = \HASSLOGISTICS\Client::count();
+        $totalVessels = \HASSLOGISTICS\Vessel::count();
 
         return View::make('dashboard')
                         ->with(compact('clients'))

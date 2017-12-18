@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace HASSLOGISTICS\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;

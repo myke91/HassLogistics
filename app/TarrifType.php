@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace HASSLOGISTICS;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,11 +12,11 @@ class TarrifType extends Model {
     public $timestamps = false;
 
     public function tarrif() {
-        return $this->belongsTo('App\Tarrif', 'tarrif_id', 'tarrif_id');
+        return $this->belongsTo('HASSLOGISTICS\Tarrif', 'tarrif_id', 'tarrif_id');
     }
     
     public function params() {
-        return $this->hasMany('App\TarrifParams', 'tarrif_type_id', 'tarrif_type_id');
+        return $this->hasMany('HASSLOGISTICS\TarrifParams', 'tarrif_type_id', 'tarrif_type_id');
     }
 
 }

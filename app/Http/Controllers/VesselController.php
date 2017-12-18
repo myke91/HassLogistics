@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace HASSLOGISTICS\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Vessel;
-use App\Client;
-use App\VesselOperator;
-use App\Audit;
-use App\Invoice;
+use HASSLOGISTICS\Vessel;
+use HASSLOGISTICS\Client;
+use HASSLOGISTICS\VesselOperator;
+use HASSLOGISTICS\Audit;
+use HASSLOGISTICS\Invoice;
 use View;
 use Auth;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace HASSLOGISTICS\Http\Middleware;
 
 use Closure;
 use Auth;

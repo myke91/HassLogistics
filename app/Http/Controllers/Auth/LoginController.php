@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace HASSLOGISTICS\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use HASSLOGISTICS\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
