@@ -36,7 +36,7 @@
                             <select id="invoice_no" name="invoice_no" class="s2 invoices">
                                 <option value="">--------------------</option>
                                 @foreach($invoices as $key => $i)
-                                    <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
+                                <option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
                                 @endforeach
                             </select>
                             {{--<input class="form-control" name="invoice_no" placeholder="Invoice Number" type="text">--}}
@@ -62,68 +62,68 @@
                 @endif
                 <div class="panel-body">
                     <table style="margin-top: 12px;">
-                        <caption class="academicDetail">
+                            <caption class="academicDetail">
 
-                        </caption>
-                        <thead>
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <td>Vessel</td>
+                                    <td>Bill Item</td>
+                                    <td>Actual Cost(GHC)</td>
+                                    <td>Amount(GHC)</td>
+                                    <td>Discount(GHC)</td>
+                                    <td>Paid(GHC)</td>
+                                    <td>Balance(GHC)</td>
+                                </tr>
+                            </thead>
                             <tr>
-                                <td>Vessel</td>
-                                <td>Bill Item</td>
-                                <td>Actual Cost(GHC)</td>
-                                <td>Amount(GHC)</td>
-                                <td>Discount(GHC)</td>
-                                <td>Paid(GHC)</td>
-                                <td>Balance(GHC)</td>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                <select id="VesselID" name="VesselID">
-                                    <option value="">--------------------</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select>
-                                    <option value="">--------------------</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" name="fee" id="fee" readonly="true">
-                                <input type="hidden" name="user_id" id="userID">
-
-                            </td>
-                            <td>
-                                <input type="text" name="amount" id="Amount" required>
-                            </td>
-                            <td>
-                                <input type="text" name="discount" id="Discount">
-                            </td>
-                            <td>
-                                <input type="text" name="paid" id="Paid">
-                            </td>
-                            <td>
-                                <input type="text" name="balance" id="Balance">
-                            </td>
-                        </tr>
-
-                        <thead>
-                            <tr>
-                                <th colspan="2">Remark</th>
-                                <th colspan="5">Description</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td colspan="2">
-                                    <input type="text" name="description">
+                                <td>
+                                    <select id="VesselID" name="VesselID">
+                                        <option value="">--------------------</option>
+                                    </select>
                                 </td>
-                                <td colspan="5">
-                                    <input type="text" name="remark" id="remark">
+                                <td>
+                                    <select>
+                                        <option value="">--------------------</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="fee" id="fee" readonly="true">
+                                    <input type="hidden" name="user_id" id="userID">
+
+                                </td>
+                                <td>
+                                    <input type="text" name="amount" id="Amount" required>
+                                </td>
+                                <td>
+                                    <input type="text" name="discount" id="Discount">
+                                </td>
+                                <td>
+                                    <input type="text" name="paid" id="Paid">
+                                </td>
+                                <td>
+                                    <input type="text" name="balance" id="Balance">
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
+
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Remark</th>
+                                    <th colspan="5">Description</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="text" name="description">
+                                    </td>
+                                    <td colspan="5">
+                                        <input type="text" name="remark" id="remark">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </div>
                 <div class="panel-footer" style="height:40px;"></div>
             </div>
@@ -136,71 +136,33 @@
 @endsection
 
 @section('additional_script')
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.get("{{route('ready')}}", function () {
-        });
-    });
+    <script type="text/javascript">
+        function DemoSelect2() {
+            $('.s2').select2({placeholder: "Select"});
+        }
 
-    // Run Select2 plugin on elements
+        $(document).ready(function () {
+            $.get("{{route('ready')}}", function () {});
 
-    // Run Select2 plugin on elements
-    function DemoSelect2() {
-        $('.s2').select2({placeholder: "Select"});
-    }
-    // Run Datables plugin and create 3 variants of settings
-    function AllTables() {
-        TestTable1();
-        TestTable2();
-        TestTable3();
-        LoadSelect2Script(MakeSelect2);
-    }
-    $(document).ready(function () {
+            $('.form-control').tooltip();
+            LoadSelect2Script(DemoSelect2);
+            $('#input_date').datepicker({setDate: new Date()});
+            // Load Timepicker plugin
+            // LoadTimePickerScript(DemoTimePicker);
 
-        $('.form-control').tooltip();
-        LoadSelect2Script(DemoSelect2);
-    });
-   
-    $(document).ready(function () {
-        //disable vessel dropdown and add tarrif button
-        // Initialize datepicker
-        $('#input_date').datepicker({setDate: new Date()});
-        // Load Timepicker plugin
-       // LoadTimePickerScript(DemoTimePicker);
+            // Add tooltip to form-controls
+            $('.form-control').tooltip();
 
-        // Add tooltip to form-controls
-        $('.form-control').tooltip();
+            $('.submit').click(function (e) {
+                e.preventDefault();
+            });
 
-        $('.submit').click(function (e) {
+        }).on('change', '.invoices', function (e) {
             e.preventDefault();
-//            var data = $('.form-invoice').serialize();
-//            var url = $('.form-invoice').attr('action');
-//            $.post(url, data, function (data) {
-            MakePDFInvoice();
-//            })
+            var invoice_no = $('#invoice_no option:selected').val();
+            console.log(invoice_no);
+            $("#payment-search-form").submit();
         });
-
-    });
-
-    $(document).on('change', '.invoices', function (e) {
-        e.preventDefault();
-        var invoice_no = $('#invoice_no option:selected').val();
-        console.log(invoice_no);
-        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
-         console.log(data)
-        }).fail(function(data){
-            console.log(data);
-        });
-        $( "#payment-search-form" ).submit();
-//        $.get('{{route('showPayment')}}',{invoice_no:invoice_no} , function (data) {
-//
-//        }).fail(function(data){
-//            console.log(data);
-//        });
-
-    });
 
 </script>
-
-
-@endsection
+ @endsection

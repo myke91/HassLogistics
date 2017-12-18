@@ -10,6 +10,7 @@ use HASSLOGISTICS\Payment;
 use HASSLOGISTICS\PaymentEntries;
 use HASSLOGISTICS\Audit;
 use Auth;
+
 use Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -22,7 +23,7 @@ class paymentController extends Controller {
         return view('payment.searchPayment', compact('invoices'));
     }
 
-    public function show_invoice_status($invoiceNo) {
+    public function retrieve_payment_info($invoiceNo) {
         Log::debug($invoiceNo);
         return Payment::join('clients', 'clients.client_id', '=', 'payments.client_id')
                         ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
@@ -31,9 +32,9 @@ class paymentController extends Controller {
 
     public function payment($viewName, $invoice_no) {
         $invoices = Invoice::all();
-        $invoice = $this->show_invoice_status($invoice_no)->first();
-        $vessel = Vessel::where('vessel_id', $invoice->vessel_id)->get();
-        return view($viewName, compact('invoice', 'client', 'vessel', 'invoices'))->with('invoice_no', $invoice_no);
+        $payment = $this->retrieve_payment_info($invoice_no)->first();
+        $vessel = Vessel::where('vessel_id', $payment->vessel_id)->get();
+        return view($viewName, compact('payment', 'client', 'vessel', 'invoices'))->with('invoice_no', $invoice_no);
     }
 
     public function showPayment(Request $request) {
@@ -50,7 +51,13 @@ class paymentController extends Controller {
     }
 
     public function savePayment(Request $request) {
+        Log::debug($request);
         $p =  Payment::findOrFail($request->payment_id);
+
+        $f = new \NumberFormatter( locale_get_default(), \NumberFormatter::SPELLOUT );
+        
+       
+
         $p->vessel_id=$request->vessel_id;
         $p->client_id=$request->client_id;
         $p->user=$request->user;
@@ -60,6 +67,7 @@ class paymentController extends Controller {
         $p->actual_cost=$request->actual_cost;
         $p->total_cost=$request->total_cost;
         $p->amount_paid=$request->amount_paid + $request->amount;
+        $p->amount_in_words = $f->format($request->amount);
         $p->balance=$request->total_cost - $request->amount_paid;
         $p->discount=$request->discount;
         $p->description=$request->description;
@@ -70,11 +78,13 @@ class paymentController extends Controller {
         $p->cheque_date=$request->cheque_date;
         $p->update();
 
-        PaymentEntries::create($request->all());
-        $receiptFileName = $this->generateReceiptPdfStream($request->client_id, $request->vessel_id);
-       // $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
+        $model = PaymentEntries::create($request->all());
+        $model->amount_in_words = $f->format($request->amount);
+        $model->update();
+        $receiptFileName = $this->generateReceiptPdfStream($model->payment_entries_id,$request->client_id,$request->vessel_id);
+        $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
         Audit::create(['user' => Auth::user()->username, 'activity' => 'Received payment of GHS' . $request->amount_paid . ' for invoice number ' . $request->invoice_no, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
-        return back()->with(['success' => 'Payment saved successfully']);
+        return response()->json(['receipt' => $receiptFileName]);
     }
 
     public function savePaymentFromInvoice(Request $request) {
@@ -111,22 +121,23 @@ class paymentController extends Controller {
         $input['vessel'] = $vessel->vessel_name;
         $input['filename'] = $invoiceFileName;
         Mail::send('emails.receipt', $input, function($message) use ($input) {
-            $message->to('mike_dugah@yahoo.com', $input['client']);
+            $message->to('henrietta.dadzie@hasslogistics.com', $input['client']);
             $message->subject('Payment receipt on vessel ' . $input['vessel']);
             $message->from('info@hasslogistics.com', 'Hass Logistics');
             $message->attachData($this->_pdf->stream(), $input['filename']);
         });
     }
 
-    public function generateReceiptPdfStream($client_id, $vessel_id) {
-        $data = Payment::join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
-                        ->join('clients', 'clients.client_id', '=', 'payments.client_id')
-                        ->where(['payments.client_id' => $client_id, 'payments.vessel_id' => $vessel_id])->get();
-        $vessel = Vessel::find($vessel_id);
+    public function generateReceiptPdfStream($entry_id,$client_id,$vessel_id) {
+$data = PaymentEntries::join('vessels','vessels.vessel_id','=','payment_entries.vessel_id')
+->where('payment_entries.payment_entries_id','=',$entry_id)->first();
+
         $client = Client::find($client_id);
+        $vessel = Vessel::find($vessel_id);
+    // $data = array_push($data,$vessel->vessel_name);
 
         Log::debug($data);
-        $this->_pdf = PDF::loadView('pdf.receipt', compact('data'));
+        $this->_pdf = PDF::loadView('pdf.receipt', compact('data'),compact('client'));
         Log::debug('returning pdf document');
         $receiptFileName = time() . '_' . $client->client_name . '_' . $vessel->vessel_name . '_receipt.pdf';
         Storage::disk('local')->put('receipts/' . $receiptFileName, $this->_pdf->output());
@@ -156,7 +167,7 @@ class paymentController extends Controller {
     }
 
     public function downloadReceiptFile(Request $request) {
-        return response()->download(storage_path('app/reciepts/' . $request->file));
+        return response()->download(storage_path('app/receipts/' . $request->file));
     }
 
     public function processPaymentTrack(Request $request) {
