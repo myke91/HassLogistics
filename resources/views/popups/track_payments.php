@@ -2,69 +2,32 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close"data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Payment Summary for <span class="client-name">CLIENT NAME</span></h4>
             </div>
             <div class="modal-body">
-                <div class="row" style="margin:20px">
-                    <div class="row">
-                        <div class="form-group has-success">
-                            <label class="col-sm-3 control-label">Invoice No.</label>
-                            <label class="col-sm-3 control-label">Amount Due</label>
-                            <label class="col-sm-3 control-label">Amount Paid</label>
-                            <label class="col-sm-3 control-label">Balance</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="invoice_no" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3 has-success">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3 has-error">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3 has-success">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3 has-error">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3 has-success">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                            <div class="col-sm-3 has-error">
-                                <input type="text" class="form-control" data-toggle="tooltip" data-placement="bottom" readonly>
-                            </div>
-                        </div>
-                    </div>
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="track-payments-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice No.</th>
+                                <th>Amount Due</th>
+                                <th>Amount Paid</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="invoice_no"></td>
+                                <td  class="amount_due"></td>
+                                <td  class="amount_paid" style="color:green"></td>
+                                <td  class="balance" style="color:red"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
                 </div>
-            </div>
             <div class="modal-footer">
                 <button data-dismiss="modal"  class="btn btn-default" type="button">Close</button>
             </div>

@@ -26,12 +26,14 @@ class HomeController extends Controller {
         $audits = \HASSLOGISTICS\Audit::join('Users', 'Users.username', '=', 'Audit.user')->get();
         $totalClients = \HASSLOGISTICS\Client::count();
         $totalVessels = \HASSLOGISTICS\Vessel::count();
+        $unapprovedInvoices = \HASSLOGISTICS\InvoiceHeader::where('is_approved','=',0)->count();
 
         return View::make('dashboard')
                         ->with(compact('clients'))
                         ->with(compact('vessels'))
                         ->with(compact('audits'))
                         ->with(compact('totalClients'))
+                        ->with(compact('unapprovedInvoices'))
                         ->with(compact('totalVessels'));
         ;
     }

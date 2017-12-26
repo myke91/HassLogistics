@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Vat;
+use HASSLOGISTICS\Vat;
 
 class VatTableSeeder extends Seeder {
 

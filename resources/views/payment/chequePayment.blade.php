@@ -16,7 +16,7 @@
             <div class="box">
                 <div class="box-header">
                     <div class="box-name">
-                        <i class="fa fa-search"></i>
+                            <i class="fa fa-th-list"></i>
                         <span>PAYMENTS MADE BY CHEQUE</span>
                     </div>
                     <div class="box-icons">

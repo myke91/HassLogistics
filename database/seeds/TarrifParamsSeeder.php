@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\TarrifParams;
+use HASSLOGISTICS\TarrifParams;
 
 class TarrifParamsSeeder extends Seeder {
 

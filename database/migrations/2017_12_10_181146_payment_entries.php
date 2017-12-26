@@ -17,11 +17,14 @@ class PaymentEntries extends Migration {
             $table->integer('client_id')->unsigned();
             $table->integer('vessel_id')->unsigned();
             $table->string('receipt_no')->nullable();
+            $table->string('voyage_number')->nullable();
             $table->string('invoice_no');
             $table->string('amount_in_words')->nullable();
             $table->string('username')->nullable();
             $table->string('user')->nullable();
             $table->string('payment_mode')->nullable();
+            $table->string('receipt_file_name')->nullable();
+            $table->decimal('payment_currency')->nullable();
             $table->decimal('actual_cost')->nullable();
             $table->decimal('total_cost')->nullable();
             $table->decimal('amount')->nullable();

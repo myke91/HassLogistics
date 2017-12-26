@@ -1,62 +1,61 @@
 <style>
-    .del{
-        text-align: center;
-        vertical-align: middle;
-        width: 40px;
+	.del {
+		text-align: center;
+		vertical-align: middle;
+		width: 40px;
+	}
 
-    }
-    div.pager {
-        text-align: center;
-        margin: 1em 0;
-    }
+	div.pager {
+		text-align: center;
+		margin: 1em 0;
+	}
 
-    div.pager span {
-        display: inline-block;
-        width: 1.8em;
-        height: 1.8em;
-        line-height: 1.8;
-        text-align: center;
-        cursor: pointer;
-        background: #000;
-        color: #fff;
-        margin-right: 0.5em;
-    }
+	div.pager span {
+		display: inline-block;
+		width: 1.8em;
+		height: 1.8em;
+		line-height: 1.8;
+		text-align: center;
+		cursor: pointer;
+		background: #000;
+		color: #fff;
+		margin-right: 0.5em;
+	}
 
-    div.pager span.active {
-        background: #c00;
-
-    }
+	div.pager span.active {
+		background: #c00;
+	}
 </style>
 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-3">
-    <thead>
-        <tr>
-            <th>Client Name</th>
-            <th>Office Descriprion</th>
-            <th>Head Office</th>
-            <th>Client Number</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($clients as $key => $c)
-        <tr>
-            <td>{{$c->client_name}}</td>
-            <td>{{$c->client_office_desc}}</td>
-            <td>{{$c->client_head_office}}</td>
-            <td>{{$c->client_number}}</td>
+	<thead>
+		<tr>
+			<th>Client Name</th>
+			<th>Head Office</th>
+			<th>Client Currency</th>
+			<th>Client Number</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach($clients as $key => $c)
+		<tr>
+			<td>{{$c->client_name}}</td>
+			<td>{{$c->client_head_office}}</td>
+			<td>{{$c->client_currency}}</td>
+			<td>{{$c->client_number}}</td>
 
-            <td class="del">
-                <button value="{{$c->client_id}}" class="btn btn-info class-edit">EDIT</button>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
+			<td class="del">
+				<i value="{{$c->client_id}}" class="class-edit fa fa-pencil"></i>
+			</td>
+		</tr>
+		@endforeach
+	</tbody>
+	<tfoot>
 
-    </tfoot>
+	</tfoot>
 </table>
 <script type="text/javascript">
-//    $('table.table-datatable').each(function() {
+	//    $('table.table-datatable').each(function() {
 //        var currentPage = 0;
 //        var numPerPage = 5;
 //        var $table = $(this);
@@ -100,5 +99,3 @@ $(document).ready(function() {
 });
 
 </script>
-
-

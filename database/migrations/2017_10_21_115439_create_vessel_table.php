@@ -15,7 +15,7 @@ class CreateVesselTable extends Migration {
         Schema::create('vessels', function (Blueprint $table) {
             $table->increments('vessel_id');
             $table->string('vessel_name')->unique();
-            $table->string('vessel_callsign')->nullable();
+            $table->string('voyage_number')->nullable();
             $table->integer('vessel_class')->nullable();
             $table->integer('vessel_operator_id')->unsigned();
             $table->string('vessel_type')->nullable();
@@ -25,12 +25,13 @@ class CreateVesselTable extends Migration {
             $table->string('vessel_grt')->nullable();
             $table->date('arrival_date');
             $table->date('departure_date');
-            $table->string('imo')->nullable();
+            $table->string('bl_no')->nullable();
             $table->string('reg_place')->nullable();
             $table->string('construction_year')->nullable();
             $table->string('crew')->nullable();
             $table->string('reg_year')->nullable();
-            $table->string('homeport')->nullable();
+            $table->string('port_of_loading')->nullable();
+            $table->string('port_of_discharge')->nullable();
             $table->string('tonnage_certificate')->nullable();
             $table->string('mmsi')->nullable();
             $table->string('isps_no')->nullable();

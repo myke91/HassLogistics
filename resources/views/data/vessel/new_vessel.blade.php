@@ -58,8 +58,8 @@
                         </div>
                     </div>
                      <div class="form-group has-success has-feedback">
-                        <label class="col-sm-2 control-label">Vessel Owner</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-4 control-label">Vessel Owner / Consignee</label>
+                        <div class="col-sm-6">
                             <select id="vessel_owner" name="vessel_owner" class="populate placeholder">
                                 <option>--------</option>
                                 @foreach($clients as $key =>$v)
@@ -74,9 +74,9 @@
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="vessel_name" name="vessel_name" data-toggle="tooltip" data-placement="bottom"  >
                         </div>
-                        <label class="col-sm-2 control-label">Vessel Callsign</label>
+                        <label class="col-sm-2 control-label">Voyage Number</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="vessel_callsign" name="vessel_callsign" data-toggle="tooltip" data-placement="bottom" required>
+                            <input type="text" class="form-control" id="voyage_number" name="voyage_number" data-toggle="tooltip" data-placement="bottom" required>
                         </div>
                     </div>
                     <div class="form-group has-success has-feedback">
@@ -144,9 +144,9 @@
                         <legend>Registration Info</legend>
 
                         <div class="form-group has-success has-feedback">
-                            <label class="col-sm-2 control-label">IMO / Lloydsnr</label>
+                            <label class="col-sm-2 control-label">BL Number</label>
                             <div class="col-sm-2">
-                                <input type="text" id="imo" name="imo" class="form-control" required>
+                                <input type="text" id="bl_no" name="bl_no" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Reg Place</label>
@@ -161,19 +161,20 @@
                             </div>
                         </div> 
                         <div class="form-group has-success has-feedback">
-                            <label class="col-sm-2 control-label">Crew</label>
+                            <label class="col-sm-2 control-label">Port of Discharge</label>
                             <div class="col-sm-2">
-                                <input type="text" id="crew" name="crew" class="form-control" required>
+                                <input type="text" id="port_of_discharge" name="port_of_discharge" class="form-control" required>
+
+                            </div>
+                            
+                            <label class="col-sm-2 control-label">Port of Loading</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="port_of_loading" name="port_of_loading" class="form-control" required>
 
                             </div>
                             <label class="col-sm-2 control-label">Reg Year</label>
                             <div class="col-sm-2">
                                 <input type="text" id="reg_year" name="reg_year" class="form-control" required>
-
-                            </div>
-                            <label class="col-sm-2 control-label">Homeport</label>
-                            <div class="col-sm-2">
-                                <input type="text" id="homeport" name="homeport" class="form-control" required>
 
                             </div>
                         </div> 

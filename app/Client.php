@@ -12,6 +12,7 @@ class Client extends Model {
         'client_head_office',
         'client_digital_address',
         'client_email',
+        'client_currency',
         'client_number'];
     protected $primaryKey = 'client_id';
     public $timestamps = false;

@@ -10,7 +10,7 @@ class VesselOperatorSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        \App\VesselOperator::create(
+        \HASSLOGISTICS\VesselOperator::create(
                 ['operator_name' => 'MAERSK']
         );
     }

@@ -3,6 +3,7 @@
 namespace HASSLOGISTICS\Http\Controllers\Auth;
 
 use HASSLOGISTICS\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

@@ -16,7 +16,8 @@
             <div class="box">
                 <div class="box-header">
                     <div class="box-name">
-                        <span>TARRIF LIST</span>
+                            <i class="fa fa-th-list"></i>
+                        <span>PAYMENTS MADE BY CASH</span>
                     </div>
                     <div class="box-icons">
                         <a class="collapse-link">
@@ -37,10 +38,12 @@
                         <tr>
                             <th>Vessel Name</th>
                             <th>Client Name</th>
+                            <th>Currency</th>
                             <th>Total Cost</th>
                             <th>Amount Paid</th>
                             <th>Balance</th>
                             <th>Payment Details</th>
+                            <th>&nbsp;</th>
 
                         </tr>
                         </thead>
@@ -49,12 +52,17 @@
                             <tr>
                                 <td>&nbsp;{{$c->vessel_name}}</td>
                                 <td>{{$c->client_name}}&nbsp;</td>
-                                <td>&nbsp;{{$c->total_cost}}</td>
-                                <td>{{$c->amount_paid}}&nbsp;</td>
-                                <td>{{$c->total_cost - $c->amount_paid}}&nbsp;</td>
-                                <td>&nbsp;Discount: {{$c->discount}} / Payment Date: {{$c->payment_date}} /
+                                <td>{{$c->voyage_number}}</td>
+                                <td>{{$c->payment_currency}}</td>
+                                <td style="text-align:right">{{$c->total_cost}}</td>
+                                <td style="text-align:right">{{$c->amount_paid}}</td>
+                                <td style="text-align:right">{{$c->balance}}</td>
+                                <td> Payment Date: {{$c->payment_date}} / &nbsp;Discount: {{$c->discount}} /
                                     Received By: {{ucfirst($c->username)}}</td>
-
+                                    <td><button class="btn btn-link" value="{{$c->payment_id}}">
+                                        <i class="fa fa-archive"></i>
+                                    Payment History    
+                                    </button></td>
                             </tr>
                         @endforeach
                         </tbody>

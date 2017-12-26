@@ -1,149 +1,153 @@
-@extends('layouts.app')
-@section('content')
-@include('tarrif.tarrif_params.edit_tarrif_param')
+@extends('layouts.app') @section('content') @include('tarrif.tarrif_params.edit_tarrif_param')
 <div class="row">
-    <div id="breadcrumb" class="col-xs-12">
-        <a href="#" class="show-sidebar">
-            <i class="fa fa-bars"></i>
-        </a>
-        <ol class="breadcrumb pull-left">
-            <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-            <li><a href="{{route('getTarrifParamForm')}}">Add Tarrif Param</a></li>
-        </ol>
-    </div>
+	<div id="breadcrumb" class="col-xs-12">
+		<a href="#" class="show-sidebar">
+			<i class="fa fa-bars"></i>
+		</a>
+		<ol class="breadcrumb pull-left">
+			<li>
+				<a href="{{route('dashboard')}}">Dashboard</a>
+			</li>
+			<li>
+				<a href="{{route('getTarrifParamForm')}}">Add Tarrif Param</a>
+			</li>
+		</ol>
+	</div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-12">
-        <div class="box">
-            <div class="box-header">
-                <div class="box-name">
-                    <i class="fa fa-search"></i>
-                    <span>CREATE NEW TARRIF PARAM</span>
-                </div>
-                <div class="box-icons">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="expand-link">
-                        <i class="fa fa-expand"></i>
-                    </a>
-                </div>
-                <div class="no-move"></div>
-            </div>
-            <div class="box-content">
-                <h4 class="page-header">TARRIF PARAM</h4>
-                <div id="clientmessages" class="hide" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div id="clientmessages_content">
-                    </div>
-                </div>
-                <form class="form-horizontal" role="form" id="frm-create-tarrif-param" action="{{route('saveTarrifParam')}}">
-                    <div class="form-group has-success">
-                        <label class="col-sm-4 control-label">Tarrif Type</label>
-                        <div class="col-sm-4">
-                            <select id="tarrif-type-id" name="tarrif_type_id" class="s2 populate placeholder" required>
-                                <option></option>
-                                @foreach($tarrifTypes as $key =>$t)
-                                    <option value="{{$t->tarrif_param_id}}">{{$t->tarrif_type_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group has-success">
-                        <label class="col-sm-4 control-label">Tarrif Param Code</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="tarrif-param-code" name="tarrif_param_code" required>
-                        </div>
-                    </div>
-                    <div class="form-group has-success">
-                        <label class="col-sm-4 control-label">Tarrif Param Name</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="tarrif_param_name" name="tarrif_param_name" required>
-                        </div>
-                    </div>
-                    <div class="form-group has-success">
-                        <label class="col-sm-4 control-label">Tarrif Param Charge Type</label>
-                        <div class="col-sm-4">
-                            <select id="tarrif-param-charge-type" name="tarrif_param_charge_type" class="s2 populate placeholder" required>
-                                <option>QUANTITY</option>
-                                <option>SPECIFICS</option>
-                                <option>HYBRID</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group has-success">
-                        <label class="col-sm-4 control-label">Tarrif Param Remarks</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="tarrif-param-remarks" name="tarrif_param_remarks" required>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="panel-footer">
-                        <button type="submit" class="btn btn-success btn-sm">Save Tarrif Param</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="col-xs-12 col-sm-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-search"></i>
+					<span>CREATE NEW TARRIF PARAM</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="expand-link">
+						<i class="fa fa-expand"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content">
+				<h4 class="page-header">TARRIF PARAM</h4>
+				<div id="clientmessages" class="hide" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div id="clientmessages_content">
+					</div>
+				</div>
+				<form class="form-horizontal" role="form" id="frm-create-tarrif-param" action="{{route('saveTarrifParam')}}">
+					<div class="form-group has-success">
+						<label class="col-sm-4 control-label">Tarrif Type</label>
+						<div class="col-sm-4">
+							<select id="tarrif-type-id" name="tarrif_type_id" class="s2 populate placeholder" required>
+								<option></option>
+								@foreach($tarrifTypes as $key =>$t)
+								<option value="{{$t->tarrif_param_id}}">{{$t->tarrif_type_name}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+					<div class="form-group has-success">
+						<label class="col-sm-4 control-label">Tarrif Param Code</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="tarrif-param-code" name="tarrif_param_code" required>
+						</div>
+					</div>
+					<div class="form-group has-success">
+						<label class="col-sm-4 control-label">Tarrif Param Name</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="tarrif_param_name" name="tarrif_param_name" required>
+						</div>
+					</div>
+					<div class="form-group has-success">
+						<label class="col-sm-4 control-label">Tarrif Param Charge Type</label>
+						<div class="col-sm-4">
+							<select id="tarrif-param-charge-type" name="tarrif_param_charge_type" class="s2 populate placeholder" required>
+								<option>QUANTITY</option>
+								<option>SPECIFICS</option>
+								<option>HYBRID</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group has-success">
+						<label class="col-sm-4 control-label">Tarrif Param Remarks</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="tarrif-param-remarks" name="tarrif_param_remarks" required>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="panel-footer">
+						<button type="submit" class="btn btn-success btn-sm">Save Tarrif Param</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <div class="box-name">
-                    <span>TARRIF PARAMS LIST</span>
-                </div>
-                <div class="box-icons">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="expand-link">
-                        <i class="fa fa-expand"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-                <div class="no-move"></div>
-            </div>
-            <div class="box-content no-padding">
-                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
-                    <thead>
-                    <tr>
-                        <th>Tarrif Param Name</th>
-                        <th>Tarrif Param Code</th>
-                        <th>TPCT</th>
-                        <th>Action</th>
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<i class="fa fa-th-list"></i>
+					<span>TARRIF PARAMS LIST</span>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+					<a class="expand-link">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a class="close-link">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+					<thead>
+						<tr>
+							<th>Tarrif Param Name</th>
+							<th>Tarrif Param Code</th>
+							<th>TPCT</th>
+							<th>Action</th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($tarrifParams as $key => $t)
-                        <tr>
-                            <td>{{$t->tarrif_param_name}}</td>
-                            <td>{{$t->tarrif_param_code}}</td>
-                            <td>{{$t->tarrif_param_charge_type}}</td>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($tarrifParams as $key => $t)
+						<tr>
+							<td>{{$t->tarrif_param_name}}</td>
+							<td>{{$t->tarrif_param_code}}</td>
+							<td>{{$t->tarrif_param_charge_type}}</td>
 
-                            <td class="del">
-                                <Button value="{{$t->tarrif_param_id}}" class="params-edit"><i class="fa fa-pencil-square-o"></i></Button>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
+							<td class="del">
+								<Button value="{{$t->tarrif_param_id}}" class="params-edit">
+									<i class="fa fa-pencil-square-o"></i>
+								</Button>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+					<tfoot>
 
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
-@endsection
-
-@section('additional_script')
+@endsection @section('additional_script')
 <script type="text/javascript">
-
-    function AllTables(){
+	function AllTables(){
         TestTable1();
         TestTable2();
         TestTable3();
@@ -206,5 +210,6 @@
         //  return false;
         // }
     });
+
 </script>
 @endsection

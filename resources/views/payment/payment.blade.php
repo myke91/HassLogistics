@@ -16,7 +16,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i>
+					<i class="fa fa-money"></i>
 					<span>ENTER PAYMENT DETAILS</span>
 				</div>
 				<div class="box-icons">
@@ -43,14 +43,11 @@
 					<div class="col-md-3">
 
 						<form action="{{route('showPayment')}}" class="search-payment" method="GET">
-							<select id="invoice_no" name="invoice_no" class="form-control invoices">
-								{{--
-								<option value="">--------------------</option>--}} @foreach($invoices as $key => $i)
-								<option value="{{$i->invoice_no}}">{{$i->invoice_no}}</option>
+							<select id="invoice_no" name="invoice_no" class="form-control invoices" disabled>
+								@foreach($invoices as $key => $i)
+								<option value="{{$i->invoice_no}}" "{{$invoice_no == $i->invoice_no? 'selected' : ''}}">{{$i->invoice_no}}</option>
 								@endforeach
 							</select>
-							{{--
-							<input class="form-control" name="invoice_no" value="{{$invoice->invoice_no}}" --}} {{--placeholder="Invoice Number" type="text">--}}
 						</form>
 					</div>
 					<div class="col-md-3">
@@ -79,9 +76,6 @@
 
 					<div class="panel-body">
 						<table style="margin-top: 12px;">
-							<caption class="academicDetail">
-
-							</caption>
 							<thead>
 								<tr>
 									<th colspan="2">Vessel</th>
@@ -97,25 +91,26 @@
 									<select id="vessel_id" name="vessel_id" class="form-control">
 										<option value="">--------------------</option>
 										@foreach($vessel as $key => $p)
-										<option value="{{$p->vessel_id}}" {{$p->vessel_id==$payment->vessel_id? 'selected' : null}}>{{$p->vessel_name}}</option>
+										<option value="{{$p->vessel_id}}" {{$p->vessel_id==$payment->vessel_id? 'selected' : ''}}>{{$p->vessel_name}}</option>
 										@endforeach
 									</select>
 								</td>
 
 								<td>
 									<input type="hidden" name="payment_id" id="payment_id" value="{{$payment->payment_id}}">
-									<input type="text" name="total_cost" value="{{$payment->total_cost}}" id="Fee" class="cost" readonly="true">
+									<input type="text" name="total_cost" value="{{$payment->total_cost}}" id="fee" class="cost" readonly="true">
 									<input type="hidden" name="client_id" id="client_id" value="{{$payment->client_id}}">
 									<input type="hidden" name="actual_cost" id="actual_cost" value="{{$payment->actual_cost}}">
 									<input type="hidden" name="invoice_no" id="invoice_no" value="{{$payment->invoice_no}}">
-                                    <input type="hidden" name="receipt_no" id="receipt_no">
+									<input type="hidden" name="voyage_number" id="voyage_number" value="{{$payment->voyage_number}}">
+									<input type="hidden" name="receipt_no" id="receipt_no">
 									<input type="hidden" name="user" value="{{Auth::user()->fullname}}" id="user">
 									<input type="hidden" name="username" value="{{Auth::user()->username}}" id="username">
-									<input type="hidden" name="payment_date" value="{{date('Y-m-d H:i:s')}}" id="payment_date">
+									<input type="hidden" name="payment_date" value="{{date('Y-m-d')}}" id="payment_date">
 
 								</td>
 								<td>
-									<input type="text" name="amount_paid" value="{{$payment->amount_paid}}" id="Amount" readonly="true">
+									<input type="text" name="amount_paid" value="{{$payment->amount_paid}}" id="amount_paid" readonly="true">
 								</td>
 								<td>
 									<input type="text" name="amount" id="amount">
@@ -124,23 +119,32 @@
 									<input type="text" name="discount" id="discount">
 								</td>
 								<td>
-									<input type="text" name="balance" value="{{$payment->total_cost - $payment->amount_paid}}" id="balance" readonly="true">
+									<input type="text" name="balance" value="{{$payment->balance}}" id="balance" readonly="true">
 								</td>
 							</tr>
 
 							<thead>
 								<tr>
+									<th colspan="1">Currency</th>
 									<th colspan="2">Remark</th>
-									<th colspan="5">Description</th>
+									<th colspan="4">Description</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr>
+									<td colspan="1">
+										<select id="payment_currency" name="payment_currency" class="form-control"></select>
+											<option></option>
+												@foreach($currencies as $key => $value)
+												<option value="{{$value->currency}}">{{$value->currency}}</option>
+												@endforeach
+										</select>
+									</td>
 									<td colspan="2">
 										<input type="text" name="remark" id="remark">
 									</td>
-									<td colspan="5">
+									<td colspan="4">
 										<input type="text" name="description" id="description">
 									</td>
 								</tr>
@@ -158,7 +162,7 @@
 									</thead>
 									<tr>
 										<td colspan="2">
-											<select name="payment_mode" id="paymentmode" class="form-control">
+											<select name="payment_mode" id="paymentmode" class="form-control" required>
 												<option></option>
 												<option value="Cash">Cash</option>
 												<option value="Cheque">Cheque</option>
@@ -179,9 +183,9 @@
 						</table>
 					</div>
 					<div class="panel-footer">
-						<input type="button" onclick="this.form.reset()" class="btn btn-default btn-reset" value="Reset">
+						<input type="button" class="btn btn-default btn-reset" value="Reset">
 						<input type="submit" id="btn-go" name="btn-go" class="btn btn-default btn-payment pull-right">
-					
+
 					</div>
 				</form>
 				<form action="{{route('downloadRecieptFile')}}">
@@ -219,7 +223,7 @@
         $('#account_name').attr("disabled", "disabled");
         $('#account_number').attr("disabled", "disabled");
         $('#cheque_date').attr("disabled", "disabled");
-      $('#receipt_no').val('HSLRCP' + Date.now());
+      	$('#receipt_no').val('HSLRCP' + Date.now());
        
     }).on('change', '.invoices', function (e) {
         e.preventDefault();
@@ -260,19 +264,38 @@
         }
     }).on('click','.btn-payment',function(e){
         e.preventDefault();
-        var data = $('#frmPayment').serialize();
+		var data = $('#frmPayment').serialize();
+		var amount = $('#amount').val();
+		var paymentMode = $('#paymentmode').val();
+
+		if(amount == '' || paymentMode == ''){
+			swal('HASS LOGISTICS',
+			'Please provide an amount and payment mode',
+			'error');
+			return;
+		}
          $.post("{{route('savePayment')}}", data, function (data) {
             console.log(data);
             $('#download-receipt').removeAttr("disabled");
             $('#pdf-file-name').val(data.receipt);
-            $('#frmPayment').reset;
+			$('#frmPayment').trigger('reset');
+			swal('HASS LOGISTICS',
+			'Payment Made',
+			'success');
         }).fail(function (data) {
-            console.log(data);
+			console.log(data);
+			swal('HASS LOGISTICS',
+			'An error occurred',
+			'success');
         });
-    });
+    }).on('click','.btn-reset',function(e){
+		e.preventDefault();
+		console.log('triggering reset');
+		$('#frmPayment').trigger('reset');
+	});
 
 </script>
-<!--<script  type="text/javascript" src="{{ URL::asset('js/calculatepayment.js') }}"></script>-->
+<script type="text/javascript" src="{{ URL::asset('js/calculatepayment.js') }}"></script>
 
 
 @endsection

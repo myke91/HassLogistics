@@ -35,22 +35,18 @@
             </div>
             <div class="modal-body">
                 <div class="row" style="margin: 20px">
-                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-table">
+                    <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="invoice-details-table">
                         <thead>
                             <tr>
-                                <th>Vessel Name</th>
-                                <th>Client Name</th>
+                                
                                 <th>Bill Item</th>
                                 <th>Billable</th>
-                                <th>Vat</th>
                                 <th>Invoice Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                
                                 <td></td>
                                 <td></td>
                                 <td>
@@ -80,13 +76,6 @@
             function () {
 
             });
-    function showClientInfo()
-    {
-        var data = $('#frm-create-invoice').serialize();
-        console.log(data);
-        $.get("{{route('showInvoiceInfo')}}", data, function (data) {
-            $('#add-invoice-info').empty().append(data);
-        });
-    }
+   
 </script>
 @endsection

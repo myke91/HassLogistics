@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Client;
+use HASSLOGISTICS\Client;
 
 class ClientSeeder extends Seeder
 {

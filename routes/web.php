@@ -1,14 +1,14 @@
 <?php
 
 /*
-  |--------------------------------------------------------------------------
-  | Web Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register web routes for your application. These
-  | routes are loaded by the RouteServiceProvider within a group which
-  | contains the "web" middleware group. Now create something great!
-  |
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
  */
 
 Route::get('/', ['as' => '/', 'uses' => 'IndexController@getLogin']);
@@ -20,8 +20,7 @@ Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotP
 Route::get('password/reset', ['as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
 Route::post('password/reset', ['as' => '', 'uses' => 'Auth\ResetPasswordController@reset']);
 Route::get('password/reset/{token}', ['as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
-Route::get('/receipt', function() {
-
+Route::get('/receipt', function () {
     return View::make('pdf.receipt');
 });
 Route::get('/noPermission', function () {
@@ -38,11 +37,15 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/vessel_operator', ['as' => 'add_vessel_operator', 'uses' => 'VesselController@addVesselOperator']);
     Route::get('/show/vessel_operators', ['as' => 'vessel_operators', 'uses' => 'VesselController@showVesselOperators']);
     Route::get('/edit/vessel_operator', ['as' => 'edit_vessel_operator', 'uses' => 'VesselController@editVesselOperator']);
+    Route::get('/exchange_rate', ['as' => 'addExchangeRate', 'uses' => 'ExchangeRateController@addExchangeRate']);
+    Route::get('/show/exchange_rate', ['as' => 'exchangeRate', 'uses' => 'ExchangeRateController@showExchangeRate']);
+    Route::get('/edit/exchange_rate', ['as' => 'editExchangeRate', 'uses' => 'ExchangeRateController@editExchangeRate']);
     Route::get('/invoice', ['as' => 'invoice', 'uses' => 'InvoiceController@prepareInvoice']);
     Route::get('/invoice-history', ['as' => 'invoiceInfoPage', 'uses' => 'InvoiceController@getInvoiceInfo']);
     Route::get('/invoice/history', ['as' => 'showInvoiceInfo', 'uses' => 'InvoiceController@showInvoiceInfo']);
     Route::get('/invoice-modification', ['as' => 'invoiceModification', 'uses' => 'InvoiceController@getInvoiceModification']);
     Route::get('invoice-details', ['as' => 'getInvoiceDetails', 'uses' => 'InvoiceController@getInvoiceDetails']);
+    Route::get('unapproved-invoices', ['as' => 'getUnapprovedInvoices', 'uses' => 'InvoiceController@getUnapprovedInvoices']);
     Route::get('/download-invoice', ['as' => 'downloadInvoiceFile', 'uses' => 'InvoiceController@downloadInvoiceFile']);
     Route::get('/download-reciept', ['as' => 'downloadRecieptFile', 'uses' => 'PaymentController@downloadReceiptFile']);
     Route::get('/pdf-invoice', ['as' => 'generateInvoiceFile', 'uses' => 'InvoiceController@generateInvoiceFile']);
@@ -54,6 +57,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
+    Route::get('/getVoyageNumbersForVessel', ['as' => 'getVoyageNumbersForVessel', 'uses' => 'VesselController@getVoyageNumbersForVessel']);
     Route::get('/editTempInvoice', ['as' => 'editTempInvoice', 'uses' => 'InvoiceController@editTempInvoice']);
     Route::get('/track-payments', ['as' => 'getTrackPayments', 'uses' => 'InvoiceController@getTrackPayments']);
     Route::get('/tarrif-form', ['as' => 'getTarrifForm', 'uses' => 'TarrifController@getTarrifForm']);
@@ -67,8 +71,6 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/edit-user', ['as' => 'editUser', 'uses' => 'IndexController@editUser']);
     Route::get('/process-payment-track', ['as' => 'processPaymentTrack', 'uses' => 'PaymentController@processPaymentTrack']);
 
-
-
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
     Route::post('/post_vessel', ['as' => 'postCreateVessel', 'uses' => 'VesselController@createVessel']);
@@ -80,6 +82,10 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/post/vessel_operator', ['as' => 'createVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
     Route::post('/update/vessel_operator', ['as' => 'updateVesselOperator', 'uses' => 'VesselController@updateVesselOperator']);
     Route::post('/delete/vessel_operator', ['as' => 'deleteOperator', 'uses' => 'VesselController@deleteVesselOperator']);
+
+    Route::post('/post/exchange_rate', ['as' => 'createExchangeRate', 'uses' => 'ExchangeRateController@createExchangeRate']);
+    Route::post('/update/exchange_rate', ['as' => 'updateExchangeRate', 'uses' => 'ExchangeRateController@updateExchangeRate']);
+    Route::post('approve-invoice', ['as' => 'approveInvoice', 'uses' => 'InvoiceController@approveInvoice']);
     Route::post('/api/save-invoice', ['as' => 'saveInvoice', 'uses' => 'InvoiceController@saveInvoice']);
     Route::post('/create-tempinvoice', ['as' => 'createTempInvoice', 'uses' => 'InvoiceController@createTempInvoice']);
     Route::post('/save-payment', ['as' => 'savePayment', 'uses' => 'PaymentController@savePayment']);
@@ -113,18 +119,17 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/api/vessel-detail', ['as' => 'getVesselDetail', 'uses' => 'VesselController@getVesselDetail']);
 });
 
-
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['clerk']], function () {
-    
+
 });
 
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['manager']], function () {
-    
+
 });
 
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['cashier']], function () {
-    
+
 });
 Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['front desk']], function () {
-    
+
 });

@@ -141,7 +141,7 @@
 		<tbody>
 			<tr>
 				<td>
-					Paid Through:{{$data->payment_mode}}
+					Paid By:{{$data->payment_mode}}
 				</td>
 				<td>
 					Received By:{{$data->username}}

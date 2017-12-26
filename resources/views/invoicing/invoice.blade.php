@@ -16,7 +16,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i>
+					<i class="fa fa-money"></i>
 					<span>PREPARE INVOICE</span>
 				</div>
 				<div class="box-icons">
@@ -43,7 +43,6 @@
 								@endforeach
 							</select>
 						</div>
-
 					</div>
 
 					<div class="form-group has-success has-feedback">
@@ -56,7 +55,33 @@
 								@endforeach
 							</select>
 						</div>
+					</div>
+					<div class="form-group has-success has-feedback">
+						<label class="col-sm-2 control-label">Voyage Number</label>
+						<div class="col-sm-4">
+							<select class="s2 populate placeholder voyage_number" id="voyage_number">
+								<option>---------</option>
 
+							</select>
+						</div>
+					</div>
+					{{--  <div class="form-group has-success has-feedback">
+						<label class="col-sm-2 control-label">Invoice Currency</label>
+						<div class="col-sm-4">
+							<select class="s2 populate placeholder invoice_currency" id="invoice_currency">
+								<option>---------</option>
+								@foreach($exchangeRates as $key =>$v)
+								<option value="{{$v->currency}}">{{$v->currency}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>  --}}
+					<div class="form-group has-success has-feedback">
+						<label class="col-sm-2 control-label">Invoice Due Date</label>
+						<div class="col-sm-4">
+							<input type="text" id="invoice_due_date" name="invoice_due_date" class="form-control" placeholder="Date" required>
+							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
+						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="form-group">
@@ -87,7 +112,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i>
+					<i class="fa fa-th-list"></i>
 					<span>LIST OF ITEMS</span>
 				</div>
 				<div class="box-icons">
@@ -211,21 +236,20 @@
         });
     }
 
-    function invoiceNo() {
-        return 'HSLINV' + Date.now();
-    }
 
     $(document).ready(function () {
+		{{--  $('#invoice_due_date').datepicker({setDate: new Date()});  --}}
+		$('#invoice_due_date').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
         //disable vessel dropdown and add tarrif button
-        $('.vessels').attr("disabled", "disabled");
-        $('.add-tarrif').attr("disabled", "disabled");
-        $('.submit').attr("disabled", "disabled");
-        $('.clear').attr("disabled", "disabled");
-        $('#download-invoice').attr("disabled", "disabled");
-        $('#generate-invoice').attr("disabled", "disabled");
+        // $('.vessels').attr("disabled", "disabled");
+       // $('.add-tarrif').attr("disabled", "disabled");
+       // $('.submit').attr("disabled", "disabled");
+       // $('.clear').attr("disabled", "disabled");
+       // $('#generate-invoice').attr("disabled", "disabled");
+	   $('#download-invoice').attr("disabled", "disabled");  
         $('#invoice_no').val('HSLINV' + Date.now());
-
-
         // Add tooltip to form-controls
         $('.form-control').tooltip();
         LoadSelect2Script(DemoSelect2);
@@ -249,8 +273,20 @@
         });
         $('.vessels').change(function (e) {
             e.preventDefault();
-            $('.vessels').attr("disabled", "disabled");
-            $('.clients').attr("disabled", "disabled");
+            {{--  $('.vessels').attr("disabled", "disabled");
+            $('.clients').attr("disabled", "disabled");  --}}
+            
+            var value = $('#vessel_choose').val();
+            console.log(value);
+            $.get("{{route('getVoyageNumbersForVessel')}}", {id: value}, function (data) {
+                console.log(data);
+                $('#voyage_number').html($('<option>').text('-------'));
+                $.each(data, function (i, value) {
+                    console.log(value.voyage_number);
+                    $('#voyage_number').append($('<option>').text(value.voyage_number).attr('value', value.voyage_number));
+                });
+            });
+
             $('.add-tarrif').removeAttr("disabled");
             $('.clear').removeAttr("disabled");
         });
@@ -276,7 +312,7 @@
                     '<td> Unit Price: <span class="inputValue">' + data.unit_price + '</span>' +
                     ' / Quantity:  <span class="inputValue">' + data.quantity + '</span>' +
                     ' / Total Price: <span class="inputValue">' + data.actual_cost + '</span>' +
-                    '<span class="inputValue">' + data.id + '</span> </td>' +
+                    '<span style="display:none;" class="inputValue">' + data.id + '</span> </td>' +
                     '<td style="display:none;" class="inputValue">' + data.invoice_status + '</td>' +
                     '<td class="inputValue">' + data.invoice_date + '</td>' +
                     '<td style="display:none;" class="inputValue">' + data.invoice_id + '</td>' +
@@ -287,7 +323,8 @@
                     '<td class="del"><button value = "' +
                     data.invoice_id +
                     '" class="invoice-edit"><i class="fa fa-pencil-square-o"></i></button></td>'
-                    );
+					);
+					$('#frm-save-tarrif').trigger("reset");
         }).fail(function (data) {
             console.log(data);
         });
@@ -308,11 +345,27 @@
             return ret;
         });
         console.log(entries);
-        $.post("{{route('saveAllAndGenerateInvoice')}}", {data: entries}, function (data) {
+
+        var header = {};
+        header["client"] = $('#client_choose option:selected').text();
+        header["client_id"] = $('#client_choose option:selected').val();
+        header["vessel"] = $('#vessel_choose option:selected').text();
+        header["vessel_id"] = $('#vessel_choose option:selected').val();
+        header["voyage_number"] = $('#voyage_number').val();
+        header["due_date"] = $('#invoice_due_date').val();
+        header["invoice_currency"] = $('#invoice_currency').val();
+        header["invoice_no"] = $('#invoice_no').val();
+
+        $.post("{{route('saveAllAndGenerateInvoice')}}", {data: entries,header:header}, function (data) {
             console.log(data);
             $('#download-invoice').removeAttr("disabled");
             $('#pdf-file-name').val(data.invoice);
-            $('#invoice-table tbody').empty();
+			$('#invoice-table tbody').empty();
+			console.log($('.form-invoice'));
+			$('.form-invoice').trigger("reset");
+			swal('HASS LOGISTICS',
+			'Invoice Prepared',
+			'success');
         }).fail(function (data) {
             console.log(data);
         });

@@ -62,18 +62,22 @@ $('#frm-create-vessel').on('submit', function (e) {
             function (data) {
                 console.log(data);
                 console.log('entered success');
-                $('#createvesselmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-                $('#createvesselmessages_content').html('<h4>Vessel Created Successfully</h4>');
-                $('#modal').modal('show');
+                swal(
+                    'Hass Logistics',
+                    'Vessel '+data.vessel_name +' created!',
+                    'success'
+                  )
                 $("#frm-create-vessel").trigger('reset');
                 showVesselInfo(data.vessel_name);
             })
             .fail(function (data) {
                 console.log('entered failure');
                 console.log(data);
-                $('#createvesselmessages').removeClass('hide').addClass('alert alert-danger alert-dismissible').slideDown().show();
-                $('#createvesselmessages_content').html('<h4>An error occurred</h4>');
-                $('#modal').modal('show');
+                swal(
+                    'Hass Logistics',
+                    'An error occured',
+                    'error'
+                  )
 //        $(this).trigger('reset');
             });
 

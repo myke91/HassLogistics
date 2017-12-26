@@ -76,6 +76,7 @@
             <div class="box">
                 <div class="box-header">
                     <div class="box-name">
+                            <i class="fa fa-th-list"></i>
                         <span>TARRIF CHARGES LIST</span>
                     </div>
                     <div class="box-icons">
