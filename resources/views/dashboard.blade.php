@@ -26,34 +26,34 @@
 	<div class="col-xs-12 col-sm-8 col-md-7 pull-right">
 		<div class="row">
 			<div class="form-group has-success has-feedback">
-				<div class="col-sm-12">
+				<div class="col-sm-12 pay-summary">
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="radio-inline" checked> Full Year
+							<input type="radio" name="radio-inline" onchange="fnSummary('full-year')" checked> Full Year
 							<i class="fa fa-circle-o"></i>
 						</label>
 					</div>
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="radio-inline"> First Quarter
+							<input type="radio" name="radio-inline" onchange="fnSummary('first-quarter')"> First Quarter
 							<i class="fa fa-circle-o"></i>
 						</label>
 					</div>
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="radio-inline"> Second Quarter
+							<input type="radio" name="radio-inline" onchange="fnSummary('second-quarter')"> Second Quarter
 							<i class="fa fa-circle-o"></i>
 						</label>
 					</div>
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="radio-inline"> Third Quarter
+							<input type="radio" name="radio-inline" onchange="fnSummary('third-quarter')"> Third Quarter
 							<i class="fa fa-circle-o"></i>
 						</label>
 					</div>
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="radio-inline"> Fourth Quarter
+							<input type="radio" name="radio-inline" onchange="fnSummary('fourth-quarter')"> Fourth Quarter
 							<i class="fa fa-circle-o"></i>
 						</label>
 					</div>
@@ -64,14 +64,14 @@
 			<div class="col-xs-6">
 				<div class="sparkline-dashboard" id="sparkline-2"></div>
 				<div class="sparkline-dashboard-info">
-					GH¢ 245.12M
+					<span class="pending-payments">GH¢ 245.12M</span>
 					<span class="txt-info">PENDING</span>
 				</div>
 			</div>
 			<div class="col-xs-6">
 				<div class="sparkline-dashboard" id="sparkline-3"></div>
 				<div class="sparkline-dashboard-info">
-					GH¢ 107.83M
+					<span class="completed-payments">GH¢ 107.83M</span>
 					<span>PAYMETNS</span>
 				</div>
 			</div>
@@ -281,6 +281,17 @@
         $.get("{{route('ready')}}", function () {
         });
     });
+
+
+	function fnSummary(value){
+console.log(value);
+$.get("{{route('paymentSummary')}}",{val: value},function(data){
+	console.log(data);
+	$('.pending-payments').val('GH¢ '+data.pendingPayments);
+	$('.completed-payments').val('GH¢ '+data.completedPayments);
+
+});
+	}
 // Array for random data for Sparkline
     var sparkline_arr_1 = SparklineTestData();
     var sparkline_arr_2 = SparklineTestData();

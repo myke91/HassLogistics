@@ -8,6 +8,7 @@ use HASSLOGISTICS\Audit;
 use HASSLOGISTICS\Client;
 use HASSLOGISTICS\InvoiceHeader;
 use HASSLOGISTICS\Payment;
+use HASSLOGISTICS\PaymentAccountTransactions;
 use HASSLOGISTICS\PaymentEntries;
 use HASSLOGISTICS\Vessel;
 use Illuminate\Http\Request;
@@ -41,13 +42,13 @@ class paymentController extends Controller
     {
         $invoices = InvoiceHeader::all();
         $payment = $this->retrieve_payment_info($invoice_no, $client_id, $vessel_id, $voyage_number)->first();
-        if($payment == null){
+        if ($payment == null) {
             return back();
         }
         $currencies = \HASSLOGISTICS\ExchangeRate::all();
         $vessel = Vessel::where('vessel_id', $payment->vessel_id)->get();
         $unapprovedInvoices = InvoiceHeader::where('is_approved', '=', 0)->count();
-        return view($viewName, compact('payment', 'client', 'vessel', 'invoices','currencies', 'unapprovedInvoices'))->with('invoice_no', $invoice_no);
+        return view($viewName, compact('payment', 'client', 'vessel', 'invoices', 'currencies', 'unapprovedInvoices'))->with('invoice_no', $invoice_no);
     }
 
     public function showPayment(Request $request)
@@ -128,11 +129,21 @@ class paymentController extends Controller
         return view('payment.chequePayment', compact('cheques', 'unapprovedInvoices'));
     }
 
+    public function getAccountPayments()
+    {
+        $unapprovedInvoices = InvoiceHeader::where('is_approved', '=', 0)->count();
+        $accountPayments = Payment::where("payment_mode", "Account")
+            ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+            ->join('clients', 'clients.client_id', '=', 'payments.client_id')
+            ->get();
+        return view('payment.accountPayment', compact('accountPayments', 'unapprovedInvoices'));
+    }
+
     public function getPaymentOnAccount()
     {
-        $clients = Client::all();
+        $clients = Client::join('payment_account','payment_account.client_id','=','clients.client_id')->get();
         $unapprovedInvoices = InvoiceHeader::where('is_approved', '=', 0)->count();
-        return view('payment.paymentOnAccount', compact('clients','unapprovedInvoices'));
+        return view('payment.paymentOnAccount', compact('clients', 'unapprovedInvoices'));
     }
 
     public function emailReceipt($client_id, $vessel_id, $invoiceFileName)
@@ -203,6 +214,21 @@ class paymentController extends Controller
             $payments = Payment::where('client_id', '=', $client_id)
                 ->where('invoice_no', '!=', '')->get();
             return response()->json($payments);
+        }
+    }
+
+    public function saveAccountTopup(Request $request)
+    {
+        try {
+            $accountTransaction = array();
+            $accountTransaction['client_id'] = $request->clientId;
+            $accountTransaction['topup_amount'] = $request->topup_amount;
+            $accountTransaction['transaction_type'] = 'CREDIT';
+
+            PaymentAccountTransactions::create($accountTransaction);
+            return response()->json('Save successful', 200);
+        } catch (\Exception $ex) {
+            return response()->json('An error occurred', 500);
         }
     }
 

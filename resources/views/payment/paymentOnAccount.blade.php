@@ -1,4 +1,4 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app') @section('content') @include('popups.payment_on_account')
 <style>
 	.del {
 		text-align: center;
@@ -48,6 +48,12 @@
 
 <div class="row">
 	<div class="col-xs-12">
+		<div class="row">
+			<button class="btn btn-primary init-payment-account">
+				<i class="fa fa-money"></i>
+				Init Payment Account
+			</button>
+		</div>
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
@@ -67,15 +73,17 @@
 			</div>
 
 			<div class="box-content no-padding">
+
+
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable paged" id="payment-on-account-table">
 					<thead>
-						<tr>
-							<th>Client Name Number</th>
-							<th>Remaining Balance</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
-						</tr>
+
+						<th>Client Name Number</th>
+						<th>Remaining Balance</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+
 					</thead>
 					<tbody>
 						@foreach($clients as $key => $value)
@@ -83,13 +91,13 @@
 							<td>{{$value->client_name}}</td>
 							<td>{{$value->client_name}}</td>
 							<td>
-								<button value="{{$value->client_id}}" class="btn btn-link details">
+								<button value="{{$value->client_id}}" class="btn btn-link topup-details">
 									<i class="fa fa-credit-card"></i> Topup
 								</button>
 							</td>
 							<td>
-								<button value="{{$value->client_id}}" class="btn btn-link account-details">
-									<i class="fa fa-eur"></i> Account Details
+								<button value="{{$value->client_id}}" class="btn btn-link account-summary">
+									<i class="fa fa-eur"></i> Account summary
 								</button>
 							</td>
 							<td>
@@ -105,6 +113,7 @@
 
 					</tfoot>
 				</table>
+
 			</div>
 		</div>
 	</div>
@@ -136,9 +145,53 @@
     }
     $(document).ready(function () {
         // Initialize datepicker\
-        $('.show-invoice-details').click(function (e) {
+         $('.topup-details').click(function (e) {
             e.preventDefault();
-			var headerId = $('.show-invoice-details').val();
+		 /*	var headerId = $('.show-invoice-details').val();
+			 $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
+                $('#invoice-details-table > tbody').empty();
+                for (var i = 0, len = data.length; i < len; i++){
+                $('#invoice-details-table > tbody').append(
+                    '<tr>' +
+                    '<td>' + data[i].bill_item + '</td>' +
+                    '<td>' + data[i].billable + '</td>' +
+                    '<td> Unit Price: <span>' + data[i].unit_price + '</span>' +
+                    ' / Quantity:  <span>' + data[i].quantity + '</span>' +
+                    ' / Total Price: <span>' + data[i].actual_cost + '</span>'
+                ); 
+                    } */
+                $('#topup-modal').modal('show');
+            /*  }).fail(function (data) {
+
+            });  */
+
+		});
+		
+		$('.account-summary').click(function (e) {
+            e.preventDefault();
+			/*var headerId = $('.show-invoice-details').val();
+			  $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
+                $('#invoice-details-table > tbody').empty();
+                for (var i = 0, len = data.length; i < len; i++){
+                $('#invoice-details-table > tbody').append(
+                    '<tr>' +
+                    '<td>' + data[i].bill_item + '</td>' +
+                    '<td>' + data[i].billable + '</td>' +
+                    '<td> Unit Price: <span>' + data[i].unit_price + '</span>' +
+                    ' / Quantity:  <span>' + data[i].quantity + '</span>' +
+                    ' / Total Price: <span>' + data[i].actual_cost + '</span>'
+                );
+                    }  */
+                $('#account-summary-modal').modal('show');
+            /*  }).fail(function (data) {
+
+            });  */
+
+		});
+		
+		$('.transaction-history').click(function (e) {
+            e.preventDefault();
+			/* var headerId = $('.show-invoice-details').val();
 			 $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
                 $('#invoice-details-table > tbody').empty();
                 for (var i = 0, len = data.length; i < len; i++){
@@ -150,13 +203,33 @@
                     ' / Quantity:  <span>' + data[i].quantity + '</span>' +
                     ' / Total Price: <span>' + data[i].actual_cost + '</span>'
                 );
-                    }
-                $('#invoice-details-modal').modal('show');
-            }).fail(function (data) {
+                    }  */
+                $('#transaction-history-modal').modal('show');
+            /*  }).fail(function (data) {
 
-            });
+            });  */
 
-        });
+		});
+		
+		
+		$('.save-account-topup').click(function (e) {
+            e.preventDefault();
+			/* var clientId = $('.client_id').val();
+			var topupAmount = $('.topup_amount').val();
+			 $.get("{{route('saveAccountTopup')}}", {clientId: clientId, topupAmount: topupAmount}, function (data) {
+              
+                    }  */
+            /*  }).fail(function (data) {
+
+            });  */
+
+		});
+
+		$('.init-payment-account').click(function (e) {
+            e.preventDefault();
+			$('#init-payment-account-modal').modal('show');
+
+		});
         // Load Timepicker plugin
         LoadTimePickerScript(DemoTimePicker);
         // Add tooltip to form-controls
@@ -169,13 +242,6 @@
         // Add drag-n-drop feature to boxes
         WinMove();
     });
-
-    function showClientInfo()
-    {
-        $.get("{{route('showInvoiceInfo')}}", '', function (data) {
-            $('#add-invoice-info').empty().append(data);
-        });
-    }
 
 </script>
 @endsection

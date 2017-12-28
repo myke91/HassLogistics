@@ -55,6 +55,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/add_new_user', ['as' => 'add_new_user', 'uses' => 'IndexController@getAddUser']);
     Route::get('/cashPayments', ['as' => 'cashPayments', 'uses' => 'PaymentController@getCashPayments']);
     Route::get('/chequesPayment', ['as' => 'chequePayments', 'uses' => 'PaymentController@getChequePayments']);
+    Route::get('/accountPayments', ['as' => 'accountPayments', 'uses' => 'PaymentController@getAccountPayments']);
     Route::get('/paymentOnAccount', ['as' => 'paymentOnAccount', 'uses' => 'PaymentController@getPaymentOnAccount']);
     Route::get('/getVesselsForClient', ['as' => 'getVesselsForClient', 'uses' => 'VesselController@getVesselsForClient']);
     Route::get('/getVoyageNumbersForVessel', ['as' => 'getVoyageNumbersForVessel', 'uses' => 'VesselController@getVoyageNumbersForVessel']);
@@ -70,6 +71,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/edit-tarrifCharge', ['as' => 'editTarrifCharge', 'uses' => 'TarrifController@editTarrifCharge']);
     Route::get('/edit-user', ['as' => 'editUser', 'uses' => 'IndexController@editUser']);
     Route::get('/process-payment-track', ['as' => 'processPaymentTrack', 'uses' => 'PaymentController@processPaymentTrack']);
+    Route::get('/payment-summary', ['as' => 'paymentSummary', 'uses' => 'HomeController@paymentSummary']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -82,7 +84,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/post/vessel_operator', ['as' => 'createVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
     Route::post('/update/vessel_operator', ['as' => 'updateVesselOperator', 'uses' => 'VesselController@updateVesselOperator']);
     Route::post('/delete/vessel_operator', ['as' => 'deleteOperator', 'uses' => 'VesselController@deleteVesselOperator']);
-
+    Route::post('/save-account-topup', ['as' => 'saveAccountTopup', 'uses' => 'PaymentController@saveAccountTopup']);
     Route::post('/post/exchange_rate', ['as' => 'createExchangeRate', 'uses' => 'ExchangeRateController@createExchangeRate']);
     Route::post('/update/exchange_rate', ['as' => 'updateExchangeRate', 'uses' => 'ExchangeRateController@updateExchangeRate']);
     Route::post('approve-invoice', ['as' => 'approveInvoice', 'uses' => 'InvoiceController@approveInvoice']);

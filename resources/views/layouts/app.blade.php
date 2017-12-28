@@ -243,9 +243,21 @@
 								<a href="{{route('chequePayments')}}">
 									<i class="fa fa-vk">&nbsp;</i>Cheque Payments</a>
 							</li>
-							<li>
-								<a href="{{route('paymentOnAccount')}}">
-									<i class="fa fa-anchor">&nbsp;</i>Payment On Account</a>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle">
+									<i class="fa fa-plus-circle"></i>
+									<span class="hidden-xs"> POA</span>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="{{route('paymentOnAccount')}}">&nbsp;&nbsp;&nbsp;
+											<i class="fa fa-credit-card">&nbsp;</i>Payment Accounts </a>
+									</li>
+									<li>
+										<a href="{{route('accountPayments')}}">&nbsp;&nbsp;&nbsp;
+											<i class="fa  fa-cc-mastercard">&nbsp;</i>Payments with Account</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>

@@ -23,7 +23,8 @@ class IndexController extends Controller
     {
         $roles = Role::all();
         $users = User::join('roles','roles.r_id','=','users.role_id')->get();
-        return view('auth.add_new_user',compact('roles','users'));
+        $unapprovedInvoices = \HASSLOGISTICS\InvoiceHeader::where('is_approved', '=', 0)->count();
+        return view('auth.add_new_user',compact('roles','users','unapprovedInvoices'));
     }
     public function postUser(Request $request)
     {
