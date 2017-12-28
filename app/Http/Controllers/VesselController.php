@@ -106,7 +106,7 @@ class VesselController extends Controller
     public function updateVessel(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Updated Vessel' . $request->vessel_name, 'act_date' => date(), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Updated Vessel' . $request->vessel_name, 'act_date' => date('d-M-Y'), 'act_time' => time()]);
             return response(Vessel::updateOrCreate(['vessel_id' => $request->vessel_id], $request->all()));
         }
     }
@@ -114,7 +114,7 @@ class VesselController extends Controller
     public function updateVesselOperator(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Update vessel operator' . $request->operator_name, 'act_date' => date(), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Update vessel operator' . $request->operator_name, 'act_date' => date('d-M-Y'), 'act_time' => time()]);
             return response(VesselOperator::updateOrCreate(['vessel_operator_id' => $request->vessel_operator_id], $request->all()));
         }
     }
@@ -122,7 +122,7 @@ class VesselController extends Controller
     public function deleteVessel(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Deleted Vessel' . $request->vessel_name, 'act_date' => date(), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Deleted Vessel' . $request->vessel_name, 'act_date' => date('d-M-Y'), 'act_time' => time()]);
             Vessel::destroy($request->vessel_id);
         }
     }

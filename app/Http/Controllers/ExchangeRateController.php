@@ -50,7 +50,7 @@ class ExchangeRateController extends Controller
     public function updateExchangeRate(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Update exchange rate for currency' . $request->currency, 'act_date' => date(), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Update exchange rate for currency' . $request->currency, 'act_date' => date('d-M-Y'), 'act_time' => time()]);
             return response(ExchangeRate::updateOrCreate(['exchange_rate_id' => $request->exchange_rate_id], $request->all()));
         }
     }
