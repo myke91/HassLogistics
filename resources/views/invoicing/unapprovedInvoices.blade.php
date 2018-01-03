@@ -71,7 +71,8 @@
 						<tr>
 							<th>Client Name</th>
 							<th>Vessel Name</th>
-                            <th>Voyage Number</th>
+							<th>Voyage Number</th>
+							<th>Invoice Number</th>
 							<th>Total Amount</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -82,12 +83,13 @@
 						<tr>
 							<td>{{$value->client}}</td>
 							<td>{{$value->vessel}}</td>
-                            <td>{{$value->voyage_number}}</td>
+							<td>{{$value->voyage_number}}</td>
+							<td>{{$value->invoice_no}}</td>
                             <td>{{$value->invoice_currency}} {{$value->total_amount}}</td>
 							<td>
 								<button value="{{$value->invoice_header_id}}" class="btn btn-link edit-invoice">
-									<i class="fa fa-pencil"></i>
-									Edit Invoice
+									<i class="fa fa-list"></i>
+									View Details
 								</button>
 							</td>
 							<td>

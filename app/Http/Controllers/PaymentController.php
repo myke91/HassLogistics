@@ -32,7 +32,9 @@ class paymentController extends Controller
         Log::debug($invoice_no);
         return Payment::join('clients', 'clients.client_id', '=', 'payments.client_id')
             ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
+            ->join('invoice_header', 'invoice_header.invoice_no', '=', 'payments.invoice_no')
             ->where('payments.invoice_no', $invoice_no)
+            ->where('invoice_header.is_approved', 1)         
             ->orWhere('payments.client_id', $client_id)
             ->orWhere('payments.vessel_id', $vessel_id)
             ->orWhere('vessels.voyage_number', $voyage_number);
