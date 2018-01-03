@@ -24,12 +24,12 @@ class PaymentEntries extends Migration {
             $table->string('user')->nullable();
             $table->string('payment_mode')->nullable();
             $table->string('receipt_file_name')->nullable();
-            $table->decimal('payment_currency')->nullable();
-            $table->decimal('actual_cost')->nullable();
-            $table->decimal('total_cost')->nullable();
-            $table->decimal('amount')->nullable();
-            $table->decimal('balance')->nullable();
-            $table->decimal('discount')->nullable();
+            $table->string('payment_currency')->nullable();
+            $table->decimal('actual_cost')->default(0.00);
+            $table->decimal('total_cost')->default(0.00);
+            $table->decimal('amount')->default(0.00);
+            $table->decimal('balance')->default(0.00);
+            $table->decimal('discount')->default(0.00);
             $table->string('description')->nullable();
             $table->string('remark')->nullable();
             $table->string('account_name')->nullable();

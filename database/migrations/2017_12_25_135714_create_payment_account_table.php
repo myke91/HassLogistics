@@ -17,7 +17,7 @@ class CreatePaymentAccountTable extends Migration
             $table->increments('payment_account_id');
             $table->integer('client_id')->unsigned();
             $table->string('client');
-            $table->decimal('account_balance', 60, 2);
+            $table->decimal('account_balance', 60, 2)->default(0.00);
             $table->foreign('client_id')->references('client_id')->on('clients');
             $table->timestamps();
         });

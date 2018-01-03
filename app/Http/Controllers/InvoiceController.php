@@ -136,7 +136,7 @@ class InvoiceController extends Controller
             $row['header_id'] = $invoiceHeader->invoice_header_id;
             $row['user'] = Auth::user()->fullname;
             $row['username'] = Auth::user()->username;
-            $actual_cost += $row['actual_cost'] = $value[8];
+            $actual_cost += $row['actual_cost'];
             InvoiceDetail::create($row);
             TempInvoice::destroy($value[12]);
         }
@@ -162,6 +162,7 @@ class InvoiceController extends Controller
         $payment['invoice_no'] = $invoiceHeader->invoice_no;
         $payment['actual_cost'] = $actual_cost;
         $payment['voyage_number'] = $invoiceHeader->voyage_number;
+        $payment['payment_currency'] = $invoiceHeader->invoice_currency;
         $payment['total_cost'] = $totalCost;
         $payment['balance'] = $totalCost;
         Payment::create($payment);

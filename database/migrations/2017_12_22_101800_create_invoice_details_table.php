@@ -17,9 +17,9 @@ class CreateInvoiceDetailsTable extends Migration
             $table->increments('invoice_details_id');
             $table->string('bill_item');
             $table->string('billable');
-            $table->decimal('unit_price', 20, 2);
+            $table->decimal('unit_price', 20, 2)->default(0.00);
             $table->integer('quantity')->default('1');
-            $table->decimal('actual_cost', 20, 2)->nullable();
+            $table->decimal('actual_cost', 20, 2)->default(0.00);
             $table->integer('header_id')->unsigned();
             $table->foreign('header_id')->references('invoice_header_id')->on('invoice_header');
             $table->timestamps();

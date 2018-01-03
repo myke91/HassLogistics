@@ -29,7 +29,7 @@ class CreateInvoiceHeaderTable extends Migration
             $table->string('user')->nullable();
             $table->string('total_amount')->nullable();
             $table->boolean('is_approved')->default(false);
-            $table->boolean('invoice_status')->nullable();
+            $table->boolean('invoice_status')->default(false);
             $table->foreign('vessel_id')->references('vessel_id')->on('vessels');
             $table->foreign('client_id')->references('client_id')->on('clients');
             $table->timestamps();

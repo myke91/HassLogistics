@@ -17,8 +17,8 @@ class CreatePaymentAccountTransactionsTable extends Migration
             $table->increments('transaction_id');
             $table->integer('client_id')->unsigned();
             $table->string('client');
-            $table->decimal('credit', 60, 2);
-            $table->decimal('debit', 60, 2);
+            $table->decimal('credit', 60, 2)->default(0.00);
+            $table->decimal('debit', 60, 2)->default(0.00);
             $table->string('transaction_type');
             $table->date('transaction_date');
             $table->string('remarks');

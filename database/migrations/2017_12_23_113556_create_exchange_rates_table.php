@@ -16,8 +16,8 @@ class CreateExchangeRatesTable extends Migration
         Schema::create('exchange_rates', function (Blueprint $table) {
             $table->increments('exchange_rate_id');
             $table->string('currency')->unique;
-            $table->decimal('selling_price',12,2);
-            $table->decimal('buying_price',12,2);
+            $table->decimal('selling_price',12,2)->default(0.00);
+            $table->decimal('buying_price',12,2)->default(0.00);
             $table->timestamps();
         });
     }

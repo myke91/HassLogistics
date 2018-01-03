@@ -138,7 +138,8 @@
         // Initialize datepicker\
         $('.show-invoice-details').click(function (e) {
             e.preventDefault();
-			var headerId = $('.show-invoice-details').val();
+			var headerId = $(this).val();
+			console.log(headerId);
 			 $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
                 $('#invoice-details-table > tbody').empty();
                 for (var i = 0, len = data.length; i < len; i++){

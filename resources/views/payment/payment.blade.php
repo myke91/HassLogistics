@@ -88,7 +88,7 @@
 							</thead>
 							<tr>
 								<td colspan="2">
-									<select id="vessel_id" name="vessel_id" class="form-control">
+									<select id="vessel_id" name="vessel_id" class="form-control" disabled>
 										<option value="">--------------------</option>
 										@foreach($vessel as $key => $p)
 										<option value="{{$p->vessel_id}}" {{$p->vessel_id==$payment->vessel_id? 'selected' : ''}}>{{$p->vessel_name}}</option>
@@ -134,12 +134,8 @@
 							<tbody>
 								<tr>
 									<td colspan="1">
-										<select id="payment_currency" name="payment_currency" class="form-control"></select>
-											<option></option>
-												@foreach($currencies as $key => $value)
-												<option value="{{$value->currency}}">{{$value->currency}}</option>
-												@endforeach
-										</select>
+										<input type="text" id="payment_currency" name="payment_currency" class="form-control" disabled value="{{$payment->payment_currency}}" />
+											
 									</td>
 									<td colspan="2">
 										<input type="text" name="remark" id="remark">

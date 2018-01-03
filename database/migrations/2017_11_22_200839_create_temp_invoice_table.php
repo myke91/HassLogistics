@@ -19,11 +19,11 @@ class CreateTempInvoiceTable extends Migration {
             $table->string('bill_item');
             $table->string('invoice_no');
             $table->string('billable');
-            $table->decimal('unit_price', 20, 2);
+            $table->decimal('unit_price', 20, 2)->default(0.00);
             $table->integer('quantity')->default('1');
-            $table->decimal('actual_cost', 20, 2)->nullable();
+            $table->decimal('actual_cost', 20, 2)->default(0.00);
             $table->date('invoice_date');
-            $table->boolean('invoice_status')->nullable();
+            $table->boolean('invoice_status')->default(false);
             $table->timestamps();
             $table->foreign('vessel_id')->references('vessel_id')->on('vessels');
             $table->foreign('client_id')->references('client_id')->on('clients');

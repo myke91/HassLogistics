@@ -15,7 +15,7 @@ class CreateVatTable extends Migration
     {
         Schema::create('vat', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('value',10,2);
+            $table->decimal('value',10,2)->default(0.00);
             $table->timestamps();
         });
     }

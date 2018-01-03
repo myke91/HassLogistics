@@ -25,11 +25,11 @@ class CreatePaymentsTable extends Migration
             $table->string('user')->nullable();
             $table->string('payment_mode')->nullable();
             $table->string('payment_currency')->nullable();
-            $table->decimal('actual_cost')->nullable();
-            $table->decimal('total_cost')->nullable();
-            $table->decimal('amount_paid')->nullable();
-            $table->decimal('balance')->nullable();
-            $table->decimal('discount')->nullable();
+            $table->decimal('actual_cost')->default(0.00);
+            $table->decimal('total_cost')->default(0.00);
+            $table->decimal('amount_paid')->default(0.00);
+            $table->decimal('balance')->default(0.00);
+            $table->decimal('discount')->default(0.00);
             $table->string('description')->nullable();
             $table->string('remark')->nullable();
             $table->string('account_name')->nullable();

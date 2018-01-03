@@ -24,5 +24,5 @@ class InvoiceHeader extends Model
         'total_amount'
     ];
     protected $primaryKey = 'invoice_header_id';
-    public $timestamps = false;
+    public $timestamps = true;
 }

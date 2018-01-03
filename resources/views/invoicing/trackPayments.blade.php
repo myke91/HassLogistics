@@ -82,9 +82,9 @@
             $('#track-payments-table > tbody').empty();
             for (var i = 0, len = data.length; i < len; i++){
                 $('#track-payments-table > tbody').append('<tr><td>' + data[i].invoice_no + '</td>' +
-                    '<td>' + data[i].total_cost + '</td>' +
-                    '<td style="color:green">' + data[i].amount_paid + '</td>' +
-                    '<td  style="color:red">' + data[i].balance + '</td>'                  
+                    '<td>' + data[i].payment_currency+' '+ data[i].total_cost + '</td>' +
+                    '<td style="color:green">' +data[i].payment_currency+' '+ data[i].amount_paid + '</td>' +
+                    '<td  style="color:red">' +data[i].payment_currency+' '+ data[i].balance + '</td>'                  
                     );
 
             }

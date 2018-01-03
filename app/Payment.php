@@ -18,6 +18,7 @@ class Payment extends Model
         'amount_paid',
         'balance',
         'discount',
+        'payment_currency',
         'description',
         'remark',
         'payment_date',
