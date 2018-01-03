@@ -39,25 +39,51 @@
                             <form class="form-horizontal" role="form" id="frm-update-client" action="">
                             <div class="form-group">
                                 <input type="hidden" id="client_id_edit" name="client_id">
-                                <label class="col-sm-2 control-label">Client Name</label>
-                                <div class="col-sm-4">
+                                <label class="col-sm-4 control-label">Client Name</label>
+                                <div class="col-sm-6">
                                     <input type="text" class="form-control" id="client_name_edit" name="client_name"required>
                                 </div>
-                                <label class="col-sm-2 control-label">Office Desc</label>
-                                <div class="col-sm-4">
+                            </div>
+                                <div class="form-group">
+                                <label class="col-sm-4 control-label">Office Desc</label>
+                                <div class="col-sm-6">
                                     <input type="text" class="form-control" id="client_office_desc_edit" name="client_office_desc" data-toggle="tooltip" required>
                                 </div>
                             </div>
-                            <div class="form-group has-success has-feedback">
-                                <label class="col-sm-2 control-label">Head office</label>
-                                <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Head office</label>
+                                <div class="col-sm-6">
                                     <input type="text" class="form-control" id="client_head_office_edit" name="client_head_office" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
                                 </div>
-                                <label class="col-sm-2 control-label">Client Number</label>
-                                <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="client_number_edit" name="client_number" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
+                            </div><div class="form-group">
+                                <label class="col-sm-4 control-label">Client Email</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="client_email_edit" name="client_email" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
                                 </div>
                             </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Digital Address</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="client_digital_address_edit" name="client_digital_address" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Currency</label>
+                                    <div class="col-sm-6">
+                                        <select id="client_currency_edit" name="client_currency" class="populate placeholder">
+                                            <option>--------</option>
+                                            @foreach($exchangeRates as $key =>$v)
+                                                <option value="{{$v->currency}}">{{$v->currency}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Client Number</label>
+                                    <div class="col-sm-6">
+                                        <input type="number" class="form-control" id="client_number_edit" name="client_number" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
                                 <div class="modal-footer">
                                     <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>

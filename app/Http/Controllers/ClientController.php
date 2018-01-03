@@ -44,7 +44,8 @@ class ClientController extends Controller
 
     public function editClient(Request $request)
     {
-        if ($request->ajax()) {
+        if ($request->ajax())
+        {
             return response(Client::find($request->client_id));
         }
     }
