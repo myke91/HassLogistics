@@ -45,7 +45,10 @@
 			<td>{{$c->client_number}}</td>
 
 			<td class="del">
-				<i value="{{$c->client_id}}" class="class-edit fa fa-pencil"></i>
+				<Button value="{{$c->client_id}}" class="class-edit">
+					<i class="fa fa-pencil-square-o"></i>
+				</Button>
+
 			</td>
 		</tr>
 		@endforeach

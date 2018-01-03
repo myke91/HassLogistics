@@ -130,13 +130,14 @@
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            var validate = confirm("Tarrif Save successfully");
+            var validate = confirm('Tarrif ' + data.tarrif_name + ' Save successfully');
             if (validate === true) {
                 location.reload();
             }
             else {
                 return false;
             }
+
         });
 
     });

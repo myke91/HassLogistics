@@ -69,7 +69,7 @@
 						</div>
 						<label class="col-sm-2 control-label">Digital Address</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" id="digital_address" name="digital_address" data-toggle="tooltip" data-placement="bottom">
+							<input type="text" class="form-control" id="digital_address" name="client_digital_address" data-toggle="tooltip" data-placement="bottom">
 						</div>
 
 					</div>
@@ -83,7 +83,6 @@
 								@endforeach
 							</select>
 						</div>
-
 					</div>
 					<div class="clearfix"></div>
 					<div class="panel-footer">
@@ -168,12 +167,14 @@
         $('#client-show').modal('show');
         var client_id = $(this).val();
         $.get("{{route('editClient')}}", {client_id: client_id}, function (data) {
-
+            console.log(data)
             $('#client_name_edit').val(data.client_name);
             $('#client_office_desc_edit').val(data.client_office_desc);
             $('#client_head_office_edit').val(data.client_head_office);
             $('#client_number_edit').val(data.client_number);
-            $('#client_digital_address').val(data.client_number);
+            $('#client_email_edit').val(data.client_email);
+            $('#client_currency_edit').val(data.client_currency);
+            $('#client_digital_address_edit').val(data.client_digital_address);
             $('#client_id_edit').val(data.client_id);
         });
     });

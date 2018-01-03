@@ -178,7 +178,8 @@
 	<br />
 
 	<div id="footer" style="font-weight:bold; padding: 20px">
-		@if($data[0]->client_currency == 'GHS')
+		@foreach($data as $d)
+		@if($d->client_currency == 'GHS')
 		<div id="local-currency-details">
 			<span>
 				<u>BANK DETAILS:</u>
@@ -215,7 +216,7 @@
 			<br />
 		</div>
 		@endif
-
+		@endforeach
 		<div style="font-weight: normal; text-align: center">
 			<small>Make all cheques payable to HASS Logistics Ghana Limited</small>
 			<br/>
