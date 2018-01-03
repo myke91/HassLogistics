@@ -64,15 +64,15 @@
 			<div class="col-xs-6">
 				<div class="sparkline-dashboard" id="sparkline-2"></div>
 				<div class="sparkline-dashboard-info">
-					<span class="pending-payments">GH¢ 245.12M</span>
+					<span class="pending-payments">GH¢ {{$pendingPayments == "" ? "0.00" : $pendingPayments }}</span>
 					<span class="txt-info">PENDING</span>
 				</div>
 			</div>
 			<div class="col-xs-6">
 				<div class="sparkline-dashboard" id="sparkline-3"></div>
 				<div class="sparkline-dashboard-info">
-					<span class="completed-payments">GH¢ 107.83M</span>
-					<span>PAYMETNS</span>
+					<span class="completed-payments">GH¢ {{$completedPayments == "" ? "0.00" : $completedPayments }}</span>
+					<span>PAYMENTS</span>
 				</div>
 			</div>
 		</div>
@@ -287,9 +287,12 @@
 console.log(value);
 $.get("{{route('paymentSummary')}}",{val: value},function(data){
 	console.log(data);
-	$('.pending-payments').val('GH¢ '+data.pendingPayments);
-	$('.completed-payments').val('GH¢ '+data.completedPayments);
-
+	var pending;
+	var completed;
+	if(data.pendingPayments === null){ pending = '0.00'}else{ pending = data.pendingPayments}
+	if(data.completedPayments === null){ completed = '0.00'}else{ completed = data.completedPayments}
+	$('.pending-payments').text('GH¢ '+ pending);
+	$('.completed-payments').text('GH¢ '+completed);
 });
 	}
 // Array for random data for Sparkline

@@ -45,7 +45,9 @@ $('.btn-save-vesseloperator').on('click', function () {
     var vesseloperators = $('#operator_name').val();
     console.log(vesseloperators);
     console.log();
-    $.post("/add_vessel_operator", {operator_name: vesseloperators}, function (data) {
+    $.post("/add_vessel_operator", {
+        operator_name: vesseloperators
+    }, function (data) {
         $('#vessel_operator_id').append($("<option/>", {
             value: data.vessel_operator_id,
             text: data.operator_name
@@ -64,28 +66,28 @@ $('#frm-create-vessel').on('submit', function (e) {
                 console.log('entered success');
                 swal(
                     'Hass Logistics',
-                    'Vessel '+data.vessel_name +' created!',
+                    'Vessel ' + data.vessel_name + ' created!',
                     'success'
-                  )
+                )
                 $("#frm-create-vessel").trigger('reset');
-                showVesselInfo(data.vessel_name);
+                $("#vessel_owner").val('--------');
+                $("#vessel_operator_id").val('--------');
+                $("#vessel_flag").val('--------');
             })
-            .fail(function (data) {
-                console.log('entered failure');
-                console.log(data);
-                swal(
-                    'Hass Logistics',
-                    'An error occured',
-                    'error'
-                  )
-//        $(this).trigger('reset');
-            });
+        .fail(function (data) {
+            console.log('entered failure');
+            console.log(data);
+            swal(
+                'Hass Logistics',
+                'An error occured',
+                'error'
+            );
+        });
 
 });
 
 
-function showVesselInfo()
-{
+function showVesselInfo() {
     var data = $('#frm-create-vessel').serialize();
     $.get("/show/vesselinfo", data, function (data) {
         $('#add-vessel-info').empty().append(data);
@@ -95,7 +97,9 @@ function showVesselInfo()
 $(document).on('click', '.class-edit', function (e) {
     $('#vessel-show').modal('show');
     vessel_id = $(this).val();
-    $.get("/edit/vesselinfo", {vessel_id: vessel_id}, function (data) {
+    $.get("/edit/vesselinfo", {
+        vessel_id: vessel_id
+    }, function (data) {
 
         $('#vessel_name_edit').val(data.vessel_name);
         $('#vessel_callsign_edit').val(data.vessel_callsign);
@@ -123,7 +127,9 @@ $('.btn-update-vessel').on('click', function (e) {
 });
 $(document).on('click', '.del-class', function (e) {
     vessel_id = $(this).val();
-    $.post("/delete/vesselinfo", {vessel_id: vessel_id}, function (data) {
+    $.post("/delete/vesselinfo", {
+        vessel_id: vessel_id
+    }, function (data) {
         showVesselInfo($('#vessel_name').val());
     });
 });
@@ -132,7 +138,9 @@ $('.search-vessel').on('click', function (e) {
     e.preventDefault();
     var name = $('#vessel-search-field').val();
     console.log(name);
-    $.get('/api/vessel-search', {vessel_name: name}, function (data) {
+    $.get('/api/vessel-search', {
+        vessel_name: name
+    }, function (data) {
         console.log(data);
         console.log(data.length);
         if (data.length !== 0) {
@@ -191,19 +199,21 @@ function vesselSearchPopup(data) {
     $('#vessel_results > tbody').empty();
     $.each(data, function (i, item) {
         var $tr = $('<tr>').append(
-                $('<td>').text(item.vessel_name),
-                $('<td>').text(item.vessel_type),
-                $('<td>').text(item.tonnage_certificate),
-                $('<td>').html('<button class="btn btn-primary load-vessel" value="' + item.vessel_id + '">LOAD</button>')
-                ).appendTo('#vessel_results');
-//        console.log($tr.wrap('<p>').html());
+            $('<td>').text(item.vessel_name),
+            $('<td>').text(item.vessel_type),
+            $('<td>').text(item.tonnage_certificate),
+            $('<td>').html('<button class="btn btn-primary load-vessel" value="' + item.vessel_id + '">LOAD</button>')
+        ).appendTo('#vessel_results');
+        //        console.log($tr.wrap('<p>').html());
     });
     $('#vessel_search_result').modal('show');
 }
 
 $(document).on('click', '.load-vessel', function (e) {
     vessel_id = $(this).val();
-    $.get("/api/vessel-detail", {vessel_id: vessel_id}, function (data) {
+    $.get("/api/vessel-detail", {
+        vessel_id: vessel_id
+    }, function (data) {
         $('#vessel_search_result').modal('hide');
 
         $('#vessel_name').val(data.vessel_name);

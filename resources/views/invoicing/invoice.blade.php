@@ -324,13 +324,14 @@
                     data.invoice_id +
                     '" class="invoice-edit"><i class="fa fa-pencil-square-o"></i></button></td>'
 					);
-					$('#frm-save-tarrif').trigger("reset");
+					$('#frm-save-tarrif').trigger('reset');
+					$('#tarrif-charge-modal').modal('hide');
+					$('#billable').val('CHOOSE BILLING OPTION');
+					$('#generate-invoice').removeAttr("disabled");
         }).fail(function (data) {
             console.log(data);
         });
-        $('#tarrif-charge-modal').trigger('reset');
-        $('#tarrif-charge-modal').modal('hide');
-        $('#generate-invoice').removeAttr("disabled");
+       
 
     }).on('click', '#generate-invoice', function (e) {
         e.preventDefault();
