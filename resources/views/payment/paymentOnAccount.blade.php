@@ -47,13 +47,12 @@
 </div>
 
 <div class="row">
+	<button class="btn btn-link init-payment-account pull-right">
+		<i class="fa fa-money"></i>
+		Init Payment Account
+	</button>
 	<div class="col-xs-12">
-		<div class="row">
-			<button class="btn btn-primary init-payment-account">
-				<i class="fa fa-money"></i>
-				Init Payment Account
-			</button>
-		</div>
+
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
@@ -75,6 +74,7 @@
 			<div class="box-content no-padding">
 
 
+
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable paged" id="payment-on-account-table">
 					<thead>
 
@@ -86,10 +86,10 @@
 
 					</thead>
 					<tbody>
-						@foreach($clients as $key => $value)
+						@foreach($accounts as $key => $value)
 						<tr>
-							<td>{{$value->client_name}}</td>
-							<td>{{$value->client_name}}</td>
+							<td>{{$value->client}}</td>
+							<td>{{$value->client_currency}} {{$value->account_balance}}</td>
 							<td>
 								<button value="{{$value->client_id}}" class="btn btn-link topup-details">
 									<i class="fa fa-credit-card"></i> Topup
@@ -101,7 +101,7 @@
 								</button>
 							</td>
 							<td>
-								<button value="{{$value->invoice_header_id}}" class="btn btn-link transaction-history">
+								<button value="{{$value->client_id}}" class="btn btn-link transaction-history">
 									<i class="fa fa-info"></i> Transactions History
 								</button>
 							</td>
@@ -147,67 +147,81 @@
         // Initialize datepicker\
          $('.topup-details').click(function (e) {
             e.preventDefault();
-		 /*	var headerId = $('.show-invoice-details').val();
-			 $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
-                $('#invoice-details-table > tbody').empty();
-                for (var i = 0, len = data.length; i < len; i++){
-                $('#invoice-details-table > tbody').append(
-                    '<tr>' +
-                    '<td>' + data[i].bill_item + '</td>' +
-                    '<td>' + data[i].billable + '</td>' +
-                    '<td> Unit Price: <span>' + data[i].unit_price + '</span>' +
-                    ' / Quantity:  <span>' + data[i].quantity + '</span>' +
-                    ' / Total Price: <span>' + data[i].actual_cost + '</span>'
-                ); 
-                    } */
-                $('#topup-modal').modal('show');
-            /*  }).fail(function (data) {
+			var id = $(this).val();
+			 $.get("{{route('getDetailsForTopup')}}", {id: id}, function (data) {
+				 console.log(data);
+				$("#client_id").val(data.client_id);
+				$("#client_name").val(data.client);
+				$("#client_currency").val(data.client_currency);
+				$("#account_balance").val(data.account_balance);
 
-            });  */
+                $('#topup-modal').modal('show');
+              }).fail(function (data) {
+
+            });  
 
 		});
-		
+
+		$('.save-account-topup').click(function (e) {
+            e.preventDefault();
+			var id = $(this).val();
+			 $.post("{{route('saveAccountTopup')}}",$('#frm-account-topup').serialize(), function (data) {
+				 console.log(data);
+				swal('HASS LOGISTICS',
+				'Account topup saved successfully',
+				'success');
+				location.reload();
+			}).fail(function(data){
+				swal('HASS LOGISTICS',
+				data.responseText,
+				'error');
+			});
+
+
+		});
+
+
 		$('.account-summary').click(function (e) {
             e.preventDefault();
-			/*var headerId = $('.show-invoice-details').val();
-			  $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
-                $('#invoice-details-table > tbody').empty();
-                for (var i = 0, len = data.length; i < len; i++){
-                $('#invoice-details-table > tbody').append(
-                    '<tr>' +
-                    '<td>' + data[i].bill_item + '</td>' +
-                    '<td>' + data[i].billable + '</td>' +
-                    '<td> Unit Price: <span>' + data[i].unit_price + '</span>' +
-                    ' / Quantity:  <span>' + data[i].quantity + '</span>' +
-                    ' / Total Price: <span>' + data[i].actual_cost + '</span>'
-                );
-                    }  */
-                $('#account-summary-modal').modal('show');
-            /*  }).fail(function (data) {
+			var id = $(this).val();
+			  $.get("{{route('getAccountSummary')}}", {client_id: id}, function (data) {
+console.log(data);
+			  $('#acc_summary_client_name').text(data.client_name);
+			  $('#acc_summary_client_currency').text(data.client_currency);
+			  $('#acc_summary_account_balance').text(data.account_balance); 
+			  $('#acc_summary_last_trans_type').text(data.last_trans_type); 
+			  $('#acc_summary_last_trans_amount').text(data.last_trans_amount);
 
-            });  */
+            $('#account-summary-modal').modal('show');
+              }).fail(function (data) {
+
+            });  
 
 		});
 		
 		$('.transaction-history').click(function (e) {
             e.preventDefault();
-			/* var headerId = $('.show-invoice-details').val();
-			 $.get("{{route('getInvoiceDetails')}}", {headerId: headerId}, function (data) {
-                $('#invoice-details-table > tbody').empty();
-                for (var i = 0, len = data.length; i < len; i++){
-                $('#invoice-details-table > tbody').append(
-                    '<tr>' +
-                    '<td>' + data[i].bill_item + '</td>' +
-                    '<td>' + data[i].billable + '</td>' +
-                    '<td> Unit Price: <span>' + data[i].unit_price + '</span>' +
-                    ' / Quantity:  <span>' + data[i].quantity + '</span>' +
-                    ' / Total Price: <span>' + data[i].actual_cost + '</span>'
-                );
-                    }  */
-                $('#transaction-history-modal').modal('show');
-            /*  }).fail(function (data) {
+			 var client_id = $(this).val();
+			 $.get("{{route('getTransactionHistory')}}", {client_id: client_id}, function (data) {
+				 console.log(data);
+				$('#trans_history_client_currency').text(data[0].client_currency);
+				$('#trans_history_client_name').text(data[0].client);
 
-            });  */
+                $('#transaction-history > tbody').empty();
+                for (var i = 0, len = data.length; i < len; i++){
+                $('#transaction-history > tbody').append(
+                    '<tr>' +
+                    '<td>' + data[i].transaction_type + '</td>' +
+					'<td>' + data[i].transaction_date + '</td>' +
+					'<td>' + data[i].credit + '</td>' +
+					'<td>' + data[i].debit + '</td>' +
+					'<td>' + data[i].remarks + '</td>'
+                );
+                    }  
+                $('#transaction-history-modal').modal('show');
+              }).fail(function (data) {
+
+            });  
 
 		});
 		
@@ -230,6 +244,22 @@
 			$('#init-payment-account-modal').modal('show');
 
 		});
+		$('.init-account').click(function (e) {
+            e.preventDefault();
+			$.post("{{route('initAccount')}}",$('#frm-init-account').serialize(),function(data){
+				swal('HASS LOGISTICS',
+				'Account Initialized Successfully',
+				'success');
+				location.reload();
+			}).fail(function(data){
+				swal('HASS LOGISTICS',
+				data.responseText,
+				'error');
+			});
+
+		});
+
+		
         // Load Timepicker plugin
         LoadTimePickerScript(DemoTimePicker);
         // Add tooltip to form-controls

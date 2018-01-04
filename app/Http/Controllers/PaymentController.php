@@ -8,6 +8,7 @@ use HASSLOGISTICS\Audit;
 use HASSLOGISTICS\Client;
 use HASSLOGISTICS\InvoiceHeader;
 use HASSLOGISTICS\Payment;
+use HASSLOGISTICS\PaymentAccount;
 use HASSLOGISTICS\PaymentAccountTransactions;
 use HASSLOGISTICS\PaymentEntries;
 use HASSLOGISTICS\Vessel;
@@ -34,7 +35,7 @@ class paymentController extends Controller
             ->join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
             ->join('invoice_header', 'invoice_header.invoice_no', '=', 'payments.invoice_no')
             ->where('payments.invoice_no', $invoice_no)
-            ->where('invoice_header.is_approved', 1)         
+            ->where('invoice_header.is_approved', 1)
             ->orWhere('payments.client_id', $client_id)
             ->orWhere('payments.vessel_id', $vessel_id)
             ->orWhere('vessels.voyage_number', $voyage_number);
@@ -143,9 +144,10 @@ class paymentController extends Controller
 
     public function getPaymentOnAccount()
     {
-        $clients = Client::join('payment_account','payment_account.client_id','=','clients.client_id')->get();
+        $accounts = PaymentAccount::join('clients', 'clients.client_id', '=', 'payment_account.client_id')->get();
+        $allClients = Client::all();
         $unapprovedInvoices = InvoiceHeader::where('is_approved', '=', 0)->count();
-        return view('payment.paymentOnAccount', compact('clients', 'unapprovedInvoices'));
+        return view('payment.paymentOnAccount', compact('accounts', 'unapprovedInvoices', 'allClients'));
     }
 
     public function emailReceipt($client_id, $vessel_id, $invoiceFileName)
@@ -195,8 +197,6 @@ class paymentController extends Controller
         $data = Payment::join('vessels', 'vessels.vessel_id', '=', 'payments.vessel_id')
             ->join('clients', 'clients.client_id', '=', 'payments.client_id')
             ->where(['payments.client_id' => 1, 'payments.vessel_id' => 1])->get();
-//        $vessel = Vessel::find(1);
-        //        $client = Client::find(1);
 
         Log::debug($data);
         $this->_pdf = PDF::loadView('pdf.receipt', compact('data'));
@@ -219,19 +219,113 @@ class paymentController extends Controller
         }
     }
 
+    public function initAccount(Request $request)
+    {
+        $client_id = $request->client;
+        $openingBalance = $request->opening_balance;
+
+        Log::debug($request);
+        Log::debug($client_id);
+        Log::debug($openingBalance);
+        $model = PaymentAccount::where('client_id', '=', $client_id)->get();
+        Log::debug($model);
+        if ($model->isEmpty()) {
+            if ($openingBalance > 0) {
+                $paymentAccount = new PaymentAccount();
+                $paymentAccountTransaction = new PaymentAccountTransactions();
+                $client = Client::find($client_id);
+
+                $paymentAccount['client_id'] = $client_id;
+                $paymentAccount['client'] = $client->client_name;
+                $paymentAccount['account_balance'] = $openingBalance;
+
+                $paymentAccountTransaction['client_id'] = $client_id;
+                $paymentAccountTransaction['client'] = $client->client_name;
+                $paymentAccountTransaction['credit'] = $openingBalance;
+                $paymentAccountTransaction['transaction_type'] = 'DEPOSIT';
+                $paymentAccountTransaction['transaction_date'] = date('Y-m-d');
+                $paymentAccountTransaction['remarks'] = 'Account initialization transaction';
+
+                $paymentAccount->save();
+                $paymentAccountTransaction->save();
+
+            } else {
+                return response()->json('Invalid Opening Balance', 500);
+            }
+        } else {
+            return response()->json('Account already exist for selected client', 500);
+        }
+    }
+
+    public function getDetailsForTopup(Request $request)
+    {
+        $client_id = $request->id;
+        $details = PaymentAccount::join('clients', 'clients.client_id', '=', 'payment_account.client_id')
+            ->where('clients.client_id', '=', $client_id)
+            ->first();
+        return response()->json($details);
+    }
+
     public function saveAccountTopup(Request $request)
     {
-        try {
-            $accountTransaction = array();
-            $accountTransaction['client_id'] = $request->clientId;
-            $accountTransaction['topup_amount'] = $request->topup_amount;
-            $accountTransaction['transaction_type'] = 'CREDIT';
+        Log::debug($request);
+        if ($request->topup_amount > 0) {
+            $paymentAccount = PaymentAccount::where('client_id', '=', $request->client_id)->first();
+            $paymentAccountTransaction = new PaymentAccountTransactions();
 
-            PaymentAccountTransactions::create($accountTransaction);
-            return response()->json('Save successful', 200);
-        } catch (\Exception $ex) {
-            return response()->json('An error occurred', 500);
+            Log::debug($paymentAccount);
+
+            $client = Client::find($request->client_id);
+
+            $paymentAccount->account_balance += $request->topup_amount;
+
+            $paymentAccountTransaction['client_id'] = $request->client_id;
+            $paymentAccountTransaction['client'] = $client->client_name;
+            $paymentAccountTransaction['credit'] = $request->topup_amount;
+            $paymentAccountTransaction['transaction_type'] = 'DEPOSIT';
+            $paymentAccountTransaction['transaction_date'] = date('Y-m-d');
+            $paymentAccountTransaction['remarks'] = 'Account topup transaction';
+
+            $paymentAccount->save();
+            $paymentAccountTransaction->save();
+        } else {
+            return response()->json('Invalid Topup Amount', 500);
         }
+    }
+
+    public function getAccountSummary(Request $request)
+    {
+        $client_id = $request->client_id;
+        $account = PaymentAccount::join('clients', 'clients.client_id', '=', 'payment_account.client_id')
+            ->where('clients.client_id', '=', $client_id)
+            ->first();
+
+        $lastTransaction = PaymentAccountTransactions::join('clients', 'clients.client_id', '=', 'payment_account_transactions.client_id')
+            ->where('clients.client_id', '=', $client_id)
+            ->orderBy('payment_account_transactions.created_at', 'desc')
+            ->first();
+
+        $transaction_amount = $lastTransaction->credit == 0.00 ? $lastTransaction->debit : $lastTransaction->credit;
+
+        $data = array();
+        $data['client_name'] = $account->client;
+        $data['client_currency'] = $account->client_currency;
+        $data['account_balance'] = $account->account_balance;
+        $data['last_trans_type'] = $lastTransaction->transaction_type;
+        $data['last_trans_amount'] = $transaction_amount;
+
+        return response()->json($data);
+    }
+
+    public function getTransactionHistory(Request $request)
+    {
+        $client_id = $request->client_id;
+        $transactions = PaymentAccountTransactions::join('clients', 'clients.client_id', '=', 'payment_account_transactions.client_id')
+            ->where('clients.client_id', '=', $client_id)
+            ->orderBy('payment_account_transactions.created_at', 'desc')
+            ->get();
+
+        return response()->json($transactions);
     }
 
 }

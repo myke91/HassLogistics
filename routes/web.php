@@ -72,6 +72,9 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/edit-user', ['as' => 'editUser', 'uses' => 'IndexController@editUser']);
     Route::get('/process-payment-track', ['as' => 'processPaymentTrack', 'uses' => 'PaymentController@processPaymentTrack']);
     Route::get('/payment-summary', ['as' => 'paymentSummary', 'uses' => 'HomeController@paymentSummary']);
+    Route::get('/details-for-top', ['as' => 'getDetailsForTopup', 'uses' => 'PaymentController@getDetailsForTopup']);
+    Route::get('/account-summary',['as'=>'getAccountSummary','uses'=>'PaymentController@getAccountSummary']);
+    Route::get('/transaction-history',['as'=>'getTransactionHistory','uses'=>'PaymentController@getTransactionHistory']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);
@@ -104,12 +107,14 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::post('/save-tarrif-param', ['as' => 'saveTarrifParam', 'uses' => 'TarrifController@saveTarrifParam']);
     Route::post('/save-tarrif-charge', ['as' => 'saveTarrifCharge', 'uses' => 'TarrifController@saveTarrifCharge']);
 
+    Route::post('/init-account', ['as' => 'initAccount', 'uses' => 'PaymentController@initAccount']);
     Route::post('/update-tarrif', ['as' => 'updateTarrif', 'uses' => 'TarrifController@updateTarrif']);
     Route::post('/update-tarrifType', ['as' => 'updateTarrifType', 'uses' => 'TarrifController@updateTarrifType']);
     Route::post('/update-tarrifParam', ['as' => 'updateTarrifParam', 'uses' => 'TarrifController@updateTarrifParam']);
     Route::post('/update-tarrifCharge', ['as' => 'updateTarrifCharge', 'uses' => 'TarrifController@updateTarrifCharge']);
 
     Route::post('/update-user', ['as' => 'updateUser', 'uses' => 'IndexController@updateUser']);
+    Route::post('/save-account-topup', ['as' => 'saveAccountTopup', 'uses' => 'PaymentController@saveAccountTopup']);
 
 // api urls
     Route::get('/api/tarrifs', ['as' => 'getTarrifs', 'uses' => 'InvoiceController@getTarrifs']);

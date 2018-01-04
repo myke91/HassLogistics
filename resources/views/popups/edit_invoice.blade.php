@@ -35,32 +35,36 @@
 				<h4 class="modal-title">Edit Invoice</h4>
 			</div>
 			<div class="modal-body">
-				<div class="row" style="margin: 20px">
+				<div class="row">
 					<div class="form-group">
 						<input type="hidden" name="invoice_id" id="invoice_id">
 						<input type="hidden" name="invoice_date" value="{{date('Y-m-d')}}">
-
-						<label class="col-sm-8 control-label">Client Name</label>
-						<div class="col-sm-8">
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Client Name</label>
+						<div class="col-sm-4">
 							<input class="form-control" type="text" name="client_name" value="" disabled />
 						</div>
 
-						<label class="col-sm-8 control-label">Vessel Name</label>
-						<div class="col-sm-8">
+						<label class="col-sm-2 control-label">Vessel Name</label>
+						<div class="col-sm-4">
 							<input class="form-control" type="text" name="vessel_name" value="" disabled />
 						</div>
 
-						<label class="col-sm-8 control-label">Voyage Number</label>
-						<div class="col-sm-8">
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Voyage Number</label>
+						<div class="col-sm-4">
 							<input class="form-control" type="text" name="client_name" value="" disabled />
 						</div>
 
-						<label class="col-sm-8 control-label">Invoice Due Date</label>
-						<div class="col-sm-8">
+						<label class="col-sm-2 control-label">Due Date</label>
+						<div class="col-sm-4">
 							<input class="form-control" type="text" name="client_name" value="" disabled />
 						</div>
 					</div>
-					<br /><br /><br />
+				</div>
+				<div class="row" style="margin:20px">
 					<table class="table table-bordered table-striped" id="edit-invoice-table">
 						<thead>
 							<tr>

@@ -21,7 +21,7 @@ class CreatePaymentAccountTransactionsTable extends Migration
             $table->decimal('debit', 60, 2)->default(0.00);
             $table->string('transaction_type');
             $table->date('transaction_date');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->foreign('client_id')->references('client_id')->on('clients');
             $table->timestamps();
         });

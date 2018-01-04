@@ -2,11 +2,11 @@
 
 namespace Illuminate\Auth;
 
-use Illuminate\Support\Str;
-use Illuminate\Contracts\Auth\UserProvider;
-use Illuminate\Database\ConnectionInterface;
-use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
+use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Hashing\Hasher as HasherContract;
+use Illuminate\Database\ConnectionInterface;
+use Illuminate\Support\Str;
 
 class DatabaseUserProvider implements UserProvider
 {
@@ -73,7 +73,7 @@ class DatabaseUserProvider implements UserProvider
         );
 
         return $user && $user->getRememberToken() && hash_equals($user->getRememberToken(), $token)
-                    ? $user : null;
+        ? $user : null;
     }
 
     /**
@@ -86,8 +86,8 @@ class DatabaseUserProvider implements UserProvider
     public function updateRememberToken(UserContract $user, $token)
     {
         $this->conn->table($this->table)
-                ->where($user->getAuthIdentifierName(), $user->getAuthIdentifier())
-                ->update([$user->getRememberTokenName() => $token]);
+            ->where($user->getAuthIdentifierName(), $user->getAuthIdentifier())
+            ->update([$user->getRememberTokenName() => $token]);
     }
 
     /**
@@ -99,8 +99,8 @@ class DatabaseUserProvider implements UserProvider
     public function retrieveByCredentials(array $credentials)
     {
         if (empty($credentials) ||
-           (count($credentials) === 1 &&
-            array_key_exists('password', $credentials))) {
+            (count($credentials) === 1 &&
+                array_key_exists('password', $credentials))) {
             return;
         }
 
@@ -110,7 +110,7 @@ class DatabaseUserProvider implements UserProvider
         $query = $this->conn->table($this->table);
 
         foreach ($credentials as $key => $value) {
-            if (! Str::contains($key, 'password')) {
+            if (!Str::contains($key, 'password')) {
                 $query->where($key, $value);
             }
         }
@@ -131,7 +131,7 @@ class DatabaseUserProvider implements UserProvider
      */
     protected function getGenericUser($user)
     {
-        if (! is_null($user)) {
+        if (!is_null($user)) {
             return new GenericUser((array) $user);
         }
     }
@@ -145,7 +145,6 @@ class DatabaseUserProvider implements UserProvider
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        Log::debug('checking login against');
         return $this->hasher->check(
             $credentials['password'], $user->getAuthPassword()
         );
