@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label">Client Number</label>
+                                    <label class="col-sm-4 control-label">Client Tel. Number</label>
                                     <div class="col-sm-6">
                                         <input type="number" class="form-control" id="client_number_edit" name="client_number" data-toggle="tooltip" data-placement="bottom" title="Tooltip for last name">
                                     </div>

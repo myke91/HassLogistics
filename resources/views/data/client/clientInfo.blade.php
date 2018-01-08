@@ -32,7 +32,7 @@
 			<th>Client Name</th>
 			<th>Head Office</th>
 			<th>Client Currency</th>
-			<th>Client Number</th>
+			<th>Client Tel. Number</th>
 			<th>Actions</th>
 		</tr>
 	</thead>

@@ -57,7 +57,7 @@
 						<div class="col-sm-4">
 							<input type="text" class="form-control" id="client_head_office" name="client_head_office" data-toggle="tooltip" data-placement="bottom">
 						</div>
-						<label class="col-sm-2 control-label">Client Number</label>
+						<label class="col-sm-2 control-label">Client Tel. Number</label>
 						<div class="col-sm-4">
 							<input type="number" class="form-control" id="client_number" name="client_number" data-toggle="tooltip" data-placement="bottom">
 						</div>
