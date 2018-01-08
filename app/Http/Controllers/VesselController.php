@@ -27,9 +27,9 @@ class VesselController extends Controller
 
     public function addVesselOperator()
     {
-        $vesseloperators = VesselOperator::all();
+
         $unapprovedInvoices = \HASSLOGISTICS\InvoiceHeader::where('is_approved', '=', 0)->count();
-        return view('data.vessel_operators.add_vessel_operator', compact('vesseloperators','unapprovedInvoices'));
+        return view('data.vessel_operators.add_vessel_operator', compact('unapprovedInvoices'));
     }
 
     public function createVesselOperator(Request $request)
@@ -78,11 +78,14 @@ class VesselController extends Controller
 
     public function showVesselOperators()
     {
-        $vessel_operators = VesselOperator::all();
+        $vessel_operators = $this->VesselOperatorInfo();
         $unapprovedInvoices = \HASSLOGISTICS\InvoiceHeader::where('is_approved', '=', 0)->count();
         return view('data.vessel_operators.vessel_operators', compact('vessel_operators','unapprovedInvoices'));
     }
 
+    public function VesselOperatorInfo(){
+        return VesselOperator::all();
+    }
     public function vesselInformation()
     {
         return Vessel::join('vessel_operators', 'vessel_operators.vessel_operator_id', '=', 'vessels.vessel_operator_id')

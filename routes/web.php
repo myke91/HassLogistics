@@ -35,7 +35,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/show/client', ['as' => 'showClientInfo', 'uses' => 'ClientController@showClientInformation']);
     Route::get('/edit/client', ['as' => 'editClient', 'uses' => 'ClientController@editClient']);
     Route::get('/vessel_operator', ['as' => 'add_vessel_operator', 'uses' => 'VesselController@addVesselOperator']);
-    Route::get('/show/vessel_operators', ['as' => 'vessel_operators', 'uses' => 'VesselController@showVesselOperators']);
+    Route::get('/show/vessel_operators', ['as' => 'showVOInfo', 'uses' => 'VesselController@showVesselOperators']);
     Route::get('/edit/vessel_operator', ['as' => 'edit_vessel_operator', 'uses' => 'VesselController@editVesselOperator']);
     Route::get('/exchange_rate', ['as' => 'addExchangeRate', 'uses' => 'ExchangeRateController@addExchangeRate']);
     Route::get('/show/exchange_rate', ['as' => 'exchangeRate', 'uses' => 'ExchangeRateController@showExchangeRate']);
@@ -76,6 +76,7 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/account-summary', ['as' => 'getAccountSummary', 'uses' => 'PaymentController@getAccountSummary']);
     Route::get('/transaction-history', ['as' => 'getTransactionHistory', 'uses' => 'PaymentController@getTransactionHistory']);
     Route::get('/payment-statistics', ['as' => 'paymentStatistics', 'uses' => 'HomeController@paymentStatistics']);
+
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);

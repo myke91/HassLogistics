@@ -7,30 +7,24 @@
     }
 </style>
 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
+
     <thead>
-        <tr>
-            <th>Client Name</th>
-            <th>Office Descriprion</th>
-            <th>Head Office</th>
-            <th>Client Number</th>
-            <th colspan="2">Actions</th>
-        </tr>
+    <tr>
+        <th>Operator id</th>
+        <th>Operator Name</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach($clients as $key => $c)
+    @foreach($vessel_operators as $key => $v)
         <tr>
-            <td>{{$c->client_name}}</td>
-            <td>{{$c->client_office_desc}}</td>
-            <td>{{$c->client_head_office}}</td>
-            <td>{{$c->client_number}}</td>
+            <td>{{$v->vessel_operator_id}}</td>
+            <td>{{$v->operator_name}}</td>
             <td class="del">
-                <Button value="{{$c->client_id}}" class="del-class"><i class="fa fa-trash-o"></i></Button>
-            </td>
-            <td class="del">
-                <Button value="{{$c->client_id}}" class="class-edit"><i class="fa fa-pencil-square-o"></i></Button>
+                <Button value="{{$v->vessel_operator_id}}" class="vo-edit"><i class="fa fa-pencil-square-o"></i></Button>
             </td>
         </tr>
-        @endforeach
+    @endforeach
     </tbody>
     <tfoot>
 

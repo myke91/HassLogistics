@@ -73,29 +73,7 @@
                 </div>
                 <div class="no-move"></div>
             </div>
-            <div class="box-content no-padding" id="add-vessel-operator-info"><table class="table table-bordered table-striped table-hover table-heading table-datatable" id="vessel-table">
-                    <thead>
-                    <tr>
-                        <th>Operator id</th>
-                        <th>Operator Name</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($vesseloperators as $key => $v)
-                        <tr>
-                            <td>{{$v->vessel_operator_id}}</td>
-                            <td>{{$v->operator_name}}</td>
-                            <td class="del">
-                                <Button value="{{$v->vessel_operator_id}}" class="vo-edit"><i class="fa fa-pencil-square-o"></i></Button>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                    <tfoot>
-
-                    </tfoot>
-                </table>
+            <div class="box-content no-padding" id="add-vessel-operator-info">
 
             </div>
         </div>
@@ -106,7 +84,7 @@
 
 @section('additional_script')
 <script type="text/javascript">
-
+    showVOInfo();
     // Run Datables plugin and create 3 variants of settings
     function AllTables() {
         TestTable1();
@@ -116,6 +94,7 @@
     }
     $(document).ready(function () {
         $.get("{{route('ready')}}", function () {
+
         });
     });
 
@@ -124,13 +103,27 @@
         var data = $(this).serialize();
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
-            showClientInfo(data.client_name);
+            showVOInfo(data.vessel_operator_id);
+            $(this).trigger('reset');
+            swal('HASS LOGISTICS',
+                'Vessel Operator '+data.operator_name+' saved successfully',
+                'success');
+
+        }).fail(function () {
+            swal('HASS LOGISTICS',
+                'An error occured',
+                'error');
         });
-        $(this).trigger('reset');
-        $('#clientmessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#clientmessages_content').html('<h4>Vessel operator created Successfully</h4>');
-        $('#modal').modal('show');
+
     });
+    function showVOInfo()
+    {
+        var data = $('#frm-create-vessel-operator').serialize();
+        console.log(data);
+        $.get("{{route('showVOInfo')}}", data, function (data) {
+            $('#add-vessel-operator-info').empty().append(data);
+        });
+    }
 
     $(document).on('click', '.vo-edit', function (e) {
         $('#vessel_op-show').modal('show');
@@ -147,13 +140,14 @@
         e.preventDefault();
         var data = $('#frm-update-vo').serialize();
         $.post("{{route('updateVesselOperator')}}", data, function (data) {
+            showVOInfo(data.vessel_operator_id);
         });
         $('#clientupdatemessages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
         $('#clientupdatemessages_content').html('<h4>Vessel operator updated successfully</h4>');
         $('#modal').modal('show');
         $('#frm-update-class').trigger('reset');
 
-       // location.reload();
+
     });
 
 
