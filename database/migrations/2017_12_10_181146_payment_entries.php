@@ -29,7 +29,7 @@ class PaymentEntries extends Migration {
             $table->decimal('total_cost')->default(0.00);
             $table->decimal('amount')->default(0.00);
             $table->decimal('balance')->default(0.00);
-            $table->decimal('discount')->default(0.00);
+            $table->decimal('discount')->nullable();
             $table->string('description')->nullable();
             $table->string('remark')->nullable();
             $table->string('account_name')->nullable();

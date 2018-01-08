@@ -51,7 +51,7 @@ class Vessel extends Model {
         'annual_fee',
         'inactive'];
     protected $primaryKey = 'vessel_id';
-    public $timestamps = false;
+    public $timestamps = true;
 
      private $rules = array(
         'vessel_name' => 'required',

@@ -77,6 +77,10 @@
 							<th>Last Transaction Amount</th>
 							<td id="acc_summary_last_trans_amount">&nbsp;</td>
 						</tr>
+						<tr>
+								<th>Last Transaction Remarks</th>
+								<td id="acc_summary_last_trans_remarks">&nbsp;</td>
+							</tr>
 					</thead>
 				</table>
 

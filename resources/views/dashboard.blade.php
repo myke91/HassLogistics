@@ -238,35 +238,11 @@
 		</div>
 		<!--End Dashboard Tab 3-->
 		<!--Start Dashboard Tab 4-->
-		<div id="dashboard-payments" class="row" style="visibility: hidden; position: absolute;">
-			<div class="row one-list-message">
-				<div class="col-xs-1">
-					<i class="fa fa-users"></i>
-				</div>
-				<div class="col-xs-2">
-					<b>Name</b>
-				</div>
-				<div class="col-xs-2">Head Office</div>
-				<div class="col-xs-2">Email</div>
-				<div class="col-xs-2">Contact Number</div>
-				<div class="col-xs-2">Digital Address</div>
-				<div class="col-xs-2">Date</div>
+		<div id="dashboard-payments" class="row" style="width:100%; visibility: hidden; position: absolute;">
+			<div class="col-xs-12">
+				<h4 class="page-header">Payments Statistics</h4>
+				<div id="stat-graph" style="height: 300px;"></div>
 			</div>
-			<div class="row one-list-message">
-				<div class="col-xs-1">
-					<i class="fa fa-user"></i>
-				</div>
-				<div class="col-xs-2">
-					<b>USA</b>
-				</div>
-				<div class="col-xs-2">109455</div>
-				<div class="col-xs-2">54322344</div>
-				<div class="col-xs-2">
-					<i class="fa fa-usd"></i> 354563</div>
-				<div class="col-xs-2"></div>
-				<div class="col-xs-2 message-date">12/31/13</div>
-			</div>
-
 		</div>
 		<!--End Dashboard Tab 4-->
 	</div>

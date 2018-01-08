@@ -75,6 +75,8 @@ class paymentController extends Controller
 
         $f = new \NumberFormatter(locale_get_default(), \NumberFormatter::SPELLOUT);
 
+        $model = PaymentEntries::create($request->all());
+        
         $p->vessel_id = $request->vessel_id;
         $p->client_id = $request->client_id;
         $p->user = $request->user;
@@ -86,7 +88,7 @@ class paymentController extends Controller
         $p->amount_paid = $request->amount + $request->amount_paid;
         $p->amount_in_words = $f->format($request->amount);
         $p->balance = $request->balance;
-        $p->discount = $request->discount;
+        $p->discount = $request->discount == NULL ? 0.00 : $request->discount;
         $p->description = $request->description;
         $p->remark = $request->remark;
         $p->payment_date = $request->payment_date;
@@ -95,7 +97,7 @@ class paymentController extends Controller
         $p->cheque_date = $request->cheque_date;
         $p->update();
 
-        $model = PaymentEntries::create($request->all());
+       
 
         $receiptFileName = $this->generateReceiptPdfStream($model->payment_entries_id, $request->client_id, $request->vessel_id);
         // $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
@@ -313,6 +315,7 @@ class paymentController extends Controller
         $data['account_balance'] = $account->account_balance;
         $data['last_trans_type'] = $lastTransaction->transaction_type;
         $data['last_trans_amount'] = $transaction_amount;
+        $data['last_trans_remarks'] = $lastTransaction->remarks;
 
         return response()->json($data);
     }

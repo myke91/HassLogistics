@@ -30,7 +30,7 @@ $(document).on('change', '.trigger-tarrif-type', function (e) {
             $('#tarrif-type').append($('<option>').text(value.tarrif_type_name).attr('value', value.tarrif_type_id));
         });
     });
-    ;
+    
     showTarrifTypeModal();
 });
 
@@ -56,7 +56,7 @@ $(document).on('change', '.trigger-tarrif-charges', function (e) {
     $('#tarrif-charge-param').val(value);
     $.get('/api/tarrif-charges', {param: key}, function (data) {
         console.log(data);
-        data.tarrif_param_charge_type !== 'QUANTITY' ? $('.quantity').hide() : $('.quantity').show();
+        data.tarrif_param_charge_type === 'SPECIFICS' ? $('.quantity').hide() : $('.quantity').show();
 
         $('#billable').html($('<option>').text('CHOOSE BILLING OPTION'));
         $('#tarrif-charge-cost').val(" ");

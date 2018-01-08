@@ -15,6 +15,6 @@ class Client extends Model {
         'client_currency',
         'client_number'];
     protected $primaryKey = 'client_id';
-    public $timestamps = false;
+    public $timestamps = true;
 
 }

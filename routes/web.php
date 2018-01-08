@@ -73,8 +73,9 @@ Route::group(['middleware' => ['authen', 'roles'], 'roles' => ['admin']], functi
     Route::get('/process-payment-track', ['as' => 'processPaymentTrack', 'uses' => 'PaymentController@processPaymentTrack']);
     Route::get('/payment-summary', ['as' => 'paymentSummary', 'uses' => 'HomeController@paymentSummary']);
     Route::get('/details-for-top', ['as' => 'getDetailsForTopup', 'uses' => 'PaymentController@getDetailsForTopup']);
-    Route::get('/account-summary',['as'=>'getAccountSummary','uses'=>'PaymentController@getAccountSummary']);
-    Route::get('/transaction-history',['as'=>'getTransactionHistory','uses'=>'PaymentController@getTransactionHistory']);
+    Route::get('/account-summary', ['as' => 'getAccountSummary', 'uses' => 'PaymentController@getAccountSummary']);
+    Route::get('/transaction-history', ['as' => 'getTransactionHistory', 'uses' => 'PaymentController@getTransactionHistory']);
+    Route::get('/payment-statistics', ['as' => 'paymentStatistics', 'uses' => 'HomeController@paymentStatistics']);
 
 // post urls
     Route::post('/add_vessel_operator', ['as' => 'postVesselOperator', 'uses' => 'VesselController@createVesselOperator']);

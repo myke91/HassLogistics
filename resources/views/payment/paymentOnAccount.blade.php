@@ -191,6 +191,7 @@ console.log(data);
 			  $('#acc_summary_account_balance').text(data.account_balance); 
 			  $('#acc_summary_last_trans_type').text(data.last_trans_type); 
 			  $('#acc_summary_last_trans_amount').text(data.last_trans_amount);
+			  $('#acc_summary_last_trans_remarks').text(data.last_trans_remarks);
 
             $('#account-summary-modal').modal('show');
               }).fail(function (data) {

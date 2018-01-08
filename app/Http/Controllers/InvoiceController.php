@@ -107,7 +107,7 @@ class InvoiceController extends Controller
     public function confirmAndSaveInvoice(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Created invoice with invoice number' . $request->invoice_no, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Created invoice with invoice number ' . $request->invoice_no, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
             return response(Invoice::create($request->all()));
         }
     }
@@ -166,7 +166,7 @@ class InvoiceController extends Controller
         $payment['total_cost'] = $totalCost;
         $payment['balance'] = $totalCost;
         Payment::create($payment);
-        Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client' . $invoiceHeader->client . 'on vessel' . $vessel, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+        Audit::create(['user' => Auth::user()->username, 'activity' => 'Processed and generated invoice for client ' . $invoiceHeader->client . ' on vessel ' . $vessel, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
         return response()->json(['invoice' => $invoiceFileName]);
     }
 

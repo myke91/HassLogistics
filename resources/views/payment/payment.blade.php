@@ -88,7 +88,7 @@
 							</thead>
 							<tr>
 								<td colspan="2">
-									<select id="vessel_id" name="vessel_id" class="form-control" disabled>
+									<select id="vessel_id" name="vessel_id" class="form-control" readonly>
 										<option value="">--------------------</option>
 										@foreach($vessel as $key => $p)
 										<option value="{{$p->vessel_id}}" {{$p->vessel_id==$payment->vessel_id? 'selected' : ''}}>{{$p->vessel_name}}</option>
@@ -282,7 +282,7 @@
 			console.log(data);
 			swal('HASS LOGISTICS',
 			'An error occurred',
-			'success');
+			'error');
         });
     }).on('click','.btn-reset',function(e){
 		e.preventDefault();
