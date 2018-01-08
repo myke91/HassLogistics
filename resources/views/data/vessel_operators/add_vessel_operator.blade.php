@@ -104,7 +104,6 @@
         var url = $(this).attr('action');
         $.post(url, data, function (data) {
             showVOInfo(data.vessel_operator_id);
-            $(this).trigger('reset');
             swal('HASS LOGISTICS',
                 'Vessel Operator '+data.operator_name+' saved successfully',
                 'success');
@@ -115,6 +114,7 @@
                 'error');
         });
 
+        $('#frm-create-vessel-operator').trigger('reset');
     });
     function showVOInfo()
     {
