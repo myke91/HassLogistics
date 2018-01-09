@@ -77,9 +77,16 @@ $('#frm-create-vessel').on('submit', function (e) {
         .fail(function (data) {
             console.log('entered failure');
             console.log(data);
+            var responseJSON = data.responseJSON;
+            var response = '';
+            for (var key in responseJSON) {
+                if (responseJSON.hasOwnProperty(key)) {
+                    response += "\n" + responseJSON[key] + "\n";
+                }
+            }
             swal(
                 'Hass Logistics',
-                'An error occured',
+                response,
                 'error'
             );
         });

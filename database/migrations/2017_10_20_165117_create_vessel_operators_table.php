@@ -15,7 +15,7 @@ class CreateVesselOperatorsTable extends Migration
     {
         Schema::create('vessel_operators', function (Blueprint $table) {
             $table->increments('vessel_operator_id');
-            $table->string('operator_name');
+            $table->string('operator_name')->unique();
             $table->timestamps();
         });
     }

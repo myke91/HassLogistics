@@ -14,8 +14,8 @@ class CreateVesselTable extends Migration {
     public function up() {
         Schema::create('vessels', function (Blueprint $table) {
             $table->increments('vessel_id');
-            $table->string('vessel_name')->unique();
-            $table->string('voyage_number')->nullable();
+            $table->string('vessel_name')->nullable(false);
+            $table->string('voyage_number')->nullable(false);
             $table->integer('vessel_class')->nullable();
             $table->integer('vessel_operator_id')->unsigned();
             $table->string('vessel_type')->nullable();

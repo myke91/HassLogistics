@@ -54,11 +54,10 @@ class Vessel extends Model {
     public $timestamps = true;
 
      private $rules = array(
-        'vessel_name' => 'required',
+        'vessel_name' => 'required|unique_with:vessels,voyage_number',
         'voyage_number'  => 'required' ,
         'vessel_class' => 'required',
         'vessel_operator_id' => 'required',
-        'vessel_type' => 'required',
         'vessel_type' => 'required',
         'vessel_flag' => 'required',
         'vessel_owner' => 'required',

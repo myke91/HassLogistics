@@ -147,10 +147,18 @@
                     'Client '+data.client_name+' saved successfully',
                     'success');
                                      
-                }).fail(function () {
-                    swal('HASS LOGISTICS',
-                    'An error occured',
-                    'error');
+                }).fail(function (data) {
+					console.log(data);
+			var responseJSON = data.responseJSON;
+            var response = '';
+            for (var key in responseJSON) {
+                if (responseJSON.hasOwnProperty(key)) {
+                    response += "\n" + responseJSON[key] + "\n";
+                }
+            }
+            swal('HASS LOGISTICS',
+                response,
+                'error');
         });
 
     });

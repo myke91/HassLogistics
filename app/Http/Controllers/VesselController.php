@@ -35,14 +35,19 @@ class VesselController extends Controller
     public function createVesselOperator(Request $request)
     {
         if ($request->ajax()) {
-            $data = $request->all();
-            $vessel = new VesselOperator();
+            try {
+                $data = $request->all();
+                $vessel = new VesselOperator();
 
-            if ($vessel->validate($data)) {
-                return response(VesselOperator::create($data));
-            } else {
-                $errors = $vessel->errors();
-                return response()->json($errors, 400);
+                if ($vessel->validate($data)) {
+                    return response(VesselOperator::create($data));
+                } else {
+                    $errors = $vessel->errors();
+                    return response()->json($errors, 400);
+                }
+            } catch (\Illuminate\Database\QueryException $ex) {
+                Log::debug($ex);
+                return response()->json(['error' => 'An error occured'], 500);
             }
         }
     }
@@ -62,7 +67,6 @@ class VesselController extends Controller
                     return response()->json($errors, 400);
                 }
             } catch (\Illuminate\Database\QueryException $ex) {
-
                 Log::debug($ex);
                 return response()->json(['error' => 'An error occured'], 500);
             }
@@ -73,17 +77,18 @@ class VesselController extends Controller
     {
         $vessels = $this->vesselInformation()->get();
         $unapprovedInvoices = \HASSLOGISTICS\InvoiceHeader::where('is_approved', '=', 0)->count();
-        return view('data.vessel.vesselInfo', compact('vessels','unapprovedInvoices'));
+        return view('data.vessel.vesselInfo', compact('vessels', 'unapprovedInvoices'));
     }
 
     public function showVesselOperators()
     {
         $vessel_operators = $this->VesselOperatorInfo();
         $unapprovedInvoices = \HASSLOGISTICS\InvoiceHeader::where('is_approved', '=', 0)->count();
-        return view('data.vessel_operators.vessel_operators', compact('vessel_operators','unapprovedInvoices'));
+        return view('data.vessel_operators.vessel_operators', compact('vessel_operators', 'unapprovedInvoices'));
     }
 
-    public function VesselOperatorInfo(){
+    public function VesselOperatorInfo()
+    {
         return VesselOperator::all();
     }
     public function vesselInformation()

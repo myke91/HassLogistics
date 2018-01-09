@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
 
         /*
          * Package Service Providers...

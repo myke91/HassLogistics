@@ -161,23 +161,21 @@
 							<span class="hidden-xs">Data Entry</span>
 						</a>
 						<ul class="dropdown-menu">
-
 							<li>
-								<a href="{{route('add_vessel')}}">
-									<i class="fa fa-shield">&nbsp;</i>Vessels</a>
-							</li>
-
-							<li>
-								<a href="{{route('add_client')}}">
-									<i class="fa fa-users">&nbsp;</i>Clients</a>
+								<a href="{{route('addExchangeRate')}}">
+									<i class="fa fa-usd">&nbsp;</i>Exchange Rate </a>
 							</li>
 							<li>
 								<a href="{{route('add_vessel_operator')}}">
 									<i class="fa fa-gears">&nbsp;</i>Vessel Operators </a>
 							</li>
 							<li>
-								<a href="{{route('addExchangeRate')}}">
-									<i class="fa fa-usd">&nbsp;</i>Exchange Rate </a>
+								<a href="{{route('add_client')}}">
+									<i class="fa fa-users">&nbsp;</i>Clients</a>
+							</li>
+							<li>
+								<a href="{{route('add_vessel')}}">
+									<i class="fa fa-shield">&nbsp;</i>Vessels</a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle">

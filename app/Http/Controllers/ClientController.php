@@ -23,8 +23,18 @@ class ClientController extends Controller
     public function createClient(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Created Client' . $request->client_name, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
-            return response(Client::create($request->all()));
+            try {
+                $client = new Client();
+                if ($client->validate($request->all())) {
+                    Audit::create(['user' => Auth::user()->username, 'activity' => 'Created Client' . $request->client_name, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+                    return response(Client::create($request->all()));
+                } else {
+                    $errors = $client->errors();
+                    return response()->json($errors, 400);
+                }
+            } catch (\Illuminate\Database\QueryException $ex) {
+                return response()->json(['error' => 'An error occured'], 500);
+            }
         }
     }
 
@@ -44,8 +54,7 @@ class ClientController extends Controller
 
     public function editClient(Request $request)
     {
-        if ($request->ajax())
-        {
+        if ($request->ajax()) {
             return response(Client::find($request->client_id));
         }
     }
