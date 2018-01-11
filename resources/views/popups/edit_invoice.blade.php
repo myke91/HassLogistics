@@ -43,7 +43,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Client Name</label>
 						<div class="col-sm-4">
-							<input class="form-control" type="text" name="client_name" value="" disabled />
+							<input class="form-control" type="text" name="client_name" id="client_name" value="" disabled />
 						</div>
 
 						<label class="col-sm-2 control-label">Vessel Name</label>

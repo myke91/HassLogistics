@@ -51,13 +51,11 @@
 						</form>
 					</div>
 					<div class="col-md-3">
-						<label class="eng-name">Name:
+						<label class="eng-name">Client Name:
 							<b class="client-name">
 								{{$payment->client_name}}
 							</b>
 						</label>
-					</div>
-					<div class="col-md-3">
 					</div>
 					<div class="col-md-3" style="text-align: right">
 						<label class="date-invoice">Date:
@@ -65,9 +63,9 @@
 						</label>
 					</div>
 					<div class="col-md-3" style="text-align: right">
-						<label class="invoice-number">Receipt N
+						<label class="invoice-number">Invoice N
 							<sub>0</sub>:
-							<b>{{sprintf('%05d','000')}}</b>
+							<b>{{$payment->invoice_no}}</b>
 						</label>
 					</div>
 				</div>
