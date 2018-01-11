@@ -69,7 +69,7 @@
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable paged" id="datatable-3">
 					<thead>
 						<tr>
-							<th>Client Name{{$invs->client}}</th>
+							<th>Client Name</th>
 							<th>Vessel Name</th>
 							<th>Voyage Number</th>
 							<th>Invoice Number</th>
