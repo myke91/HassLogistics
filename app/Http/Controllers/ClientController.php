@@ -26,7 +26,7 @@ class ClientController extends Controller
             try {
                 $client = new Client();
                 if ($client->validate($request->all())) {
-                    Audit::create(['user' => Auth::user()->username, 'activity' => 'Created Client' . $request->client_name, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+                    Audit::create(['user' => Auth::user()->username, 'activity' => 'Created Client ' . $request->client_name, 'act_date' => date('Y-m-d'), 'act_time' => time('H:i:s')]);
                     return response(Client::create($request->all()));
                 } else {
                     $errors = $client->errors();
@@ -62,7 +62,7 @@ class ClientController extends Controller
     public function updateClient(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Updated Client' . $request->client_name, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Updated Client ' . $request->client_name, 'act_date' => date('Y-m-d'), 'act_time' => time('H:i:s')]);
             return response(Client::updateOrCreate(['client_id' => $request->client_id], $request->all()));
         }
     }
@@ -70,7 +70,7 @@ class ClientController extends Controller
     public function deleteClient(Request $request)
     {
         if ($request->ajax()) {
-            Audit::create(['user' => Auth::user()->username, 'activity' => 'Deleted client' . $request->client_id, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+            Audit::create(['user' => Auth::user()->username, 'activity' => 'Deleted client ' . $request->client_id, 'act_date' => date('Y-m-d'), 'act_time' => time('H:i:s')]);
             Client::destroy($request->client_id);
         }
     }

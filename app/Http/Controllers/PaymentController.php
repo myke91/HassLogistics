@@ -100,11 +100,11 @@ class paymentController extends Controller
        
 
         $receiptFileName = $this->generateReceiptPdfStream($model->payment_entries_id, $request->client_id, $request->vessel_id);
-        // $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
-        Audit::create(['user' => Auth::user()->username, 'activity' => 'Received payment of ' . $request->amount_paid . ' for invoice number ' . $request->invoice_no, 'act_date' => date('Y-m-d'), 'act_time' => time()]);
+                Audit::create(['user' => Auth::user()->username, 'activity' => 'Received payment of ' . $request->amount_paid . ' for invoice number ' . $request->invoice_no, 'act_date' => date('Y-m-d'), 'act_time' => time('H:i:s')]);
         $model->amount_in_words = $f->format($request->amount);
-        // $model->receipt_file_name = $receiptFileName;
+        $model->receipt_file_name = $receiptFileName;
         $model->update();
+        $this->emailReceipt($request->client_id, $request->vessel_id, $receiptFileName);
         return response()->json(['receipt' => $receiptFileName]);
     }
 
