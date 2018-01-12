@@ -151,6 +151,7 @@
                 );
                 }  --}}
                 $('#edit-invoice-modal').modal('show');
+
             {{--  }).fail(function (data) {
 
             });  --}}
